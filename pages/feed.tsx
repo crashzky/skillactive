@@ -1,9 +1,9 @@
 import ArticleCard from '../components/ArticleCard';
-import SearchLayout from '../layouts/SearchLayoyt';
+import FeedLayout from '../layouts/FeedLayout';
 
-const MainPage = (): JSX.Element => {
+const FeedPage = (): JSX.Element => {
 	return (
-		<SearchLayout>
+		<FeedLayout>
 			<ArticleCard
 				title='Где покататься на коньках в Екатеринбурге'
 				tags={['отдых', 'конки', 'семья', 'каток']}
@@ -16,8 +16,8 @@ const MainPage = (): JSX.Element => {
 				link='/articles/1'
 				imageSrc='/DEV_ONLY.jpg'
 				className='mb-4' />
-		</SearchLayout>
+		</FeedLayout>
 	);
 };
 
-export default MainPage;
+export default FeedPage;
