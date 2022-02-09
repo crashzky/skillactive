@@ -3,6 +3,7 @@ module.exports = {
 	  './pages/**/*.{js,ts,jsx,tsx}',
 	  './components/**/*.{js,ts,jsx,tsx}',
 	  './layouts/**/*.{js,ts,jsx,tsx}',
+	  './modals/**/*.{js,ts,jsx,tsx}',
 	  './shared/**/*.{js,ts,jsx,tsx}',
 	],
 	theme: {
@@ -22,6 +23,7 @@ module.exports = {
 				'4.5': '1.125rem',
 				'6.5': '1.625rem',
 				'7.5': '1.875rem',
+				'23': '5.75rem',
 				'25': '6.25rem',
 			},
 			fontSize: {

@@ -13,7 +13,7 @@ const SearchLayout = ({ children }: Props): JSX.Element => {
 	return (
 		<MainLayout>
 			<SearchPanel className='mt-6.5' placeholder='Введите название секции или кружка' />
-			<Link href='/analytics'>
+			<Link href='/analytics/preview'>
 				<a className='w-full flex justify-between py-9 px-4 mt-6 shadow-main rounded-2.5xl'>
 					<p className='text-xl font-bold'>
 						Узнай какое

@@ -1,8 +1,9 @@
+import Head from 'next/head';
 import { AppProps } from 'next/app';
 
 import '../styles/globals.css';
 import '../styles/font.css';
-import Head from 'next/head';
+import '../styles/custom.css';
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 	return (

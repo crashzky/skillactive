@@ -7,7 +7,7 @@ import MenuIcon from '../../assets/menu.svg';
 import CrossIcon from '../../assets/cross.svg';
 import Sidebar from '../Sidebar';
 
-const MainLayout = ({ children }: Props): JSX.Element => {
+const MainLayout = ({ children, showFooter = true }: Props): JSX.Element => {
 	const showModal = useModal((state) => state.showModal);
 	const toggleShowModal = useModal((state) => state.toggleShowModal);
 
@@ -35,18 +35,20 @@ const MainLayout = ({ children }: Props): JSX.Element => {
 					{children}
 				</div>
 			</main>
-			<footer className='flex justify-between items-center my-10 px-5'>
-				<Link href='/'>
-					<a>
-						<Logo />
-					</a>
-				</Link>
-				<Link href='mailto:info@skillactive.ru'>
-					<a className='text-primary font-semibold text-sm'>
-						info@skillactive.ru
-					</a>
-				</Link>
-			</footer>
+			{showFooter && (
+				<footer className='flex justify-between items-center my-10 px-5'>
+					<Link href='/'>
+						<a>
+							<Logo />
+						</a>
+					</Link>
+					<Link href='mailto:info@skillactive.ru'>
+						<a className='text-primary font-semibold text-sm'>
+							info@skillactive.ru
+						</a>
+					</Link>
+				</footer>
+			)}
 		</>
 	);
 };
