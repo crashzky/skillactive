@@ -4,16 +4,16 @@ import CATEGORIES from '../../shared/consts/categories';
 import Props from './Sidebar.props';
 
 const Sidebar = ({ className = '', ...props }: Props): JSX.Element => {
-	const showModal = useModal((state) => state.showModal);
+	const showMenu = useModal((state) => state.showMenu);
 
 	return (
 		<aside
 			className={className
 				+ ' absolute z-10 -right-full h-full w-full bg-white transition-all duration-300 pt-9 '
-				+ (showModal && ' -translate-x-full')}
+				+ (showMenu && ' -translate-x-full')}
 			{...props}
 		>
-			{showModal && (
+			{showMenu && (
 				<>
 					<hr />
 					{CATEGORIES.map((i, num) => (

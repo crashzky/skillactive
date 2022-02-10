@@ -1,3 +1,23 @@
 .recapcha div div {
 	margin: 0 auto;
 }
+
+input[type="range"] {
+	-webkit-appearance: none;
+	appearance: none;
+	background: #F8F8F8;
+	border-radius: 999px;
+	cursor: pointer;
+	height: 12px;
+}
+
+/***** Thumb Styles *****/
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none; /* Override default look */
+	appearance: none;
+	box-shadow: none;
+	background: url('/input_range_thumb.svg');
+	height: 30px; 
+	width: 30px;    
+}

@@ -20,6 +20,13 @@ const Input = ({ className = '', variant = 'classic', isDanger, blurOnFocus, ...
 					}}
 					{...props} />
 			);
+		case 'range':
+			return (
+				<input
+					type='range'
+					className={className + ' w-full'} 
+					{...props} />
+			);
 	}
 };
 

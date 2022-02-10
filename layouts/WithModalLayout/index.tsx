@@ -1,13 +1,19 @@
+import { useEffect, useState } from 'react';
 import useModal from '../../hooks/useModal';
 import Props from './WithModalLayout.props';
 
 const WithModalLayout = ({ children, modal }: Props): JSX.Element => {
 	const showModal = useModal((state) => state.showModal);
 	const toggleShowModal = useModal((state) => state.toggleShowModal);
+	const [screenWidth, setScreenWidth] = useState(0);
+
+	useEffect(() => {
+		setScreenWidth(window.innerWidth);
+	}, []);
 
 	return (
 		<div
-			className={'relative ' + (showModal && 'w-screen h-screen overflow-hidden')}
+			className={'relative outline-none ' + (showModal ? 'w-screen min-h-screen md:overflow-hidden' : '')}
 			onKeyDown={(e) => {
 				if(e.code === 'Escape')
 					toggleShowModal();
@@ -19,12 +25,14 @@ const WithModalLayout = ({ children, modal }: Props): JSX.Element => {
 			)}
 			{showModal && (
 				<div className='absolute w-full h-full z-20 flex justify-center items-center'>
-					<div className='bg-white w-full h-full p-4 md:p-6 md:w-auto md:h-auto md:rounded-2.5xl'>
+					<aside className='bg-white w-full h-full p-4 md:p-6 md:w-auto md:h-auto md:rounded-2.5xl'>
 						{modal}
-					</div>
+					</aside>
 				</div>
 			)}
-			{children}
+			{(!showModal || screenWidth > 768) && (
+				children
+			)}
 		</div>
 	);
 };

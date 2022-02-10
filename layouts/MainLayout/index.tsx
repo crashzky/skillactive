@@ -8,8 +8,8 @@ import CrossIcon from '../../assets/cross.svg';
 import Sidebar from '../Sidebar';
 
 const MainLayout = ({ children, showFooter = true }: Props): JSX.Element => {
-	const showModal = useModal((state) => state.showModal);
-	const toggleShowModal = useModal((state) => state.toggleShowModal);
+	const showMenu = useModal((state) => state.showMenu);
+	const toggleShowMenu = useModal((state) => state.toggleShowMenu);
 
 	return (
 		<>
@@ -19,12 +19,12 @@ const MainLayout = ({ children, showFooter = true }: Props): JSX.Element => {
 						<Logo />
 					</a>
 				</Link>
-				{showModal ? (
-					<button onClick={toggleShowModal}>
+				{showMenu ? (
+					<button onClick={toggleShowMenu}>
 						<CrossIcon />
 					</button>
 				) : (
-					<button onClick={toggleShowModal}>
+					<button onClick={toggleShowMenu}>
 						<MenuIcon />
 					</button>
 				)}
