@@ -1,11 +1,11 @@
 import Props from './SectionCard.props';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import PersonIcon from '../../assets/card/person.svg';
 import ClockIcon from '../../assets/card/clock.svg';
 import StarIcon from '../../assets/card/star.svg';
-import { useRouter } from 'next/router';
 
 const SectionCard = ({ className = '', imageSrc, title, recordIsOpen, category, address,
 	minAge, maxAge, minHour, maxHour, days, rating, reviewsCount, ...props }: Props): JSX.Element => {

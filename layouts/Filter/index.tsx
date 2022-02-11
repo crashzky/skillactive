@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import HorizontalMenu from '../../components/HorizontalMenu';
-import Props from './FilterModal.props';
+import Props from './Filter.props';
 import InputSelect from '../../components/InputSelect';
 import Input from '../../components/Input';
 import InputTimetable from '../../components/InputTimetable';
 import Button from '../../components/Button';
 import useModal from '../../hooks/useModal';
 
-const FilterModal = ({ className = '', ...props }: Props): JSX.Element => {
+const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 	const toggleShowFilter = useModal((state) => state.toggleShowFilter);
 	const [showTranslate, setShowTranslate] = useState(true);
 
@@ -102,4 +102,4 @@ const FilterModal = ({ className = '', ...props }: Props): JSX.Element => {
 	);
 };
 
-export default FilterModal;
+export default Filter;

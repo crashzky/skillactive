@@ -3,17 +3,18 @@ import { Map, Placemark, YMaps } from 'react-yandex-maps';
 import Button from '../../components/Button';
 import HorizontalMenu from '../../components/HorizontalMenu';
 import useModal from '../../hooks/useModal';
-import FilterModal from '../../modals/FilterModal';
+import Filter from '../Filter';
 import MainLayout from '../MainLayout';
 import Props from './ResultsLayout.props';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import ArrowIcon from '../../assets/arrow.svg';
 import CrossIcon from '../../assets/cross.svg';
 import PersonIcon from '../../assets/card/person.svg';
 import ClockIcon from '../../assets/card/clock.svg';
 import StarIcon from '../../assets/card/star.svg';
-import { useRouter } from 'next/router';
+import FilterIcon from '../../assets/filter.svg';
 
 const ResultsLayout = ({ children }: Props): JSX.Element => {
 	const { query } = useRouter();
@@ -28,8 +29,11 @@ const ResultsLayout = ({ children }: Props): JSX.Element => {
 	const [showSectionArticle, setShowSectionArticle] = useState(false);
 
 	useEffect(() => {
-		if(showFilter)
+		if(showFilter) {
+			setSelectedSection(null);
+			setShowSectionArticle(false);
 			setTimeout(() => setShowContent(false), 1000);
+		}
 		else
 			setShowContent(true);
 	}, [showFilter]);
@@ -51,7 +55,7 @@ const ResultsLayout = ({ children }: Props): JSX.Element => {
 	return (
 		<>
 			<MainLayout showFooter={!!children && selectedMenuItem !== 1} showHeader={!showFilter}>
-				{showFilter && <FilterModal />}
+				{showFilter && <Filter />}
 				{showContent && (
 					<>
 						<HorizontalMenu
@@ -82,13 +86,20 @@ const ResultsLayout = ({ children }: Props): JSX.Element => {
 					</>
 				)}
 			</MainLayout>
-			{selectedMenuItem === 1 && (
+			{(selectedMenuItem === 1 && !showFilter) && (
+				<button onClick={toggleShowFilter} className='fixed z-30 top-40 right-4 rounded-2xl p-4 bg-veryLightGrey'>
+					<FilterIcon />
+				</button>
+			)}
+			{/* map */}
+			{(selectedMenuItem === 1 && !showFilter) && (
 				<YMaps>
 					<Map className='mt-4 w-full h-[calc(100vh-148px)]' defaultState={{ center: [55.75, 37.57], zoom: 9 }}>
 						<Placemark geometry={[55.75, 37.57]} onClick={() => setSelectedSection(1)} />
 					</Map>
 				</YMaps>
 			)}
+			{/* bottom sectipon card in map-style results */}
 			<article
 				ref={articleRef}
 				className={'fixed w-full bg-white rounded-t-3xl p-4 transition-all duration-200 '

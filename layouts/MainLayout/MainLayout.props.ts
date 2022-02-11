@@ -4,6 +4,7 @@ interface Props {
 	children: ReactNode;
 	showFooter?: boolean;
 	showHeader?: boolean;
+	addPadding?: boolean;
 }
 
 export default Props;
