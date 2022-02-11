@@ -9,7 +9,7 @@ import ANALYTICS_CONTEST from '../../shared/consts/contestQuestions';
 const ResultPage = (): JSX.Element => {
 	const router = useRouter();
 	const answers = useContest((state) => state.answers);
-	const toggleShowModal = useModal((state) => state.toggleShowModal);
+	const toggleShowMenu = useModal((state) => state.toggleShowMenu);
 
 	useEffect(() => {
 		if(answers.length !== ANALYTICS_CONTEST.length)
@@ -37,7 +37,7 @@ const ResultPage = (): JSX.Element => {
 					variant='primary'
 					label='Посмотреть занятия'
 					onClick={() => {
-						toggleShowModal();
+						toggleShowMenu();
 						router.push('/');
 					}} />
 				<Button

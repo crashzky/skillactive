@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HorizontalMenu from '../../components/HorizontalMenu';
 import Props from './FilterModal.props';
 import InputSelect from '../../components/InputSelect';
@@ -8,7 +8,8 @@ import Button from '../../components/Button';
 import useModal from '../../hooks/useModal';
 
 const FilterModal = ({ className = '', ...props }: Props): JSX.Element => {
-	const toggleShowModal = useModal((state) => state.toggleShowModal);
+	const toggleShowFilter = useModal((state) => state.toggleShowFilter);
+	const [showTranslate, setShowTranslate] = useState(true);
 
 	const [piceType, setPriceType] = useState(0);
 	const [category, setCategory] = useState();
@@ -18,9 +19,14 @@ const FilterModal = ({ className = '', ...props }: Props): JSX.Element => {
 	const [weeks, setWeeks] = useState([]);
 	const [hours, setHours] = useState([14, 16]);
 
+	useEffect(() => setShowTranslate(false), []);
+
 	return (
 		<>
-			<div className={className + ' pb-24'} {...props}>
+			<div
+				className={className + ' pb-24 transition-all duration-[370ms] ' + (showTranslate && 'translate-y-full')}
+				{...props}
+			>
 				<div className='mt-20 flex justify-between items-center'>
 					<h2 className='font-bold text-3.5xl'>
 						Фильтр
@@ -90,7 +96,7 @@ const FilterModal = ({ className = '', ...props }: Props): JSX.Element => {
 					hourseOnChange={setHours} />
 			</div>
 			<div className='fixed w-full bottom-5 left-0 px-4'>
-				<Button onClick={toggleShowModal} variant='primary' label='Сохранить' />
+				<Button onClick={toggleShowFilter} variant='primary' label='Сохранить' />
 			</div>
 		</>
 	);

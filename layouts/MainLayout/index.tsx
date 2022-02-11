@@ -7,28 +7,30 @@ import MenuIcon from '../../assets/menu.svg';
 import CrossIcon from '../../assets/cross.svg';
 import Sidebar from '../Sidebar';
 
-const MainLayout = ({ children, showFooter = true }: Props): JSX.Element => {
+const MainLayout = ({ children, showFooter = true, showHeader = true }: Props): JSX.Element => {
 	const showMenu = useModal((state) => state.showMenu);
 	const toggleShowMenu = useModal((state) => state.toggleShowMenu);
 
 	return (
 		<>
-			<header className='px-4 mt-4.5 flex items-center justify-between'>
-				<Link href='/'>
-					<a>
-						<Logo />
-					</a>
-				</Link>
-				{showMenu ? (
-					<button onClick={toggleShowMenu}>
-						<CrossIcon />
-					</button>
-				) : (
-					<button onClick={toggleShowMenu}>
-						<MenuIcon />
-					</button>
-				)}
-			</header>
+			{showHeader && (
+				<header className='px-4 mt-4.5 flex items-center justify-between'>
+					<Link href='/'>
+						<a>
+							<Logo />
+						</a>
+					</Link>
+					{showMenu ? (
+						<button onClick={toggleShowMenu}>
+							<CrossIcon />
+						</button>
+					) : (
+						<button onClick={toggleShowMenu}>
+							<MenuIcon />
+						</button>
+					)}
+				</header>
+			)}
 			<main className='relative w-screen overflow-x-hidden h-full'>
 				<Sidebar />
 				<div className='px-4'>

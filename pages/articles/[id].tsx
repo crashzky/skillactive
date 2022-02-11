@@ -18,7 +18,7 @@ const ArticlePage = (): JSX.Element => {
 	const toggleShowModal = useModal((state) => state.toggleShowModal);
 
 	useEffect(() => {
-		if (imageRef !== null)
+		if (!!imageRef.current)
 			setImageWidth(imageRef.current.getBoundingClientRect().width);
 	}, []);
 

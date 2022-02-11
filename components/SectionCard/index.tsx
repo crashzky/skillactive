@@ -5,9 +5,11 @@ import { useEffect, useRef, useState } from 'react';
 import PersonIcon from '../../assets/card/person.svg';
 import ClockIcon from '../../assets/card/clock.svg';
 import StarIcon from '../../assets/card/star.svg';
+import { useRouter } from 'next/router';
 
 const SectionCard = ({ className = '', imageSrc, title, recordIsOpen, category, address,
 	minAge, maxAge, minHour, maxHour, days, rating, reviewsCount, ...props }: Props): JSX.Element => {
+	const router = useRouter();
 	const [articleWidth, setArticleWidth] = useState(0);
 	const articleRef = useRef(null);
 
@@ -17,7 +19,17 @@ const SectionCard = ({ className = '', imageSrc, title, recordIsOpen, category, 
 	}, []);
 
 	return (
-		<article ref={articleRef} className={className + ' rounded-2xl shadow-main'} {...props}>
+		<article
+			ref={articleRef}
+			className={className + ' rounded-2xl shadow-main'}
+			onClick={() => {
+				router.push({
+					pathname: '/search/' + 1,
+					query: router.query,
+				});
+			}}
+			{...props}
+		>
 			<div className='relative'>
 				<div className={'absolute z-10 top-2.5 left-2.5 px-4 py-2 rounded-lg ' + (recordIsOpen ? 'bg-green' : 'bg-red')}>
 					<p className='text-white font-semibold text-sm'>

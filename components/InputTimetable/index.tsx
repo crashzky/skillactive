@@ -83,7 +83,7 @@ const InputTimetable = ({ className = '', weeks, weeksOnChange, hours, hourseOnC
 				renderThumb={({ props }) => (
 					<div
 						{...props}
-						className={'h-[30px] w-[30px] bg-[url(\'/input_range_thumb.svg\')] outline-none'}
+						className={'h-[30px] w-[30px] bg-[url(/input_range_thumb.svg)] outline-none'}
 					>
 					</div>
 				  )} />
