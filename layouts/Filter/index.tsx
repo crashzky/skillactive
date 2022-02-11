@@ -55,6 +55,7 @@ const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 				<InputSelect
 					className='mt-10'
 					placeholder='Пол'
+					isSearchable={false}
 					value={gender}
 					onChange={setGender}
 					options={[
