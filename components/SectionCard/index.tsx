@@ -8,7 +8,7 @@ import ClockIcon from '../../assets/card/clock.svg';
 import StarIcon from '../../assets/card/star.svg';
 
 const SectionCard = ({ className = '', imageSrc, title, recordIsOpen, category, address,
-	minAge, maxAge, minHour, maxHour, days, rating, reviewsCount, ...props }: Props): JSX.Element => {
+	minAge, maxAge, minHour, maxHour, days, rating, reviewsCount, isEditorLink, ...props }: Props): JSX.Element => {
 	const router = useRouter();
 	const [articleWidth, setArticleWidth] = useState(0);
 	const articleRef = useRef(null);
@@ -24,7 +24,7 @@ const SectionCard = ({ className = '', imageSrc, title, recordIsOpen, category, 
 			className={className + ' rounded-2xl shadow-main'}
 			onClick={() => {
 				router.push({
-					pathname: '/search/' + 1,
+					pathname: (isEditorLink ? '/lk/sections/' : '/search/') + 1,
 					query: router.query,
 				});
 			}}

@@ -6,6 +6,7 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Textarea from '../../components/Textarea';
 import useModal from '../../hooks/useModal';
+import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 import Props from './SubmitModal.props';
 
 const SubmitModal = ({ className = '', ...props }: Props): JSX.Element => {
@@ -39,17 +40,6 @@ const SubmitModal = ({ className = '', ...props }: Props): JSX.Element => {
 		},
 	});
 
-	function removeItemFromErrorsList(item: string) {
-		setErrorsList((prev) => {
-			let _prev = prev;
-
-			if(_prev.includes(item))
-				_prev.splice(_prev.indexOf(item), 1);
-			
-			return _prev;
-		});
-	}
-
 	return (
 		<form onSubmit={formik.handleSubmit} className={className + ' '} {...props}>
 			<p className='font-bold text-3.5xl mt-14'>
@@ -63,7 +53,7 @@ const SubmitModal = ({ className = '', ...props }: Props): JSX.Element => {
 				name='name'
 				value={formik.values.name}
 				onChange={(e) => {
-					removeItemFromErrorsList('name');
+					removeItemFromErrorsList(setErrorsList, 'name');
 					formik.handleChange(e);
 				}}
 				isDanger={errorsList.includes('name')}
@@ -73,7 +63,7 @@ const SubmitModal = ({ className = '', ...props }: Props): JSX.Element => {
 				name='phone'
 				value={formik.values.phone}
 				onChange={(e) => {
-					removeItemFromErrorsList('phone');
+					removeItemFromErrorsList(setErrorsList, 'phone');
 					formik.handleChange(e);
 				}}
 				isDanger={errorsList.includes('phone')}
@@ -89,7 +79,7 @@ const SubmitModal = ({ className = '', ...props }: Props): JSX.Element => {
 				className='recapcha mt-5'
 				sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}
 				onChange={() => {
-					removeItemFromErrorsList('recaptcha');
+					removeItemFromErrorsList(setErrorsList, 'recaptcha');
 					setCaptchaSubmited(true);
 				}} />
 			{errorsList.includes('recaptcha') && (

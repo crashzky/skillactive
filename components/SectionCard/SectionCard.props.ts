@@ -1,6 +1,7 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+	isEditorLink?: boolean;
 	title: string;
 	imageSrc: string;
 	recordIsOpen: boolean; 

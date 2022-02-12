@@ -15,6 +15,7 @@ import PersonIcon from '../../assets/card/person.svg';
 import ClockIcon from '../../assets/card/clock.svg';
 import StarIcon from '../../assets/card/star.svg';
 import FilterIcon from '../../assets/filter.svg';
+import SearchPanel from '../../components/SearchPanel';
 
 const ResultsLayout = ({ children }: Props): JSX.Element => {
 	const { query } = useRouter();
@@ -56,6 +57,7 @@ const ResultsLayout = ({ children }: Props): JSX.Element => {
 		<>
 			<MainLayout showFooter={!!children && selectedMenuItem !== 1} showHeader={!showFilter}>
 				{showFilter && <Filter />}
+				<SearchPanel className='mt-8' />
 				{showContent && (
 					<>
 						<HorizontalMenu
@@ -87,14 +89,14 @@ const ResultsLayout = ({ children }: Props): JSX.Element => {
 				)}
 			</MainLayout>
 			{(selectedMenuItem === 1 && !showFilter) && (
-				<button onClick={toggleShowFilter} className='fixed z-30 top-40 right-4 rounded-2xl p-4 bg-veryLightGrey'>
+				<button onClick={toggleShowFilter} className='fixed z-30 top-64 right-4 rounded-2xl p-4 bg-veryLightGrey'>
 					<FilterIcon />
 				</button>
 			)}
 			{/* map */}
 			{(selectedMenuItem === 1 && !showFilter) && (
 				<YMaps>
-					<Map className='mt-4 w-full h-[calc(100vh-148px)]' defaultState={{ center: [55.75, 37.57], zoom: 9 }}>
+					<Map className='mt-4 w-full h-[calc(100vh-238px)]' defaultState={{ center: [55.75, 37.57], zoom: 9 }}>
 						<Placemark geometry={[55.75, 37.57]} onClick={() => setSelectedSection(1)} />
 					</Map>
 				</YMaps>

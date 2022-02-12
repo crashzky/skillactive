@@ -45,7 +45,7 @@ const SearchLayout = ({ children }: Props): JSX.Element => {
 					variant='primary'
 					label='Смотреть все' />
 			</section>
-			<Button className='mt-25' variant='veryLightGrey' label='Для партнеров' />
+			<Button className='mt-25' variant='veryLightGrey' label='Для партнеров' onClick={() => router.push('/partners')} />
 		</MainLayout>
 	);
 };

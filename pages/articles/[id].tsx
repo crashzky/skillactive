@@ -5,21 +5,25 @@ import Comment from '../../components/Comment';
 import Input from '../../components/Input';
 import Markdown from 'markdown-to-jsx';
 import useModal from '../../hooks/useModal';
+import CommentModal from '../../modals/CommentModal';
 
 import CommentIcon from '../../assets/card/comment.svg';
 import LikeIcon from '../../assets/card/ike.svg';
 import LikeActiveIcon from '../../assets/card/like_active.svg';
-import CommentModal from '../../modals/CommentModal';
 
 const ArticlePage = (): JSX.Element => {
 	const [imageWidth, setImageWidth] = useState(0);
 	const imageRef = useRef(null);
 
+	const showModal = useModal((state) => state.showModal);
 	const toggleShowModal = useModal((state) => state.toggleShowModal);
 
 	useEffect(() => {
 		if (!!imageRef.current)
 			setImageWidth(imageRef.current.getBoundingClientRect().width);
+
+		if(showModal)
+			toggleShowModal();
 	}, []);
 
 	return (

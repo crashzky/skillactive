@@ -1,7 +1,7 @@
 import React from 'react';
-import Props from './WithCheckAuthLayout.props';
+import Props, { CheckAuthConfig } from './WithCheckAuthLayout.props';
 
-const CheckAuthLayout = ({ children }: Props): JSX.Element => {
+const CheckAuthLayout = ({ children, checkNotAuthed }: Props): JSX.Element => {
 	/*const { isError, data } = useQuery('account', getAccountInfo);
 	const setAccountInfo = useQueryResponse((state) => state.setAccountInfo);
 
@@ -26,10 +26,14 @@ const CheckAuthLayout = ({ children }: Props): JSX.Element => {
 	return children;
 };
 
-function withCheckAuthLayout (Component: React.FC): React.FC {
+function withCheckAuthLayout (Component: React.FC, config?: CheckAuthConfig): React.FC {
+	let _config = config ? config : {};
+
 	return function CheckAuth(props): JSX.Element {
 		return (
-			<CheckAuthLayout>
+			<CheckAuthLayout
+				checkNotAuthed={_config.checkNotAuthed}
+			>
 				<Component {...props} />
 			</CheckAuthLayout>
 		);

@@ -53,7 +53,7 @@ const Button = ({ className = '', label, variant, ...props }: Props): JSX.Elemen
 					{...props}
 				>
 					<TrashIcon className='inline-block mr-2 mb-[2px]' />
-					Фильтр
+					Удалить
 				</button>
 			);
 	}

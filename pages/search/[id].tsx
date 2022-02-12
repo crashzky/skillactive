@@ -25,6 +25,9 @@ const SectionInfoPage = (): JSX.Element => {
 
 	useEffect(() => {
 		setScreenWidth(window.innerWidth);
+
+		if(showModal)
+			toggleShowModal();
 	}, []);
 
 	function getModal() {

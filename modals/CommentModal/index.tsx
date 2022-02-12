@@ -8,6 +8,7 @@ import Button from '../../components/Button';
 import { useState } from 'react';
 
 import CrossIcon from '../../assets/cross.svg';
+import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 
 const CommentModal = ({ className = '', ...props }: Props): JSX.Element => {
 	const toggleShowModal = useModal((state) => state.toggleShowModal);
@@ -35,17 +36,6 @@ const CommentModal = ({ className = '', ...props }: Props): JSX.Element => {
 		},
 	});
 
-	function removeItemFromErrorsList(item: string) {
-		setErrorsList((prev) => {
-			let _prev = prev;
-
-			if(_prev.includes(item))
-				_prev.splice(_prev.indexOf(item), 1);
-			
-			return _prev;
-		});
-	}
-
 	return (
 		<form onSubmit={formik.handleSubmit} className={className + ' relative h-full pb-20'} {...props}>
 			<div className='mt-4 mb-8 grid items-center grid-cols-[1fr_auto]'>
@@ -61,7 +51,7 @@ const CommentModal = ({ className = '', ...props }: Props): JSX.Element => {
 				name='username'
 				value={formik.values.username}
 				onChange={(e) => {
-					removeItemFromErrorsList('username');
+					removeItemFromErrorsList(setErrorsList, 'username');
 					formik.handleChange(e);
 				}}
 				placeholder='Ваше имя' />
@@ -70,7 +60,7 @@ const CommentModal = ({ className = '', ...props }: Props): JSX.Element => {
 				isDanger={errorsList.includes('message')}
 				value={formik.values.message}
 				onChange={(e) => {
-					removeItemFromErrorsList('message');
+					removeItemFromErrorsList(setErrorsList, 'message');
 					formik.handleChange(e);
 				}}
 				className='mt-5'
@@ -79,7 +69,7 @@ const CommentModal = ({ className = '', ...props }: Props): JSX.Element => {
 				className='recapcha mt-5'
 				sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY}
 				onChange={() => {
-					removeItemFromErrorsList('recaptcha');
+					removeItemFromErrorsList(setErrorsList, 'recaptcha');
 					setCaptchaSubmited(true);
 				}} />
 			{errorsList.includes('recaptcha') && (
