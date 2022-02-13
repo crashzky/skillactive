@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import Props from './InputTimetable.props';
 import { Range, getTrackBackground } from 'react-range';
+import Button from '../Button';
 
-const InputTimetable = ({ className = '', weeks, weeksOnChange, hours, hourseOnChange, ...props }: Props): JSX.Element => {
+const InputTimetable = ({ className = '', weeks, weeksOnChange, hours, hourseOnChange, onDelete,
+	...props }: Props): JSX.Element => {
 	const WEEK_DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 	const [key, setKey]= useState(false);
+
+	const [localHours, setLocalHours] = useState(hours);
+	const [changeTimeout, setChangeTimeout] = useState(null);
 
 	const onClickWeeks = (num) => {
 		let _weeks = weeks;
@@ -45,16 +50,20 @@ const InputTimetable = ({ className = '', weeks, weeksOnChange, hours, hourseOnC
 					Время занятий
 				</p>
 				<p className='font-semibold text-primary'>
-					{hours[0]}
+					{localHours[0]}
 					:00 - 
 					{' '}
-					{hours[1]}
+					{localHours[1]}
 					:00
 				</p>
 			</div>
-			<Range	
-				values={hours}
-				onChange={(values) => hourseOnChange(values)}
+			<Range
+				values={localHours}
+				onChange={(values) => {
+					setLocalHours(values);
+					clearTimeout(changeTimeout);
+					setChangeTimeout(setTimeout(() => hourseOnChange(values), 500));
+				}}
 				min={0}
 				max={23}
 				step={1}
@@ -69,7 +78,7 @@ const InputTimetable = ({ className = '', weeks, weeksOnChange, hours, hourseOnC
 							className='h-3 w-full rounded-full self-center'
 							style={{
 								background: getTrackBackground({
-									values: hours,
+									values: localHours,
 									colors: ['#F8F8F8', '#FEA300', '#F8F8F8'],
 									min: 1,
 									max: 23,
@@ -87,6 +96,9 @@ const InputTimetable = ({ className = '', weeks, weeksOnChange, hours, hourseOnC
 					>
 					</div>
 				  )} />
+			{onDelete && (
+				<Button variant='red' label='Удалить' className='mt-4' onClick={onDelete} />
+			)}
 		</div>
 	);
 };

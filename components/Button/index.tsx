@@ -3,7 +3,7 @@ import Props from './Button.props';
 import FilterIcon from '../../assets/filter.svg';
 import TrashIcon from '../../assets/trash.svg';
 
-const Button = ({ className = '', label, variant, ...props }: Props): JSX.Element => {
+const Button = ({ className = '', label, variant, Icon, ...props }: Props): JSX.Element => {
 	switch(variant) {
 		case 'primary':
 			return (
@@ -54,6 +54,20 @@ const Button = ({ className = '', label, variant, ...props }: Props): JSX.Elemen
 				>
 					<TrashIcon className='inline-block mr-2 mb-[2px]' />
 					Удалить
+				</button>
+			);
+		case 'withIcon':
+			return (
+				<button
+					className={
+						className + ' ' + `
+							bg-white w-full rounded-2.5xl py-4.5 font-semibold text-sm
+						`
+					}
+					{...props}
+				>
+					<Icon className='inline-block mr-2.5' />
+					{label}
 				</button>
 			);
 	}

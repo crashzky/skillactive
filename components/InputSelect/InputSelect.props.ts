@@ -11,6 +11,8 @@ interface Props {
 	placeholder?: ReactNode;
 	onChange?: (newValue: unknown, actionMeta: ActionMeta<unknown>) => void;
 	value?: any;
+	id?: string;
+	instanceId?: string;
 }
 
 export default Props;

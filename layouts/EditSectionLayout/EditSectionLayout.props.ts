@@ -27,9 +27,9 @@ interface Props {
 }
 
 interface ITimetable {
-	days: string[];
+	days: number[];
 	minTime: number;
-	maxTIme: number;
+	maxTime: number;
 }
 
 interface ITeacher {

@@ -5,6 +5,7 @@ interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDi
 	weeksOnChange: (newValue: number[]) => void;
 	hours: number[];
 	hourseOnChange: (newValue: number[]) => void;
+	onDelete?: () => void;
 }
 
 export default Props;
