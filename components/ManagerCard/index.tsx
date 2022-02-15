@@ -1,13 +1,18 @@
 import { useRouter } from 'next/router';
 import Props from './ManagerCard.props';
 
-const ManagerCard = ({ className = '', email, username, password, managerId, ...props }: Props): JSX.Element => {
+const ManagerCard = ({ className = '', email, username, password, managerId, isUser, ...props }: Props): JSX.Element => {
 	const router = useRouter();
 
 	return (
 		<article
 			className={className + ' py-5 px-4 rounded-2.5xl shadow-main'}
-			onClick={() => router.push('/lk/managers/' + managerId)}
+			onClick={() => {
+				if(isUser)
+					router.push('/lk/users/' + managerId);
+				else
+					router.push('/lk/managers/' + managerId);
+			}}
 			{...props}
 		>
 			<p className='font-semibold text-sm'>

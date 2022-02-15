@@ -9,7 +9,7 @@ const Sidebar = ({ className = '', ...props }: Props): JSX.Element => {
 	return (
 		<aside
 			className={className
-				+ ' absolute z-10 -right-full h-full w-full bg-white transition-all duration-300 pt-9 '
+				+ ' absolute z-20 -right-full h-full w-full bg-white transition-all duration-300 pt-9 '
 				+ (showMenu && ' -translate-x-full')}
 			{...props}
 		>

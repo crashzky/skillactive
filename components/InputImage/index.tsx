@@ -6,13 +6,17 @@ import GalleryIcon from '../../assets/gallery.svg';
 import CrossIcon from '../../assets/cross.svg';
 import LoaderIcon from '../../assets/loader.svg';
 
-const InputImage = ({ className = '', label, imageIds, setImageIds, isSingleImage, ...props }: Props): JSX.Element => {
+const InputImage = ({ className = '', label, imageIds, setImageIds, isSingleImage, htmlId, ...props }: Props): JSX.Element => {
 	const [key, setKey] = useState(false);
 
 	const isLoading = false;
 
 	return (
-		<div key={key.toString()} className={className + ' grid grid-flow-col gap-4 overflow-x-scroll'} {...props}>
+		<div
+			key={key.toString()}
+			className={className + ' grid grid-flow-col gap-4 overflow-x-scroll overflow-y-hidden'}
+			{...props}
+		>
 			{imageIds.map((i, num) => (
 				<div key={num} className='relative h-[218px] w-[218px] rounded-2.5xl'>
 					<button
@@ -50,12 +54,12 @@ const InputImage = ({ className = '', label, imageIds, setImageIds, isSingleImag
 						{label} 
 					</p>
 					<input
-						id='image'
+						id={htmlId}
 						type='file'
 						className='hidden'
 						accept='image/*;capture=camera'
 						onChange={() => setImageIds(imageIds.concat('image'))} />
-					<label htmlFor='image' className='flex justify-center items-center w-full py-4 px-5 rounded-2xl bg-white'>
+					<label htmlFor={htmlId} className='flex justify-center items-center w-full py-4 px-5 rounded-2xl bg-white'>
 						<GalleryIcon className='mr-2' />
 						<p className='font-bold text-sm'>
 							Из галлереи

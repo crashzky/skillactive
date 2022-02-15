@@ -6,9 +6,12 @@ import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 import MainLayout from '../MainLayout';
 import Props from './EditManagerLayout.props';
 import TrashIcon from '../../assets/trash_red.svg';
+import InputSelect from '../../components/InputSelect';
 
-const EditManagerLayout = ({ email = '', password = '', username = '', onSubmit, onDelete }: Props): JSX.Element => {
+const EditManagerLayout = ({ email = '', password = '', username = '', isUser, onSubmit, 
+	onDelete, userType }: Props): JSX.Element => {
 	const [errorsList, setErrorsList] = useState([]);
+	const [userTypeValue, setUserTypeValue] = useState(userType && { value: userType, label: userType });
 
 	const isNewManager = !email && !password && !username;
 
@@ -27,6 +30,8 @@ const EditManagerLayout = ({ email = '', password = '', username = '', onSubmit,
 				_errorsList.push('password');
 			if(!values.username)
 				_errorsList.push('username');
+			if(!userTypeValue)
+				_errorsList.push('userType');
 
 			setErrorsList(_errorsList);
 			
@@ -35,11 +40,22 @@ const EditManagerLayout = ({ email = '', password = '', username = '', onSubmit,
 		},
 	});
 
+	function getTitle() {
+		if(isUser && isNewManager)
+			return 'Добавление пользователя';
+		else if(isUser)
+			return 'Редактирование пользователя';
+		else if(isNewManager)
+			return 'Добавление менеджера';
+		else
+			return 'Редактирование менеджера';
+	}
+
 	return (
 		<MainLayout showFooter={false}>
 			<div className='flex justify-between items-center mt-4'>
 				<h1 className='font-bold text-3xl'>
-					{isNewManager ? 'Добавление менеджера' : 'Редактирование менеджера'}
+					{getTitle()}
 				</h1>
 				{!isNewManager && (
 					<button className='rounded-2xl bg-veryLightGrey p-3' onClick={onDelete}>
@@ -79,6 +95,23 @@ const EditManagerLayout = ({ email = '', password = '', username = '', onSubmit,
 						removeItemFromErrorsList(setErrorsList, 'password');
 						formik.handleChange(e);
 					}} />
+				<InputSelect
+					className='my-5'
+					placeholder='Тип пользователя'
+					value={userTypeValue}
+					onChange={(value) => {
+						removeItemFromErrorsList(setErrorsList, 'userType');
+						setUserTypeValue(value as any);
+					}}
+					options={[
+						{ label: 'Администратор', value: 'Администратор' },
+						{ label: 'Партнёр', value: 'Партнёр' },
+					]} />
+				{errorsList.includes('userType') && (
+					<p className='text-red font-semibold text-center mt-4'>
+						Выберите тип пользователя
+					</p>
+				)}
 				<Button className='mt-7' type='submit' variant='primary' label='Сохранить' />
 			</form>
 		</MainLayout>

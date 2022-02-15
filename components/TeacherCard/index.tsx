@@ -23,7 +23,7 @@ const TeacherCard = ({ className = '', imageSrc, title, description, phone, onDe
 				</div>
 			</article>
 			{onDelete && (
-				<Button variant='red' label='Удалить' className='mt-4 mb-7' onClick={onDelete} />
+				<Button variant='red' label='Удалить' className='mb-7' onClick={onDelete} />
 			)}
 		</>
 	);

@@ -5,6 +5,7 @@ interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDi
 	email: string;
 	username: string;
 	password: string;
+	isUser?: boolean;
 }
 
 export default Props;

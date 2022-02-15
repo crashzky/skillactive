@@ -1,14 +1,23 @@
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import ArticleCard from '../../components/ArticleCard';
+import FeedLayout from '../../layouts/FeedLayout';
 
 const ArticlesPage = (): JSX.Element => {
-	const router = useRouter();
-
-	useEffect(() => {
-		router.push('/feed');
-	}, [router]);
-
-	return <></>;
+	return (
+		<FeedLayout>
+			<ArticleCard
+				title='Где покататься на коньках в Екатеринбурге'
+				tags={['отдых', 'конки', 'семья', 'каток']}
+				link='/articles/1'
+				imageSrc='/DEV_ONLY.jpg'
+				className='mb-4' />
+			<ArticleCard
+				title='Где покататься на коньках в Екатеринбурге'
+				tags={['отдых', 'конки', 'семья', 'каток']}
+				link='/articles/1'
+				imageSrc='/DEV_ONLY.jpg'
+				className='mb-4' />
+		</FeedLayout>
+	);
 };
 
 export default ArticlesPage;

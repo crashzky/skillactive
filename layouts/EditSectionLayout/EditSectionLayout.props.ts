@@ -41,7 +41,7 @@ interface ITeacher {
 
 interface IPrice {
 	name: string;
-	price: number;
+	count: number;
 }
 
 export default Props;

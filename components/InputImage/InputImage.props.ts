@@ -5,6 +5,7 @@ interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDi
 	imageIds: string[];
 	isSingleImage?: boolean;
 	setImageIds: (newValue: string[]) => void;
+	htmlId: string;
 }
 
 export default Props;

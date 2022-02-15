@@ -32,7 +32,7 @@ const SearchLayout = ({ children }: Props): JSX.Element => {
 					<h2 className='font-bold text-3.5xl'>
 						Лента
 					</h2>
-					<Link href='/feed'>
+					<Link href='/articles'>
 						<a className='text-primary text-sm font-bold'>
 							Смотреть всё
 						</a>
@@ -40,7 +40,7 @@ const SearchLayout = ({ children }: Props): JSX.Element => {
 				</div>
 				{children}
 				<Button
-					onClick={() => router.push('/feed')}
+					onClick={() => router.push('/articles')}
 					className='mt-2.5'
 					variant='primary'
 					label='Смотреть все' />

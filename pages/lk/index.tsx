@@ -32,6 +32,16 @@ const LKPage = (): JSX.Element => {
 				className='mt-5 text-black'
 				label='Заявки'
 				onClick={() => router.push('/lk/requests')} />
+			<Button
+				variant='veryLightGrey'
+				className='mt-5 text-black'
+				label='Все пользователи'
+				onClick={() => router.push('/lk/users')} />
+			<Button
+				variant='veryLightGrey'
+				className='mt-5 text-black'
+				label='Статьи'
+				onClick={() => router.push('/lk/articles')} />
 		</MainLayout>
 	);
 };
