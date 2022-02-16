@@ -14,7 +14,7 @@ const MainLayout = ({ children, showFooter = true, showHeader = true, addPadding
 	return (
 		<>
 			{showHeader && (
-				<header className='px-4 mt-4.5 flex items-center justify-between'>
+				<header className='px-4 lg:px-48 lg:py-12 mt-4.5 flex items-center justify-between'>
 					<Link href='/'>
 						<a>
 							<Logo />
