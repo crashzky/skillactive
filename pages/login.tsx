@@ -7,6 +7,7 @@ import MainLayout from '../layouts/MainLayout';
 import withCheckAuthLayout from '../layouts/withCheckAuthLayout';
 import Link from 'next/link';
 import removeItemFromErrorsList from '../utils/removeItemFromErrorsList';
+import { GetStaticProps } from 'next';
 
 const LoginPage = (): JSX.Element => {
 	const router = useRouter();
@@ -76,3 +77,9 @@ const LoginPage = (): JSX.Element => {
 export default withCheckAuthLayout(LoginPage, {
 	checkNotAuthed: false,
 });
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};

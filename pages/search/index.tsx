@@ -1,3 +1,4 @@
+import { GetStaticProps } from 'next';
 import SectionCard from '../../components/SectionCard';
 import ResultsLayout from '../../layouts/ResultsLayout';
 
@@ -37,3 +38,9 @@ const SearchPage = (): JSX.Element => {
 };
 
 export default SearchPage;
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};

@@ -1,9 +1,11 @@
 import { useFormik } from 'formik';
+import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import MainLayout from '../../layouts/MainLayout';
+import withCheckAuthLayout from '../../layouts/withCheckAuthLayout';
 import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 
 const SettingsPage = (): JSX.Element => {
@@ -64,4 +66,11 @@ const SettingsPage = (): JSX.Element => {
 	);
 };
 
-export default SettingsPage;
+export default withCheckAuthLayout(SettingsPage);
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};
+

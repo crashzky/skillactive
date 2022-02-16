@@ -1,14 +1,14 @@
 interface Props {
 	images?: string[];
 	title?: string;
-	description?: string;
+	content?: string;
 	tags?: string[];
 	isAds?: boolean;
 	endAdsDate?: Date;
 	onSubmit: (values: {
 		images: string[];
 		title: string;
-		description: string;
+		content: string;
 		tags: string[];
 		isAds: boolean;
 		endAdsDate?: Date;

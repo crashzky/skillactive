@@ -20,9 +20,17 @@ const ADD_PRICE_ERRORS = {
 	count: 'Укажите цену в рублях или 0',
 };
 
+const CREATE_ARTICLE_ERRORS = {
+	images: 'Загрузите хотя бы одно изображение',
+	title: 'Укажите название статьи',
+	content: 'Укажите содержимое статьи',
+	date: 'Укажите дату окончания действия рекламы',
+};
+
 export {
 	CREATE_SECTION_ERRORS,
 	ADD_TEACHER_ERRORS,
 	ADD_PRICE_ERRORS,
+	CREATE_ARTICLE_ERRORS,
 };
 

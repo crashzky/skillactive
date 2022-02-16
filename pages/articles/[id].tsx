@@ -6,10 +6,12 @@ import Input from '../../components/Input';
 import Markdown from 'markdown-to-jsx';
 import useModal from '../../hooks/useModal';
 import CommentModal from '../../modals/CommentModal';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
 import CommentIcon from '../../assets/card/comment.svg';
 import LikeIcon from '../../assets/card/ike.svg';
 import LikeActiveIcon from '../../assets/card/like_active.svg';
+import ImageCarousel from '../../components/ImageCarousel';
 
 const ArticlePage = (): JSX.Element => {
 	const [imageWidth, setImageWidth] = useState(0);
@@ -33,12 +35,11 @@ const ArticlePage = (): JSX.Element => {
 			}
 		>
 			<header ref={imageRef} className='w-full h-[402px] relative'>
-				<Image
-					src='/DEV_ONLY.jpg'
-					width={imageWidth}
-					height={402}
-					alt='article'
-					className='object-cover' />
+				<ImageCarousel>
+					<Image src='/DEV_ONLY.jpg' width={imageWidth} height={402} alt='section' className='object-cover' />
+					<Image src='/DEV_ONLY.jpg' width={imageWidth} height={402} alt='section' className='object-cover' />
+					<Image src='/DEV_ONLY.jpg' width={imageWidth} height={402} alt='section' className='object-cover' />
+				</ImageCarousel>
 				<div className='absolute bottom-0 p-4'>
 					<div className='flex flex-wrap gap-3.5'>
 						<p className='text-white font-bold text-sm'>
@@ -115,3 +116,17 @@ const ArticlePage = (): JSX.Element => {
 };
 
 export default ArticlePage;
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+		revalidate: 3600,
+	};
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+	return {
+		paths: ['/articles/1', '/articles/2'],
+		fallback: true,
+	};	
+};

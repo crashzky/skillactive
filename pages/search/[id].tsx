@@ -15,6 +15,8 @@ import WithModalLayout from '../../layouts/WithModalLayout';
 import CommentModal from '../../modals/CommentModal';
 import SubmitModal from '../../modals/SubmitModal';
 import Button from '../../components/Button';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import ImageCarousel from '../../components/ImageCarousel';
 
 const SectionInfoPage = (): JSX.Element => {
 	const [screenWidth, setScreenWidth] = useState(0);
@@ -48,7 +50,11 @@ const SectionInfoPage = (): JSX.Element => {
 							Запись открыта
 						</p>
 					</div>
-					<Image src='/DEV_ONLY.jpg' width={screenWidth} height={224} alt='section' className='object-cover' />
+					<ImageCarousel>
+						<Image src='/DEV_ONLY.jpg' width={screenWidth} height={224} alt='section' className='object-cover' />
+						<Image src='/DEV_ONLY.jpg' width={screenWidth} height={224} alt='section' className='object-cover' />
+						<Image src='/DEV_ONLY.jpg' width={screenWidth} height={224} alt='section' className='object-cover' />
+					</ImageCarousel>
 				</div>
 				<div className='px-4'>
 					<h1 className='font-bold text-2xl mt-3.5'>
@@ -180,3 +186,17 @@ const SectionInfoPage = (): JSX.Element => {
 };
 
 export default SectionInfoPage;
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+		revalidate: 3600,
+	};
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+	return {
+		paths: ['/search/1', '/search/2'],
+		fallback: true,
+	};	
+};

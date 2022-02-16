@@ -2,6 +2,7 @@ import MainLayout from '../../layouts/MainLayout';
 import GirlAndLaptopImage from '../../assets/images/girl_and_laptop.svg';
 import Button from '../../components/Button';
 import { useRouter } from 'next/router';
+import { GetStaticProps } from 'next';
 
 const AfterResetPassword = (): JSX.Element => {
 	const router = useRouter();
@@ -22,3 +23,9 @@ const AfterResetPassword = (): JSX.Element => {
 };
 
 export default AfterResetPassword;
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};

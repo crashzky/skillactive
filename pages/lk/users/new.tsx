@@ -1,3 +1,4 @@
+import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import EditManagerLayout from '../../../layouts/EditManagerLayout';
 import withCheckAuthLayout from '../../../layouts/withCheckAuthLayout';
@@ -13,3 +14,9 @@ const NewUserPage = (): JSX.Element => {
 };
 
 export default withCheckAuthLayout(NewUserPage);
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};

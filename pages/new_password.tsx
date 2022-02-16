@@ -1,4 +1,5 @@
 import { useFormik } from 'formik';
+import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Button from '../components/Button';
@@ -74,3 +75,9 @@ const NewPasswordPage = (): JSX.Element => {
 };
 
 export default NewPasswordPage;
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};

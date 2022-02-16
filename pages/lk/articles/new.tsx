@@ -1,5 +1,7 @@
+import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import EditArticleLayout from '../../../layouts/EditArticleLayout';
+import withCheckAuthLayout from '../../../layouts/withCheckAuthLayout';
 
 const NewArticlePage = (): JSX.Element => {
 	const router = useRouter();
@@ -10,4 +12,10 @@ const NewArticlePage = (): JSX.Element => {
 	);
 };
 
-export default NewArticlePage;
+export default withCheckAuthLayout(NewArticlePage);
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};

@@ -2,6 +2,7 @@ import MainLayout from '../layouts/MainLayout';
 import GirlAndTimetable from '../assets/images/girl_and_timetable.svg';
 import Button from '../components/Button';
 import { useRouter } from 'next/router';
+import { GetStaticProps } from 'next';
 
 const PartnersPage = (): JSX.Element => {
 	const router = useRouter();
@@ -24,3 +25,9 @@ const PartnersPage = (): JSX.Element => {
 };
 
 export default PartnersPage;
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};

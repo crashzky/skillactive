@@ -1,3 +1,4 @@
+import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Button from '../../components/Button';
@@ -50,3 +51,9 @@ const ResultPage = (): JSX.Element => {
 };
 
 export default ResultPage;
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};

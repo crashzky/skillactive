@@ -3,6 +3,7 @@ import SettingsIcon from '../../assets/settings.svg';
 import withCheckAuthLayout from '../../layouts/withCheckAuthLayout';
 import Button from '../../components/Button';
 import { useRouter } from 'next/router';
+import { GetStaticProps } from 'next';
 
 const LKPage = (): JSX.Element => {
 	const router = useRouter();
@@ -47,3 +48,9 @@ const LKPage = (): JSX.Element => {
 };
 
 export default withCheckAuthLayout(LKPage);
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};

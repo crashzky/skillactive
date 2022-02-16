@@ -1,3 +1,4 @@
+import { GetStaticProps } from 'next';
 import ArticleCard from '../../components/ArticleCard';
 import FeedLayout from '../../layouts/FeedLayout';
 
@@ -21,3 +22,9 @@ const ArticlesPage = (): JSX.Element => {
 };
 
 export default ArticlesPage;
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};

@@ -15,7 +15,7 @@ import PlusIcon from '../../assets/plus.svg';
 import TeacherCard from '../../components/TeacherCard';
 import PriceCard from '../../components/PriceCard';
 import Button from '../../components/Button';
-import { CREATE_SECTION_ERRORS, ADD_TEACHER_ERRORS, ADD_PRICE_ERRORS } from '../../shared/consts/createSectionErrors';
+import { CREATE_SECTION_ERRORS, ADD_TEACHER_ERRORS, ADD_PRICE_ERRORS } from '../../shared/consts/createErrors';
 import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 
 const EditSectionLayout = ({ images, name, recordingIsOpen, category, description, district, minAge,

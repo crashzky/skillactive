@@ -3,6 +3,7 @@ import withCheckAuthLayout from '../../../layouts/withCheckAuthLayout';
 import PlusIcon from '../../../assets/plus.svg';
 import { useRouter } from 'next/router';
 import SectionCard from '../../../components/SectionCard';
+import { GetStaticProps } from 'next';
 
 const SectionsPage = (): JSX.Element => {
 	const router = useRouter();
@@ -39,3 +40,9 @@ const SectionsPage = (): JSX.Element => {
 };
 
 export default withCheckAuthLayout(SectionsPage);
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};

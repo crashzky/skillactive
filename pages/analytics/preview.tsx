@@ -1,3 +1,4 @@
+import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import Button from '../../components/Button';
 import useContest from '../../hooks/useContest';
@@ -30,3 +31,9 @@ const PreviewPage = (): JSX.Element => {
 };
 
 export default PreviewPage;
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};

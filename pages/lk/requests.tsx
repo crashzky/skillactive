@@ -1,7 +1,9 @@
+import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import HorizontalMenu from '../../components/HorizontalMenu';
 import RequestCard from '../../components/RequestCard';
 import MainLayout from '../../layouts/MainLayout';
+import withCheckAuthLayout from '../../layouts/withCheckAuthLayout';
 
 const RequestsPage = (): JSX.Element => {
 	const [selectedMenuTab, setSelectedMenuTab] = useState(0);
@@ -38,4 +40,10 @@ const RequestsPage = (): JSX.Element => {
 	);
 };
 
-export default RequestsPage;
+export default withCheckAuthLayout(RequestsPage);
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};

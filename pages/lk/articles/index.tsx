@@ -2,6 +2,8 @@ import MainLayout from '../../../layouts/MainLayout';
 import PlusIcon from '../../../assets/plus.svg';
 import { useRouter } from 'next/router';
 import ArticleCard from '../../../components/ArticleCard';
+import withCheckAuthLayout from '../../../layouts/withCheckAuthLayout';
+import { GetStaticProps } from 'next';
 
 const ArticlesPage = (): JSX.Element => {
 	const router = useRouter();
@@ -34,4 +36,10 @@ const ArticlesPage = (): JSX.Element => {
 	);
 };
 
-export default ArticlesPage;
+export default withCheckAuthLayout(ArticlesPage);
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};

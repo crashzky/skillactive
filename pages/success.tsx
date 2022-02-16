@@ -2,6 +2,7 @@ import MainLayout from '../layouts/MainLayout';
 import GirlAndManImage from '../assets/images/girl_and_man.svg';
 import Button from '../components/Button';
 import { useRouter } from 'next/router';
+import { GetStaticProps } from 'next';
 
 const SuccessPage = (): JSX.Element => {
 	const router = useRouter();
@@ -28,3 +29,10 @@ const SuccessPage = (): JSX.Element => {
 };
 
 export default SuccessPage;
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};
+

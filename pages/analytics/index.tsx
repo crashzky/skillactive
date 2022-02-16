@@ -4,6 +4,7 @@ import useContest from '../../hooks/useContest';
 import ContestHeader from '../../components/ContestHeader';
 import ANALYTICS_CONTEST from '../../shared/consts/contestQuestions';
 import Button from '../../components/Button';
+import { GetStaticProps } from 'next';
 
 const AnalyticsPage = (): JSX.Element => {
 	const router = useRouter();
@@ -58,3 +59,10 @@ const AnalyticsPage = (): JSX.Element => {
 };
 
 export default AnalyticsPage;
+
+export const getStaticProps: GetStaticProps = async () => {
+	return {
+		props: {},
+	};
+};
+
