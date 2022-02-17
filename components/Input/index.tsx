@@ -13,7 +13,7 @@ const Input = ({ className = '', variant = 'classic', isDanger, blurOnFocus, ...
 					ref={ref}
 					className={
 						className
-						+ ' w-full py-4 px-5 rounded-full bg-veryLightGrey outline-none '
+						+ ' w-full py-4 px-5 rounded-full lg:rounded-2xl bg-veryLightGrey outline-none '
 						+ (isDanger && DANGER_STYLES)} 
 					onFocus={() => {
 						if(blurOnFocus)

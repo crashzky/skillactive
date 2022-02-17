@@ -15,16 +15,25 @@ const SearchLayout = ({ children }: Props): JSX.Element => {
 			<SearchPanel className='mt-6.5' placeholder='Введите название секции или кружка' />
 			<Link href='/analytics/preview'>
 				<a className='w-full flex justify-between py-9 px-4 mt-6 shadow-main rounded-2.5xl'>
-					<p className='text-xl font-bold'>
-						Узнай какое
-						<br />
-						занятие
-						<br />
-						подойдет
-						<br />
-						вашему ребёнку
-					</p>
-					<SearchGirlIcon />
+					<div className='lg:ml-10'>
+						<p className='text-xl lg:mt-2.5 font-bold'>
+							Узнай какое
+							{' '}
+							<br className='lg:hidden' />
+							занятие
+							<br />
+							подойдет
+							{' '}
+							<br className='lg:hidden' />
+							вашему ребёнку
+						</p>
+						<Button variant='primary' label='Узнать' className='hidden lg:block w-fit px-[70px] mt-2.5 ' />
+					</div>
+					<div>
+						<SearchGirlIcon className='lg:scale-150 inline-block' />
+						<SearchGirlIcon className='hidden lg:inline-block scale-75' />
+						<SearchGirlIcon className='hidden lg:inline-block -scale-x-100' />
+					</div>
 				</a>
 			</Link>
 			<section className='mt-6'>
@@ -38,14 +47,20 @@ const SearchLayout = ({ children }: Props): JSX.Element => {
 						</a>
 					</Link>
 				</div>
-				{children}
+				<div className='lg:flex flex-wrap gap-3'>
+					{children}
+				</div>
 				<Button
 					onClick={() => router.push('/articles')}
-					className='mt-2.5'
+					className='mt-2.5 lg:hidden'
 					variant='primary'
 					label='Смотреть все' />
 			</section>
-			<Button className='mt-25' variant='veryLightGrey' label='Для партнеров' onClick={() => router.push('/partners')} />
+			<Button
+				className='mt-25 lg:hidden'
+				variant='veryLightGrey'
+				label='Для партнеров'
+				onClick={() => router.push('/partners')} />
 		</MainLayout>
 	);
 };

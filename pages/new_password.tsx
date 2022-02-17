@@ -36,10 +36,10 @@ const NewPasswordPage = (): JSX.Element => {
 
 	return (
 		<MainLayout showFooter={false}>
-			<h1 className='font-bold text-4xl mt-14 mb-7'>
+			<h1 className='font-bold text-4xl mt-14 mb-7 lg:text-center'>
 				Введите новый пароль
 			</h1>
-			<form onSubmit={formik.handleSubmit}>
+			<form onSubmit={formik.handleSubmit} className='lg:w-[418px] mx-auto'>
 				<Input
 					isDanger={errorsList.includes('password')}
 					name='password'
@@ -51,7 +51,7 @@ const NewPasswordPage = (): JSX.Element => {
 						formik.handleChange(e);
 					}} />
 				<Input
-					className='mt-5'
+					className='my-5'
 					isDanger={errorsList.includes('secondPassword')}
 					name='secondPassword'
 					type='password'
@@ -61,12 +61,13 @@ const NewPasswordPage = (): JSX.Element => {
 						removeItemFromErrorsList(setErrorsList, 'secondPassword');
 						formik.handleChange(e);
 					}} />
+				<Button variant='primary' type='submit' label='Восстановить' />
 				{errorsList.includes('repeat') && (
 					<p className='font-semibold text-sm text-center text-red mt-5'>
 						Пароли не совпадают
 					</p>
 				)}
-				<div className='fixed bottom-5 left-0 w-full px-4'>
+				<div className='fixed bottom-5 left-0 w-full px-4 lg:hidden'>
 					<Button variant='primary' type='submit' label='Восстановить' />
 				</div>
 			</form>

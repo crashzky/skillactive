@@ -7,15 +7,21 @@ import Markdown from 'markdown-to-jsx';
 import useModal from '../../hooks/useModal';
 import CommentModal from '../../modals/CommentModal';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import ImageCarousel from '../../components/ImageCarousel';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import CommentIcon from '../../assets/card/comment.svg';
 import LikeIcon from '../../assets/card/ike.svg';
 import LikeActiveIcon from '../../assets/card/like_active.svg';
-import ImageCarousel from '../../components/ImageCarousel';
+import ArrowLeftIcon from '../../assets/arrow_left.svg';
+import Logo from '../../assets/logo.svg';
 
 const ArticlePage = (): JSX.Element => {
 	const [imageWidth, setImageWidth] = useState(0);
 	const imageRef = useRef(null);
+
+	const router = useRouter();
 
 	const showModal = useModal((state) => state.showModal);
 	const toggleShowModal = useModal((state) => state.toggleShowModal);
@@ -34,27 +40,67 @@ const ArticlePage = (): JSX.Element => {
 				<CommentModal />
 			}
 		>
-			<header ref={imageRef} className='w-full h-[402px] relative'>
-				<ImageCarousel>
-					<Image src='/DEV_ONLY.jpg' width={imageWidth} height={402} alt='section' className='object-cover' />
-					<Image src='/DEV_ONLY.jpg' width={imageWidth} height={402} alt='section' className='object-cover' />
-					<Image src='/DEV_ONLY.jpg' width={imageWidth} height={402} alt='section' className='object-cover' />
-				</ImageCarousel>
-				<div className='absolute bottom-0 p-4'>
-					<div className='flex flex-wrap gap-3.5'>
-						<p className='text-white font-bold text-sm'>
-							#отдых
-						</p>
-						<p className='text-white font-bold text-sm'>
-							#отдых
-						</p>
+			<header>
+				<div className='hidden lg:flex items-center justify-between px-48 py-12 mt-4.5'>
+					<Link href='/'>
+						<a>
+							<Logo />
+						</a>
+					</Link>
+					<div>
+						<Link href='/partners'>
+							<a className='font-bold text-lg'>
+								партнерам
+							</a>
+						</Link>
 					</div>
-					<h1 className='mt-1.5 font-bold text-2xl text-white'>
-						Где покататься на коньках в Екатеринбурге
-					</h1>
+				</div>
+				<div className='lg:px-48'>
+					<button
+						className='bg-veryLightGrey rounded-md mb-4 p-1.5 text-primary font-semibold hidden lg:block'
+						onClick={() => router.push('/articles')}
+					>
+						<ArrowLeftIcon className='inline-block mr-2.5' />
+						назад
+					</button>
+					<div ref={imageRef} className='w-full h-[402px] relative'>
+						<ImageCarousel>
+							<Image
+								src='/DEV_ONLY.jpg'
+								width={imageWidth}
+								height={402}
+								className='object-cover lg:rounded-2xl'
+								alt='section' />
+							<Image
+								src='/DEV_ONLY.jpg'
+								width={imageWidth}
+								height={402}
+								className='object-cover lg:rounded-2xl'
+								alt='section' />
+							<Image
+								src='/DEV_ONLY.jpg'
+								width={imageWidth}
+								height={402}
+								className='object-cover lg:rounded-2xl'
+								alt='section' />
+						</ImageCarousel>
+						<div className='absolute bottom-0 p-4'>
+							<div className='flex flex-wrap gap-3.5'>
+								<p className='text-white font-bold text-sm'>
+									#отдых
+								</p>
+								<p className='text-white font-bold text-sm'>
+									#отдых
+								</p>
+							</div>
+							<h1 className='mt-1.5 font-bold text-2xl text-white'>
+								Где покататься на коньках в Екатеринбурге
+							</h1>
+						</div>
+					</div>
 				</div>
 			</header>
-			<main className='px-4 pt-5 pb-7.5'>
+			<main className='px-4 lg:px-48 pt-5 pb-7.5'>
 				<section>
 					<Markdown>
 						В Екатеринбурге закрепилась стабильная минусовая температура,

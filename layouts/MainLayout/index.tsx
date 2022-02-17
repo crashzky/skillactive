@@ -20,20 +20,27 @@ const MainLayout = ({ children, showFooter = true, showHeader = true, addPadding
 							<Logo />
 						</a>
 					</Link>
-					{showMenu ? (
-						<button onClick={toggleShowMenu}>
-							<CrossIcon />
-						</button>
-					) : (
-						<button onClick={toggleShowMenu}>
-							<MenuIcon />
-						</button>
-					)}
+					<div>
+						<Link href='/partners'>
+							<a className='font-bold text-lg hidden lg:block'>
+								партнерам
+							</a>
+						</Link>
+						{showMenu ? (
+							<button onClick={toggleShowMenu}>
+								<CrossIcon />
+							</button>
+						) : (
+							<button className='lg:hidden' onClick={toggleShowMenu}>
+								<MenuIcon />
+							</button>
+						)}
+					</div>
 				</header>
 			)}
 			<main className='relative w-screen overflow-x-hidden h-full'>
 				<Sidebar />
-				<div className={addPadding ? 'px-4' : ''}>
+				<div className={addPadding ? 'px-4 lg:px-48' : ''}>
 					{children}
 				</div>
 			</main>

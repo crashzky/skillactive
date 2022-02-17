@@ -6,7 +6,7 @@ const ManagerCard = ({ className = '', email, username, password, managerId, isU
 
 	return (
 		<article
-			className={className + ' py-5 px-4 rounded-2.5xl shadow-main'}
+			className={className + ' py-5 px-4 rounded-2.5xl shadow-main cursor-pointer'}
 			onClick={() => {
 				if(isUser)
 					router.push('/lk/users/' + managerId);

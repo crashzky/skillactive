@@ -63,7 +63,7 @@ const EditManagerLayout = ({ email = '', password = '', username = '', isUser, o
 					</button>
 				)}
 			</div>
-			<form onSubmit={formik.handleSubmit} className='mt-5'>
+			<form onSubmit={formik.handleSubmit} className='mt-5 lg:mt-10 lg:w-[375px] mx-auto'>
 				<Input
 					name='username'
 					isDanger={errorsList.includes('username')}

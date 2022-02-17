@@ -31,10 +31,10 @@ const ResetPasswordPage = (): JSX.Element => {
 
 	return (
 		<MainLayout showFooter={false}>
-			<h1 className='font-bold text-4xl mt-14 mb-7'>
+			<h1 className='font-bold text-4xl mt-14 mb-7 lg:text-center'>
 				Востановление пароля
 			</h1>
-			<form onSubmit={formik.handleSubmit}>
+			<form onSubmit={formik.handleSubmit} className='lg:w-[418px] mx-auto'>
 				<Input
 					isDanger={errorsList.includes('email')}
 					name='email'
@@ -45,7 +45,12 @@ const ResetPasswordPage = (): JSX.Element => {
 						removeItemFromErrorsList(setErrorsList, 'email');
 						formik.handleChange(e);
 					}} />
-				<div className='fixed bottom-5 left-0 w-full px-4'>
+				<Button
+					className='mt-5 hidden lg:block'
+					variant='primary'
+					type='submit'
+					label='Отправить ссылку на восстановление' />
+				<div className='lg:hidden fixed bottom-5 left-0 w-full px-4'>
 					<Button variant='primary' type='submit' label='Отправить ссылку на восстановление' />
 				</div>
 			</form>

@@ -9,7 +9,7 @@ const Custom404 = (): JSX.Element => {
 
 	return (
 		<>
-			<MainLayout showFooter={false}>
+			<MainLayout showFooter={false} addPadding={false}>
 				<div className='xl:h-[calc(100vh-165px)] xl:mt-24 xl:grid xl:px-48 grid-cols-2'>
 					<div className='h-full xl:-mt-24 xl:w-[345px]'>
 						<p className='font-bold text-[144px] xl:text-[200px] text-center mt-6'>

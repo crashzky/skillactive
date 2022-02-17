@@ -21,7 +21,7 @@ const ArticleCard = ({ className = '', imageSrc, title, tags, link, ...props }: 
 	return (
 		<article
 			ref={articleRef}
-			className={className + ' w-full rounded-2.5xl shadow-main cursor-pointer'}
+			className={className + ' w-full lg:w-[345px] rounded-2.5xl shadow-main cursor-pointer'}
 			{...props}
 			onClick={() => router.push(link)}
 		>

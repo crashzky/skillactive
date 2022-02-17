@@ -18,31 +18,33 @@ const LKPage = (): JSX.Element => {
 					<SettingsIcon />
 				</button>
 			</div>
-			<Button
-				variant='veryLightGrey'
-				className='mt-5 text-black'
-				label='Мои занятия'
-				onClick={() => router.push('/lk/sections')} />
-			<Button
-				variant='veryLightGrey'
-				className='mt-5 text-black'
-				label='Менеджеры'
-				onClick={() => router.push('/lk/managers')} />
-			<Button
-				variant='veryLightGrey'
-				className='mt-5 text-black'
-				label='Заявки'
-				onClick={() => router.push('/lk/requests')} />
-			<Button
-				variant='veryLightGrey'
-				className='mt-5 text-black'
-				label='Все пользователи'
-				onClick={() => router.push('/lk/users')} />
-			<Button
-				variant='veryLightGrey'
-				className='mt-5 text-black'
-				label='Статьи'
-				onClick={() => router.push('/lk/articles')} />
+			<div className='lg:w-[375px] lg:mt-10 mx-auto'>
+				<Button
+					variant='veryLightGrey'
+					className='mt-5 text-black'
+					label='Мои занятия'
+					onClick={() => router.push('/lk/sections')} />
+				<Button
+					variant='veryLightGrey'
+					className='mt-5 text-black'
+					label='Менеджеры'
+					onClick={() => router.push('/lk/managers')} />
+				<Button
+					variant='veryLightGrey'
+					className='mt-5 text-black'
+					label='Заявки'
+					onClick={() => router.push('/lk/requests')} />
+				<Button
+					variant='veryLightGrey'
+					className='mt-5 text-black'
+					label='Все пользователи'
+					onClick={() => router.push('/lk/users')} />
+				<Button
+					variant='veryLightGrey'
+					className='mt-5 text-black'
+					label='Статьи'
+					onClick={() => router.push('/lk/articles')} />
+			</div>
 		</MainLayout>
 	);
 };

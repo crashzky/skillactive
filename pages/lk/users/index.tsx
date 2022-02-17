@@ -18,7 +18,7 @@ const UsersPage = (): JSX.Element => {
 					<PlusIcon />
 				</button>
 			</div>
-			<section className='mt-4'>
+			<section className='mt-4 lg:flex flex-wrap gap-2.5'>
 				<ManagerCard
 					isUser
 					managerId={12}

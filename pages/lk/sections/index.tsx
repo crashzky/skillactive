@@ -34,6 +34,36 @@ const SectionsPage = (): JSX.Element => {
 					days={['Вт', 'Чт', 'Сб']}
 					rating={4.5}
 					reviewsCount={21} />
+				<SectionCard
+					isEditorLink
+					className='mb-6'
+					title='Футболика'
+					imageSrc='/DEV_ONLY.jpg'
+					category='Секция футбола'
+					address='Красноармейская 27'
+					recordIsOpen
+					minAge={6}
+					maxAge={12}
+					minHour={18}
+					maxHour={20}
+					days={['Вт', 'Чт', 'Сб']}
+					rating={4.5}
+					reviewsCount={21} />
+				<SectionCard
+					isEditorLink
+					className='mb-6'
+					title='Футболика'
+					imageSrc='/DEV_ONLY.jpg'
+					category='Секция футбола'
+					address='Красноармейская 27'
+					recordIsOpen
+					minAge={6}
+					maxAge={12}
+					minHour={18}
+					maxHour={20}
+					days={['Вт', 'Чт', 'Сб']}
+					rating={4.5}
+					reviewsCount={21} />
 			</section>
 		</MainLayout>	
 	);

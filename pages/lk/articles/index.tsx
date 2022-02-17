@@ -18,7 +18,7 @@ const ArticlesPage = (): JSX.Element => {
 					<PlusIcon />
 				</button>
 			</div>
-			<section className='mt-5'>
+			<section className='mt-5 lg:flex flex-wrap gap-2.5'>
 				<ArticleCard
 					title='Где покататься на коньках в Екатеринбурге'
 					tags={['отдых', 'конки', 'семья', 'каток']}

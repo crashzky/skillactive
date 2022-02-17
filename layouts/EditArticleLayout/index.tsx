@@ -110,7 +110,7 @@ const EditArticleLayout = ({ images, title, content, tags, isAds, endAdsDate, on
 
 								setTagsValue(_tags);
 							}}
-							className='bg-veryLightGrey rounded-md p-1 px-3 text-primary font-semibold'
+							className='bg-veryLightGrey rounded-md p-1 px-3 text-primary font-semibold cursor-pointer'
 						>
 							#
 							{i}
@@ -138,7 +138,11 @@ const EditArticleLayout = ({ images, title, content, tags, isAds, endAdsDate, on
 						{CREATE_ARTICLE_ERRORS[i]}
 					</p>
 				))}
-				<Button type='submit' variant='primary' className='mt-7' label='Сохранить' />
+				<Button
+					type='submit'
+					variant='primary'
+					className='my-7 lg:w-fit lg:px-28 lg:float-right'
+					label='Сохранить' />
 			</form>
 		</MainLayout>
 	);

@@ -18,7 +18,7 @@ const ManagersPage = (): JSX.Element => {
 					<PlusIcon />
 				</button>
 			</div>
-			<section className='mt-4'>
+			<section className='mt-4 lg:flex flex-wrap gap-2.5'>
 				<ManagerCard
 					managerId={12}
 					className='mb-5'

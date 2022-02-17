@@ -35,8 +35,8 @@ const LoginPage = (): JSX.Element => {
 	return (
 		<>
 			<MainLayout showFooter={false}>
-				<form onSubmit={formik.handleSubmit}>
-					<h1 className='font-bold mt-28 text-lightGrey text-[86px]'>
+				<form onSubmit={formik.handleSubmit} className='lg:w-[375px] mx-auto mt-28 lg:mt-10'>
+					<h1 className='font-bold text-lightGrey text-[86px] lg:text-4xl lg:text-center lg:text-black'>
 						Вход
 					</h1>
 					<Input
@@ -61,11 +61,25 @@ const LoginPage = (): JSX.Element => {
 							formik.handleChange(e);
 						}} />
 					<Link href='/reset_password'>
-						<a className='font-semibold text-sm text-primary float-right'>
+						<a className='font-semibold text-sm text-primary float-right lg:mb-5'>
 							Забыли пароль?
 						</a>
 					</Link>
-					<div className='fixed w-full bottom-5 left-0 px-4 text-right'>
+					<Button
+						type='submit'
+						variant='primary'
+						label='Войти'
+						className='hidden lg:block' />
+					<p className='hidden lg:block mt-5 font-semibold text-sm text-center'>
+						Ещё нет аккаунта?
+						{' '}
+						<Link href='/signup'>
+							<a className='text-primary underline'>
+								Зарегистрируйтесь
+							</a>
+						</Link>
+					</p>
+					<div className='lg:hidden fixed w-full bottom-5 left-0 px-4 text-right'>
 						<Button type='submit' variant='primary' label='Войти' />
 					</div>
 				</form>

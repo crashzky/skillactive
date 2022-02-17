@@ -10,12 +10,24 @@ const AfterResetPassword = (): JSX.Element => {
 	return (
 		<>
 			<MainLayout showFooter={false}>
-				<GirlAndLaptopImage className='mt-8 mx-auto' />
-				<p className='font-bold text-xl mt-5'>
-					Проверьте свою почту. Мы направили вам ссылку для восстановления
-				</p>
+				<div className='flex flex-col items-center justify-between lg:flex-row-reverse lg:h-96'>
+					<GirlAndLaptopImage className='mt-8 mx-auto lg:scale-[1.6]' />
+					<div>
+						<p className='font-bold text-xl mt-5'>
+							Проверьте свою почту. Мы направили
+							{' '}
+							<br className='hidden lg:block' />
+							вам ссылку для восстановления
+						</p>
+						<Button
+							variant='primary'
+							className='mt-10 hidden lg:block'
+							label='Вернуться на главную'
+							onClick={() => router.push('/')} />
+					</div>
+				</div>
 			</MainLayout>
-			<div className='fixed bottom-5 w-full px-4'>
+			<div className='fixed bottom-5 w-full px-4 lg:hidden'>
 				<Button variant='primary' label='Вернуться на главную' onClick={() => router.push('/')} />
 			</div>
 		</>

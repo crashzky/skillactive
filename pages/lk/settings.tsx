@@ -34,10 +34,10 @@ const SettingsPage = (): JSX.Element => {
 
 	return (
 		<MainLayout showFooter={false}>
-			<h1 className='font-bold text-3xl mt-4'>
+			<h1 className='font-bold text-3xl mt-4 lg:text-center'>
 				Настройки
 			</h1>
-			<form onSubmit={formik.handleSubmit}>
+			<form onSubmit={formik.handleSubmit} className='lg:w-[418px] mx-auto'>
 				<Input 
 					className='mt-5'
 					type='email'

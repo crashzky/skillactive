@@ -38,10 +38,13 @@ const LoginPage = (): JSX.Element => {
 	return (
 		<>
 			<MainLayout showFooter={false}>
-				<form onSubmit={formik.handleSubmit}>
-					<h1 className='font-bold mt-10 leading-none text-lightGrey text-[86px]'>
+				<form onSubmit={formik.handleSubmit} className='lg:w-[375px] mx-auto mt-28 lg:mt-10'>
+					<h1
+						className={`
+							font-bold mt-10 leading-none text-lightGrey text-[86px] lg:text-4xl lg:text-center lg:text-black`}
+					>
 						Регист
-						<br />
+						<br className='lg:hidden' />
 						рация
 					</h1>
 					<Input
@@ -66,7 +69,7 @@ const LoginPage = (): JSX.Element => {
 							formik.handleChange(e);
 						}} />
 					<Input
-						className='mt-5 mb-2.5'
+						className='mt-5 mb-2.5 lg:mb-5'
 						type='password'
 						name='password'
 						isDanger={errorsList.includes('password')}
@@ -76,7 +79,21 @@ const LoginPage = (): JSX.Element => {
 							removeItemFromErrorsList(setErrorsList, 'password');
 							formik.handleChange(e);
 						}} />
-					<div className='fixed w-full bottom-5 left-0 px-4 text-right'>
+					<Button
+						type='submit'
+						variant='primary'
+						label='Зарегистрироваться'
+						className='hidden lg:block' />
+					<p className='hidden lg:block mt-5 font-semibold text-sm text-center'>
+						Уже есть аккаунт?
+						{' '}
+						<Link href='/login'>
+							<a className='text-primary underline'>
+								Войдите
+							</a>
+						</Link>
+					</p>
+					<div className='fixed w-full bottom-5 left-0 px-4 text-right lg:hidden'>
 						<Button type='submit' variant='primary' label='Зарегистрироваться' />
 					</div>
 				</form>

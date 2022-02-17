@@ -21,7 +21,7 @@ const SectionCard = ({ className = '', imageSrc, title, recordIsOpen, category, 
 	return (
 		<article
 			ref={articleRef}
-			className={className + ' rounded-2xl shadow-main'}
+			className={className + ' rounded-2xl shadow-main cursor-pointer'}
 			onClick={() => {
 				router.push({
 					pathname: (isEditorLink ? '/lk/sections/' : '/search/') + 1,
