@@ -6,9 +6,9 @@ import useModal from '../../hooks/useModal';
 import ReCAPTCHA from 'react-google-recaptcha';
 import Button from '../../components/Button';
 import { useState } from 'react';
+import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 
 import CrossIcon from '../../assets/cross.svg';
-import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 
 const CommentModal = ({ className = '', ...props }: Props): JSX.Element => {
 	const toggleShowModal = useModal((state) => state.toggleShowModal);

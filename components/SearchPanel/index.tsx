@@ -28,6 +28,7 @@ const SearchPanel = ({ className = '', ...props }: Props): JSX.Element => {
 				<input
 					className='w-full bg-transparent outline-none'
 					value={inputValue}
+					placeholder='Введите название секции или кружка'
 					onChange={(e) => setInputValue(e.target.value)}
 					onKeyDown={(e) => {
 						if(e.key === 'Enter')

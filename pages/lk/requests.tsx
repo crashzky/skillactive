@@ -10,13 +10,16 @@ const RequestsPage = (): JSX.Element => {
 		
 	return (
 		<MainLayout showFooter={false}>
-			<h1 className='font-bold text-3xl my-4'>
-				Заявки
-			</h1>
-			<HorizontalMenu
-				items={['Новые', 'Просмотренные']}
-				value={selectedMenuTab}
-				onItemChange={setSelectedMenuTab} />
+			<div className='lg:flex justify-between'>
+				<h1 className='font-bold text-3xl my-4'>
+					Заявки
+				</h1>
+				<HorizontalMenu
+					className='lg:w-[345px]'
+					items={['Новые', 'Просмотренные']}
+					value={selectedMenuTab}
+					onItemChange={setSelectedMenuTab} />
+			</div>
 			<section className='mt-6'>
 				<RequestCard
 					className='mb-5'

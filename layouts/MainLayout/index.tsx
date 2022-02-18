@@ -14,20 +14,23 @@ const MainLayout = ({ children, showFooter = true, showHeader = true, addPadding
 	return (
 		<>
 			{showHeader && (
-				<header className='px-4 lg:px-48 lg:py-12 mt-4.5 flex items-center justify-between'>
+				<header className='px-4 lg:px-48 lg:py-5 mt-4.5 flex items-center justify-between'>
 					<Link href='/'>
 						<a>
 							<Logo />
 						</a>
 					</Link>
-					<div>
+					<div className='flex gap-12'>
+						<button className='font-bold text-lg hidden lg:block' onClick={toggleShowMenu}>
+							категории
+						</button>
 						<Link href='/partners'>
 							<a className='font-bold text-lg hidden lg:block'>
 								партнерам
 							</a>
 						</Link>
 						{showMenu ? (
-							<button onClick={toggleShowMenu}>
+							<button className='lg:hidden' onClick={toggleShowMenu}>
 								<CrossIcon />
 							</button>
 						) : (
@@ -45,7 +48,7 @@ const MainLayout = ({ children, showFooter = true, showHeader = true, addPadding
 				</div>
 			</main>
 			{showFooter && (
-				<footer className='flex justify-between items-center my-10 px-5'>
+				<footer className='flex justify-between items-center my-10 px-5 lg:px-48'>
 					<Link href='/'>
 						<a>
 							<Logo />

@@ -13,7 +13,7 @@ const WithModalLayout = ({ children, modal }: Props): JSX.Element => {
 
 	return (
 		<div
-			className={'relative outline-none ' + (showModal ? 'w-screen min-h-screen md:overflow-hidden' : '')}
+			className={'relative outline-none ' + (showModal ? 'w-screen h-screen md:overflow-hidden' : '')}
 			onKeyDown={(e) => {
 				if(e.code === 'Escape')
 					toggleShowModal();

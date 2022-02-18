@@ -6,7 +6,9 @@ const TeacherCard = ({ className = '', imageSrc, title, description, phone, onDe
 	return (
 		<>
 			<article
-				className={className + ' shadow-main rounded-2.5xl p-[5px] grid gap-4 grid-cols-[81px_1fr] items-center'}
+				className={
+					className
+					+ ' shadow-main rounded-2.5xl p-[5px] pr-8 grid gap-4 grid-cols-[81px_1fr] items-center lg:h-full'}
 				{...props}
 			>
 				<Image src={imageSrc} width={81} height={81} alt='teacher' className='rounded-2xl object-cover' />

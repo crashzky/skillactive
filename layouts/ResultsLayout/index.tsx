@@ -61,7 +61,7 @@ const ResultsLayout = ({ children }: Props): JSX.Element => {
 				{showContent && (
 					<>
 						<HorizontalMenu
-							className='mt-7'
+							className='mt-7 lg:hidden'
 							value={selectedMenuItem}
 							onItemChange={(value) => {
 								setSelectedSection(null);
@@ -73,7 +73,7 @@ const ResultsLayout = ({ children }: Props): JSX.Element => {
 							]} />
 						{selectedMenuItem === 0 && (
 							<>
-								<Button className='my-4' variant='filter' label='Фильтр' onClick={toggleShowFilter} />
+								<Button className='my-4 lg:hidden' variant='filter' label='Фильтр' onClick={toggleShowFilter} />
 								<section>
 									{!children && (
 										<p className='font-bold text-lg text-center mt-24'>

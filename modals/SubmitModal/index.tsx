@@ -9,6 +9,8 @@ import useModal from '../../hooks/useModal';
 import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 import Props from './SubmitModal.props';
 
+import CrossIcon from '../../assets/cross.svg';
+
 const SubmitModal = ({ className = '', ...props }: Props): JSX.Element => {
 	const router = useRouter();
 
@@ -41,14 +43,19 @@ const SubmitModal = ({ className = '', ...props }: Props): JSX.Element => {
 	});
 
 	return (
-		<form onSubmit={formik.handleSubmit} className={className + ' '} {...props}>
-			<p className='font-bold text-3.5xl mt-14'>
-				Запись ребенка на секция
-				{' '}
-				<span className='text-primary'>
-					Футболика
-				</span>
-			</p>
+		<form onSubmit={formik.handleSubmit} className={className + ' relative h-full pb-20'} {...props}>
+			<div className='mt-4 mb-8 grid items-center grid-cols-[1fr_auto] gap-5'>
+				<p className='font-bold text-3.5xl'>
+					Запись ребенка на секция
+					{' '}
+					<span className='text-primary'>
+						Футболика
+					</span>
+				</p>
+				<button className='hidden p-1 bg-veryLightGrey rounded-xl md:block' onClick={toggleShowModal}>
+					<CrossIcon className='fill-primary' />
+				</button>
+			</div>
 			<Input
 				name='name'
 				value={formik.values.name}
