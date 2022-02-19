@@ -6,6 +6,7 @@ interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDi
 	description: string;
 	phone: string;
 	onDelete?: () => void;
+	isShortIcon?: boolean;
 }
 
 export default Props;

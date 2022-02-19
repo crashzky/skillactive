@@ -2,10 +2,11 @@ import Props from './TeacherCard.props';
 import Image from 'next/image';
 import Button from '../Button';
 
-const TeacherCard = ({ className = '', imageSrc, title, description, phone, onDelete, ...props }: Props): JSX.Element => {
+const TeacherCard = ({ className = '', imageSrc, title, description, phone, onDelete, isShortIcon,
+	...props }: Props): JSX.Element => {
 	return (
-		<>
-			<article
+		<article className={isShortIcon && 'lg:w-fit'}>
+			<div
 				className={
 					className
 					+ ' shadow-main rounded-2.5xl p-[5px] pr-8 grid gap-4 grid-cols-[81px_1fr] items-center lg:h-full'}
@@ -23,11 +24,11 @@ const TeacherCard = ({ className = '', imageSrc, title, description, phone, onDe
 						{phone}
 					</span>
 				</div>
-			</article>
+			</div>
 			{onDelete && (
 				<Button variant='red' label='Удалить' className='mb-7' onClick={onDelete} />
 			)}
-		</>
+		</article>
 	);
 };
 

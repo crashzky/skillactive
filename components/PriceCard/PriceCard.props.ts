@@ -4,6 +4,7 @@ interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDi
 	title: string;
 	price: number;
 	onDelete?: () => void;
+	isShortCard?: boolean;
 }
 
 export default Props;

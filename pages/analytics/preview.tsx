@@ -12,11 +12,20 @@ const PreviewPage = (): JSX.Element => {
 	return (
 		<>
 			<MainLayout showFooter={false}>
-				<p className='mt-23 font-bold text-2xl'>
+				<p className='mt-23 font-bold text-2xl lg:w-[521px] lg:text-center mx-auto'>
 					Ответьте на несколько вопросов о вашем ребенке, и узнайте какая секция или кружок ему(ей) подойдут
 				</p>
+				<Button
+					className='lg:w-[521px] hidden lg:block mx-auto mt-7'
+					onClick={() => {
+						setIsActive(true);
+						setAnswers([]);
+						router.push('/analytics');
+					}}
+					variant='primary'
+					label='Начать' />
 			</MainLayout>
-			<div className='absolute w-full bottom-5 px-5'>
+			<div className='absolute w-full bottom-5 px-5 lg:hidden'>
 				<Button
 					onClick={() => {
 						setIsActive(true);

@@ -15,7 +15,7 @@ import PlusIcon from '../../assets/plus.svg';
 import TeacherCard from '../../components/TeacherCard';
 import PriceCard from '../../components/PriceCard';
 import Button from '../../components/Button';
-import { CREATE_SECTION_ERRORS, ADD_TEACHER_ERRORS, ADD_PRICE_ERRORS } from '../../shared/consts/createErrors';
+import { CREATE_SECTION_ERRORS, ADD_PRICE_ERRORS } from '../../shared/consts/createErrors';
 import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 
 const EditSectionLayout = ({ images, name, recordingIsOpen, category, description, district, minAge,
@@ -191,7 +191,7 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 				}}
 				placeholder='Название секции/кружка' />
 			<HorizontalMenu
-				className='mt-6'
+				className='mt-6 lg:w-[345px]'
 				value={recordingIsOpenValue}
 				onItemChange={setRecordingIsOpenValue}
 				items={['Запись идёт', 'Запись закрыта']} />
@@ -368,6 +368,7 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 				{teacherValues.map((i, num) => (
 					<TeacherCard
 						key={num}
+						isShortIcon
 						title={i.name}
 						imageSrc={i.image}
 						description={i.description}
@@ -453,6 +454,7 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 				{priceValues.map((i, num) => (
 					<PriceCard
 						key={num}
+						isShortCard
 						title={i.name}
 						price={i.count}
 						onDelete={() => {
@@ -494,7 +496,7 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 					</p>
 				))}
 			</div>
-			<div className='fixed bottom-5 left-0 w-full px-4'>
+			<div className='fixed bottom-5 left-0 lg:static lg:mb-5 lg:w-[345px] lg:float-right w-full px-4'>
 				<Button variant='primary' label='Сохранить' onClick={submitForm} />
 			</div>
 		</MainLayout>

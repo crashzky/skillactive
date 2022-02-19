@@ -17,18 +17,25 @@ import StarIcon from '../../assets/card/star.svg';
 import FilterIcon from '../../assets/filter.svg';
 import SearchPanel from '../../components/SearchPanel';
 import DropdownFilter from '../../components/DropdownFilter';
+import useSection from '../../hooks/useSection';
 
 const ResultsLayout = ({ children }: Props): JSX.Element => {
 	const { query } = useRouter();
 	const [selectedMenuItem, setSelectedMenuItem] = useState(0);
+	const [windowWidth, setWindowWidth] = useState(0);
 
 	const showFilter = useModal((state) => state.showFilter);
 	const toggleShowFilter = useModal((state) => state.toggleShowFilter);
 	const [showContent, setShowContent] = useState(true);
 
 	const articleRef = useRef(null);
-	const [selectedSection, setSelectedSection] = useState(null);
+	const selectedSection = useSection((state) => state.selectedSection);
+	const setSelectedSection = useSection((state) => state.setSelectedSection);
 	const [showSectionArticle, setShowSectionArticle] = useState(false);
+
+	useEffect(() => {
+		setWindowWidth(window.innerWidth);
+	}, []);
 
 	useEffect(() => {
 		if(showFilter) {
@@ -93,7 +100,18 @@ const ResultsLayout = ({ children }: Props): JSX.Element => {
 											className='w-full min-h-[calc(100vh-200px)] hidden lg:block'
 											defaultState={{ center: [55.75, 37.57], zoom: 9 }}
 										>
-											<Placemark geometry={[55.75, 37.57]} onClick={() => setSelectedSection(1)} />
+											<Placemark 
+												options={{
+													iconColor: selectedSection === 0 ? 'red' : '#1E98FF',
+												}}
+												geometry={[55.75, 37.57]}
+												onClick={() => setSelectedSection(0)} />
+											<Placemark 
+												options={{
+													iconColor: selectedSection === 5 ? 'red' : '#1E98FF',
+												}}
+												geometry={[55.75, 37.60]}
+												onClick={() => setSelectedSection(5)} />
 										</Map>
 									</YMaps>
 								</section>
@@ -118,8 +136,9 @@ const ResultsLayout = ({ children }: Props): JSX.Element => {
 			{/* bottom sectipon card in map-style results */}
 			<article
 				ref={articleRef}
-				className={'fixed w-full bg-white rounded-t-3xl p-4 transition-all duration-200 '
-					+ (!showSectionArticle && 'hidden')}
+				className={
+					' fixed w-full bg-white rounded-t-3xl p-4 transition-all duration-200 '
+					+ ((!showSectionArticle || windowWidth >= 1024) && 'hidden')}
 				style={{
 					bottom: '-100%',
 				}}

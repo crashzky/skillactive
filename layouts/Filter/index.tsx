@@ -24,7 +24,7 @@ const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 	return (
 		<>
 			<div
-				className={className + ' pb-24 transition-all duration-[370ms] ' + (showTranslate && 'translate-y-full')}
+				className={className + ' pb-24 transition-all duration-[370ms] px-4 ' + (showTranslate && 'translate-y-full')}
 				{...props}
 			>
 				<div className='mt-20 flex justify-between items-center'>
@@ -79,6 +79,14 @@ const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 					max={17}
 					value={age}
 					onChange={(e) => setAge(+e.target.value)} />
+				<div className='flex justify-between font-semibold'>
+					<p>
+						1 год
+					</p>
+					<p>
+						17 лет
+					</p>
+				</div>
 				<InputSelect
 					className='mt-10'
 					placeholder='Микрорайон'
