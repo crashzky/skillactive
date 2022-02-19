@@ -11,9 +11,6 @@ COPY . .
 
 RUN npm run build
 
-RUN rm -r node_modules
-RUN npm install next sharp
-
 EXPOSE 3000
 
 CMD [ "npm", "start" ]
