@@ -64,24 +64,38 @@ const SectionInfoPage = (): JSX.Element => {
 							</p>
 						</div>
 						<ImageCarousel>
-							<Image
-								src='/DEV_ONLY.jpg'
-								width={screenWidth}
-								height={355}
-								alt='section'
-								className='object-cover lg:rounded-2.5xl' />
-							<Image
-								src='/DEV_ONLY.jpg'
-								width={screenWidth}
-								height={355}
-								alt='section'
-								className='object-cover lg:rounded-2.5xl' />
-							<Image
-								src='/DEV_ONLY.jpg'
-								width={screenWidth}
-								height={355}
-								alt='section'
-								className='object-cover lg:rounded-2.5xl' />
+							<div className='lg:px-1'>
+								<Image
+									src='/DEV_ONLY.jpg'
+									width={screenWidth >= 1024 ? 355 : screenWidth}
+									height={211}
+									alt='section'
+									className='object-cover lg:rounded-2.5xl' />
+							</div>
+							<div className='lg:px-1'>
+								<Image
+									src='/DEV_ONLY.jpg'
+									width={screenWidth >= 1024 ? 355 : screenWidth}
+									height={211}
+									alt='section'
+									className='object-cover lg:rounded-2.5xl' />
+							</div>
+							<div className='lg:px-1'>
+								<Image
+									src='/DEV_ONLY.jpg'
+									width={screenWidth >= 1024 ? 355 : screenWidth}
+									height={211}
+									alt='section'
+									className='object-cover lg:rounded-2.5xl' />
+							</div>
+							<div className='lg:px-1'>
+								<Image
+									src='/DEV_ONLY.jpg'
+									width={screenWidth >= 1024 ? 355 : screenWidth}
+									height={211}
+									alt='section'
+									className='object-cover lg:rounded-2.5xl' />
+							</div>
 						</ImageCarousel>
 					</div>
 					<div className='px-4 mt-5'>

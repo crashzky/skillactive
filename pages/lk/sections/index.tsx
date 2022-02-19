@@ -20,6 +20,7 @@ const SectionsPage = (): JSX.Element => {
 			</div>
 			<section className='mt-4'>
 				<SectionCard
+					isShortCard
 					isEditorLink
 					className='mb-6'
 					title='Футболика'
@@ -35,6 +36,7 @@ const SectionsPage = (): JSX.Element => {
 					rating={4.5}
 					reviewsCount={21} />
 				<SectionCard
+					isShortCard
 					isEditorLink
 					className='mb-6'
 					title='Футболика'
@@ -50,6 +52,7 @@ const SectionsPage = (): JSX.Element => {
 					rating={4.5}
 					reviewsCount={21} />
 				<SectionCard
+					isShortCard
 					isEditorLink
 					className='mb-6'
 					title='Футболика'

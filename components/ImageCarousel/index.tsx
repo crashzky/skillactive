@@ -1,31 +1,39 @@
-import Carousel from 'nuka-carousel';
+import { useEffect, useState } from 'react';
+import Slider from 'react-slick';
 import Props from './ImageCarousel.props';
 
-const ImageCarousel = ({ children }: Props): JSX.Element => {
+import 'slick-carousel/slick/slick.css'; 
+import 'slick-carousel/slick/slick-theme.css';
+
+const ImageCarousel = ({ children, onlyOneSlide }: Props): JSX.Element => {
+	const [windowWidth, setWindowWidth] = useState(0);
+
+	useEffect(() => {
+		setWindowWidth(window.innerWidth);
+	}, []);
+
+	function getSlidesToShowCount() {
+		if (windowWidth < 1024 || onlyOneSlide)
+			return 1;
+		else if(Math.floor((windowWidth - 384) / 355) > children.length)
+			return children.length;
+		else
+			return Math.floor((windowWidth - 384) / 355);
+	}
+
+	const settings = {
+		dots: true,
+		infinite: true,
+		speed: 500,
+		variableWidth: true,
+		slidesToShow: getSlidesToShowCount(),
+		slidesToScroll: 1,
+	};
+
 	return (
-		<Carousel
-			defaultControlsConfig={{
-				nextButtonText: '>',
-				nextButtonStyle: {
-					background: 'url(/gallery_next_arrow.svg)',
-					fontSize: 24,
-					color: 'transparent',
-				},
-				prevButtonText: '<',
-				prevButtonStyle: {
-					background: 'url(/gallery_next_arrow.svg)',
-					transform: 'rotate(180deg)',
-					fontSize: 24,
-					color: 'transparent',
-				},
-				pagingDotsStyle: {
-					fill: 'white',
-					margin: '0 4px',
-				},
-			}}
-		>
+		<Slider {...settings}>
 			{children}
-		</Carousel>
+		</Slider>
 	);
 };
 

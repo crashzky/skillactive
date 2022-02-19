@@ -64,7 +64,7 @@ const ArticlePage = (): JSX.Element => {
 						назад
 					</button>
 					<div ref={imageRef} className='w-full h-[402px] relative'>
-						<ImageCarousel>
+						<ImageCarousel onlyOneSlide>
 							<Image
 								src='/DEV_ONLY.jpg'
 								width={imageWidth}
@@ -100,7 +100,7 @@ const ArticlePage = (): JSX.Element => {
 					</div>
 				</div>
 			</header>
-			<main className='px-4 lg:px-48 pt-5 pb-7.5'>
+			<main className='px-4 lg:px-48 pt-10 pb-7.5'>
 				<section>
 					<Markdown>
 						В Екатеринбурге закрепилась стабильная минусовая температура,

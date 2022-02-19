@@ -1,7 +1,8 @@
 import { ReactNode } from 'react';
 
 interface Props {
-	children: ReactNode;
+	children: ReactNode[];
+	onlyOneSlide?: boolean;
 }
 
 export default Props;

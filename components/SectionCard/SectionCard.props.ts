@@ -14,6 +14,7 @@ interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDi
 	days: string[];
 	rating: number;
 	reviewsCount: number;
+	isShortCard?: boolean;
 }
 
 export default Props;

@@ -16,6 +16,7 @@ import ClockIcon from '../../assets/card/clock.svg';
 import StarIcon from '../../assets/card/star.svg';
 import FilterIcon from '../../assets/filter.svg';
 import SearchPanel from '../../components/SearchPanel';
+import DropdownFilter from '../../components/DropdownFilter';
 
 const ResultsLayout = ({ children }: Props): JSX.Element => {
 	const { query } = useRouter();
@@ -55,11 +56,13 @@ const ResultsLayout = ({ children }: Props): JSX.Element => {
 
 	return (
 		<>
-			<MainLayout showFooter={!!children && selectedMenuItem !== 1} showHeader={!showFilter}>
+			<MainLayout showFooter={!!children && selectedMenuItem !== 1} showHeader={!showFilter} addPadding={false}>
 				{showFilter && <Filter />}
-				<SearchPanel className='mt-8' />
+				<div className='px-4 lg:px-48'>
+					<SearchPanel className='mt-8' />
+				</div>
 				{showContent && (
-					<>
+					<div className='px-4 lg:px-0'>
 						<HorizontalMenu
 							className='mt-7 lg:hidden'
 							value={selectedMenuItem}
@@ -74,18 +77,29 @@ const ResultsLayout = ({ children }: Props): JSX.Element => {
 						{selectedMenuItem === 0 && (
 							<>
 								<Button className='my-4 lg:hidden' variant='filter' label='Фильтр' onClick={toggleShowFilter} />
-								<section>
-									{!children && (
-										<p className='font-bold text-lg text-center mt-24'>
-											По вашим критериям к сожалению ничего не найдено 😔
-											Попробуйте изменить фильтр
-										</p>
-									)}
-									{children}
+								<section className='lg:grid lg:mt-4 lg:pl-5 xl:pl-48 grid-cols-2'>
+									<div className='lg:pr-7'>
+										<DropdownFilter className='hidden lg:block mb-5' />
+										{!children && (
+											<p className='font-bold text-lg text-center mt-24'>
+												По вашим критериям к сожалению ничего не найдено 😔
+												Попробуйте изменить фильтр
+											</p>
+										)}
+										{children}
+									</div>
+									<YMaps>
+										<Map
+											className='w-full min-h-[calc(100vh-200px)] hidden lg:block'
+											defaultState={{ center: [55.75, 37.57], zoom: 9 }}
+										>
+											<Placemark geometry={[55.75, 37.57]} onClick={() => setSelectedSection(1)} />
+										</Map>
+									</YMaps>
 								</section>
 							</>
 						)}
-					</>
+					</div>
 				)}
 			</MainLayout>
 			{(selectedMenuItem === 1 && !showFilter) && (
