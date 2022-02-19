@@ -1,15 +1,13 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [ production ]
 
 jobs:
 
-  build:
-
+  build-and-push-docker-image:
+    name: Build Docker image and push to repositories
     runs-on: ubuntu-latest
 
     steps:
