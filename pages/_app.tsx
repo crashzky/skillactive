@@ -6,7 +6,6 @@ import '../styles/font.css';
 import '../styles/custom.css';
 import '../styles/checkbox.css';
 
-//foo bar
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 	return (
 		<>
