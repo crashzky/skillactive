@@ -5,6 +5,7 @@ interface Props {
 	showFooter?: boolean;
 	showHeader?: boolean;
 	addPadding?: boolean;
+	errorMessage?: string;
 }
 
 export default Props;

@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import MainLayout from '../layouts/MainLayout';
@@ -8,16 +8,27 @@ import withCheckAuthLayout from '../layouts/withCheckAuthLayout';
 import Link from 'next/link';
 import removeItemFromErrorsList from '../utils/removeItemFromErrorsList';
 import { GetStaticProps } from 'next';
+import { useMutation } from 'react-query';
+import { register } from '../shared/api/auth';
 
 const LoginPage = (): JSX.Element => {
 	const router = useRouter();
 	const [errorsList, setErrorsList] = useState([]);
+
+	const { mutate, isError, error, isSuccess } = useMutation(register);
+
+	useEffect(() => {
+		if(isSuccess)
+			router.push('/login');
+	}, [isSuccess, router]);
 
 	const formik = useFormik({
 		initialValues: {
 			email: '',
 			username: '',
 			password: '',
+			first_name: '',
+			last_name: '',
 		},
 		onSubmit: (values) => {
 			let _errosList = [];
@@ -27,17 +38,30 @@ const LoginPage = (): JSX.Element => {
 				_errosList.push('password');
 			if(!values.email)
 				_errosList.push('email');
+			if(!values.first_name)
+				_errosList.push('first_name');
+			if(!values.last_name)
+				_errosList.push('last_name');
 
 			setErrorsList(_errosList);
 
 			if(!_errosList.length)
-				router.push('/lk');
+				mutate(values);
 		},
 	});
 
+	function getErrorMessage() {
+		switch((error as any).response.status) {
+			case 400:
+				return 'Пользователь с таким никнэймом или почтой уже существует';
+			default:
+				return 'Ой, что-то пошло не так. Попробуйте ещё раз позже';
+		}
+	}
+
 	return (
 		<>
-			<MainLayout showFooter={false}>
+			<MainLayout showFooter={false} errorMessage={isError && getErrorMessage()}>
 				<form onSubmit={formik.handleSubmit} className='lg:w-[375px] mx-auto mt-28 lg:mt-10'>
 					<h1
 						className={`
@@ -47,6 +71,26 @@ const LoginPage = (): JSX.Element => {
 						<br className='lg:hidden' />
 						рация
 					</h1>
+					<Input
+						className='mt-6'
+						name='first_name'
+						isDanger={errorsList.includes('first_name')}
+						placeholder='Имя'
+						value={formik.values.first_name}
+						onChange={(e) => {
+							removeItemFromErrorsList(setErrorsList, 'first_name');
+							formik.handleChange(e);
+						}} />
+					<Input
+						className='mt-6'
+						name='last_name'
+						isDanger={errorsList.includes('last_name')}
+						placeholder='Фамилия'
+						value={formik.values.last_name}
+						onChange={(e) => {
+							removeItemFromErrorsList(setErrorsList, 'last_name');
+							formik.handleChange(e);
+						}} />
 					<Input
 						className='mt-6'
 						name='email'
@@ -62,7 +106,7 @@ const LoginPage = (): JSX.Element => {
 						className='mt-6'
 						name='username'
 						isDanger={errorsList.includes('username')}
-						placeholder='Имя пользователя'
+						placeholder='Никнэйм'
 						value={formik.values.username}
 						onChange={(e) => {
 							removeItemFromErrorsList(setErrorsList, 'username');
@@ -103,7 +147,7 @@ const LoginPage = (): JSX.Element => {
 };
 
 export default withCheckAuthLayout(LoginPage, {
-	checkNotAuthed: false,
+	checkNotAuthed: true,
 });
 
 export const getStaticProps: GetStaticProps = async () => {

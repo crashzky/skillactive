@@ -34,7 +34,7 @@ const InputTimetable = ({ className = '', weeks, weeksOnChange, hours, hourseOnC
 						{weeks.map((i) => WEEK_DAYS[i]).join(', ')}
 					</p>
 				</div>
-				<div className='flex justify-between mt-4'>
+				<div className='flex justify-between flex-wrap mt-4'>
 					{WEEK_DAYS.map((i, num) => (
 						<button
 							key={num}

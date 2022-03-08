@@ -20,15 +20,21 @@ import ImageCarousel from '../../components/ImageCarousel';
 import { useRouter } from 'next/router';
 
 import ArrowLeftIcon from '../../assets/arrow_left.svg';
+import { useMutation } from 'react-query';
+import { getClubById } from '../../shared/api/clubs';
+import useComment from '../../hooks/useComment';
 
 const SectionInfoPage = (): JSX.Element => {
 	const [screenWidth, setScreenWidth] = useState(0);
-
-	const router = useRouter();
+	const [isSubmit, setIsSubmit] = useState(false);
 
 	const showModal = useModal((state) => state.showModal);
 	const toggleShowModal = useModal((state) => state.toggleShowModal);
-	const [isSubmit, setIsSubmit] = useState(false);
+	const setReplyTo = useComment((state) => state.setReplyTo);
+
+	const router = useRouter();
+
+	const { mutate, data } = useMutation(getClubById);
 
 	useEffect(() => {
 		setScreenWidth(window.innerWidth);
@@ -36,6 +42,11 @@ const SectionInfoPage = (): JSX.Element => {
 		if(showModal)
 			toggleShowModal();
 	}, []);
+
+	useEffect(() => {
+		if(!showModal)
+			mutate({ id: +router.query.id });
+	}, [showModal, router, mutate]);
 
 	function getModal() {
 		if(showModal && isSubmit)
@@ -58,9 +69,13 @@ const SectionInfoPage = (): JSX.Element => {
 						назад
 					</button>
 					<div className='mt-3 relative'>
-						<div className={'absolute z-10 top-2.5 left-2.5 px-4 py-2 rounded-lg bg-green'}>
+						<div className={'absolute z-10 top-2.5 left-2.5 px-4 py-2 rounded-lg '
+							+ (data && data.opened ? 'bg-green' : 'bg-red')}
+						>
 							<p className='text-white font-semibold text-sm'>
-								Запись открыта
+								Запись
+								{' '}
+								{data && data.opened ? 'открыта' : 'закрыта'}
 							</p>
 						</div>
 						<ImageCarousel>
@@ -100,13 +115,13 @@ const SectionInfoPage = (): JSX.Element => {
 					</div>
 					<div className='px-4 mt-5'>
 						<h1 className='font-bold text-2xl mt-3.5'>
-							Футболика
+							{data && data.title}
 						</h1>
 						<p className='text-sm text-darkGrey mt-2'>
 							Секция футбола
 						</p>
 						<p className='text-sm text-darkGrey mt-2'>
-							Красноармейская 27 
+							{data && data.address}
 						</p>
 						<div className='lg:flex justify-between items-center'>
 							<div>
@@ -115,7 +130,11 @@ const SectionInfoPage = (): JSX.Element => {
 										<PersonIcon />
 									</div>
 									<p className='font-sm text-darkGrey'>
-										6-12 лет
+										{data && data.min_age}
+										-
+										{data && data.max_age}
+										{' '}
+										лет
 									</p>
 								</div>
 								<div className='grid grid-cols-[30px_1fr] items-center gap-2 mt-2.5'>
@@ -131,7 +150,13 @@ const SectionInfoPage = (): JSX.Element => {
 										<StarIcon />
 									</div>
 									<p className='font-sm text-darkGrey'>
-										4,5 / 5 • 21 оценка
+										{data && data.comments.reduce((prev, curr) => prev + curr.rating, 0).toFixed(1)}
+										{' '}
+										/ 5 •
+										{' '}
+										{data && data.comments.length}
+										{' '}
+										оценок
 									</p>
 								</div>
 							</div>
@@ -145,11 +170,7 @@ const SectionInfoPage = (): JSX.Element => {
 								}} />
 						</div>
 						<p className='text-sm mt-6'>
-							Наша учебная программа разработана ведущими научными сотрудниками НГУ им.
-							П.Ф. Лесгафта в соответствии со стандартами образования детей
-							младшего возраста (от 3 лет). Ваш ребёнок будет учиться в спортивной
-							секции по плану его возрастной группы. Занятия детским футболом проходят
-							в безопасных условиях под чётким руководством аттестованных тренеров г. Екатеринбург.
+							{data && data.description}
 						</p>
 						<section>
 							<h2 className='mt-5 mb-2.5 font-bold text-xl '>
@@ -207,7 +228,9 @@ const SectionInfoPage = (): JSX.Element => {
 						</section>
 						<section>
 							<h2 className='font-bold text-xl mb-3'>
-								Отзывы (20)
+								Отзывы (
+								{data && data.comments.length}
+								)
 							</h2>
 							<Input
 								className='mb-5'
@@ -216,20 +239,26 @@ const SectionInfoPage = (): JSX.Element => {
 								onClick={() => {
 									setIsSubmit(false);
 									toggleShowModal();
+									setReplyTo(null);
 								}} />
-							<Comment
-								title='Анастасия'
-								message='Очень понравился тренер, просто теку от него'
-								createdTime={new Date(2022, 2, 6, 14, 32)}
-								commentRating={104}
-								className='mb-4'
-								answers={[
-									{
-										title: 'Евгений',
-										createdTime: new Date(2022, 2, 6, 14, 32),
-										message: 'Очень понравился тренер, просто теку от него',
-									},
-								]} />
+							{data && data.comments.filter((i) => !i.reply_to).map((i, num) => (
+								<Comment
+									key={num}
+									commentId={i.id}
+									title={i.name}
+									rating={i.rating}
+									message={i.text}
+									createdTime={new Date(i.creation_date)}
+									commentRating={i.likes_amount}
+									className='mb-4'
+									answers={i.replies.map((i) => (
+										{
+											title: data.comments.find((j) => j.id == i).name,
+											createdTime: new Date(data.comments.find((j) => j.id == i).creation_date),
+											message: data.comments.find((j) => j.id == i).text,
+										}
+									))} />
+							))}
 						</section>
 					</div>
 				</div>

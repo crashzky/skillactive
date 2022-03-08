@@ -3,7 +3,7 @@ import Props from './PriceCard.props';
 
 const PriceCard = ({ className = '', title, price, onDelete, isShortCard, ...props }: Props): JSX.Element => {
 	return (
-		<article className={isShortCard && 'lg:w-fit'}>
+		<article className={isShortCard && 'lg:w-80'}>
 			<div className={className + ' shadow-main rounded-2.5xl p-4 lg:h-full'} {...props}>
 				<h3 className='font-semibold text-sm'>
 					{title}

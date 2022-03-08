@@ -1,15 +1,21 @@
 import Props from './Comment.props';
 import { intervalToDuration } from 'date-fns';
 import RatingArrowIcon from '../../assets/rating_arrow.svg';
+import useModal from '../../hooks/useModal';
+import useComment from '../../hooks/useComment';
 
-const Comment = ({ title, createdTime, message, rating, commentRating, answers, className='', ...props }: Props): JSX.Element => {
+const Comment = ({ title, createdTime, message, rating, commentRating, answers, commentId, className='',
+	...props }: Props): JSX.Element => {
 	const intervalToCurrentDate = intervalToDuration({
 		start: createdTime,
 		end: new Date(Date.now()),
 	});
 
+	const toggleShowModal = useModal((state) => state.toggleShowModal);
+	const setReplyTo = useComment((state) => state.setReplyTo);
+
 	return (
-		<article className={className + ' rounded-2.5xl shadow-main pt-5 pb-7.5 px-4'}>
+		<article className={className + ' rounded-2.5xl shadow-main pt-5 pb-7.5 px-4'} {...props}>
 			<div>
 				<h3 className='font-bold inline-block mr-2.5'>
 					{title}
@@ -17,8 +23,14 @@ const Comment = ({ title, createdTime, message, rating, commentRating, answers, 
 				<p className='inline-block font-semibold text-sm text-grey'>
 					{!!intervalToCurrentDate.years && intervalToCurrentDate.years + ' г. '}
 					{!!intervalToCurrentDate.months && intervalToCurrentDate.months + ' мес. '}
-					{!!intervalToCurrentDate.weeks && intervalToCurrentDate.weeks + ' нед. '}
-					{!!intervalToCurrentDate.hours && intervalToCurrentDate.hours + ' ч. '}
+					{(!!intervalToCurrentDate.weeks && !intervalToCurrentDate.years)
+						&& intervalToCurrentDate.weeks + ' нед. '}
+					{(!!intervalToCurrentDate.days && !intervalToCurrentDate.months)
+						&& intervalToCurrentDate.days + ' д. '}
+					{(!!intervalToCurrentDate.hours && !intervalToCurrentDate.weeks)
+						&& intervalToCurrentDate.hours + ' ч. '}
+					{(!!intervalToCurrentDate.minutes && !intervalToCurrentDate.days)
+						&& intervalToCurrentDate.minutes + ' мин. '}
 				</p>
 			</div>
 			<p className='mt-1.5 mb-px'>
@@ -31,7 +43,13 @@ const Comment = ({ title, createdTime, message, rating, commentRating, answers, 
 					{commentRating}
 				</p>
 				<div></div>
-				<button className='font-semibold text-sm text-primary'>
+				<button
+					onClick={() => {
+						toggleShowModal();
+						setReplyTo(commentId);
+					}}
+					className='font-semibold text-sm text-primary'
+				>
 					ответить
 				</button>
 			</div>
@@ -50,8 +68,14 @@ const Comment = ({ title, createdTime, message, rating, commentRating, answers, 
 							<p className='inline-block font-semibold text-sm text-grey'>
 								{!!intervalToCurrentDate.years && intervalToCurrentDate.years + ' г. '}
 								{!!intervalToCurrentDate.months && intervalToCurrentDate.months + ' мес. '}
-								{!!intervalToCurrentDate.weeks && intervalToCurrentDate.weeks + ' нед. '}
-								{!!intervalToCurrentDate.hours && intervalToCurrentDate.hours + ' ч. '}
+								{(!!intervalToCurrentDate.weeks && !intervalToCurrentDate.years)
+									&& intervalToCurrentDate.weeks + ' нед. '}
+								{(!!intervalToCurrentDate.days && !intervalToCurrentDate.months)
+									&& intervalToCurrentDate.days + ' д. '}
+								{(!!intervalToCurrentDate.hours && !intervalToCurrentDate.weeks)
+									&& intervalToCurrentDate.hours + ' ч. '}
+								{(!!intervalToCurrentDate.minutes && !intervalToCurrentDate.days)
+									&& intervalToCurrentDate.minutes + ' мин. '}
 							</p>
 						</div>
 						<p className='mt-1.5 mb-px'>

@@ -5,7 +5,7 @@ import Button from '../Button';
 const TeacherCard = ({ className = '', imageSrc, title, description, phone, onDelete, isShortIcon,
 	...props }: Props): JSX.Element => {
 	return (
-		<article className={isShortIcon && 'lg:w-fit'}>
+		<article className={isShortIcon && 'lg:w-80'}>
 			<div
 				className={
 					className

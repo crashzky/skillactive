@@ -10,8 +10,10 @@ import InputTags from '../../components/InputTags';
 import Button from '../../components/Button';
 import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 import { CREATE_ARTICLE_ERRORS } from '../../shared/consts/createErrors';
+import LoaderIcon from '../../assets/loader.svg';
 
-const EditArticleLayout = ({ images, title, content, tags, isAds, endAdsDate, onSubmit, onDelete }: Props): JSX.Element => {
+const EditArticleLayout = ({ images, title, content, tags, isAds, endAdsDate, onSubmit, onDelete, isDanger, isLoading,
+}: Props): JSX.Element => {
 	const isNewArticle = !images || !title || !content;
 
 	const [errorsList, setErrorsList] = useState([]);
@@ -47,7 +49,7 @@ const EditArticleLayout = ({ images, title, content, tags, isAds, endAdsDate, on
 					content: values.content,
 					tags: tagsValue,
 					isAds: isAdsValue,
-					...(isAds && {
+					...(isAdsValue && {
 						endAdsDate: endAdsDateValue,
 					}),
 				});
@@ -56,7 +58,7 @@ const EditArticleLayout = ({ images, title, content, tags, isAds, endAdsDate, on
 	});
 
 	return (
-		<MainLayout showFooter={false}>
+		<MainLayout showFooter={false} errorMessage={isDanger && 'Ой, что-то пошло не так. Попробуйте ещё раз позже'}>
 			<div className='flex justify-between items-center mt-4'>
 				<h1 className='font-bold text-3xl'>
 					{isNewArticle ? 'Создание статьи' : 'Редактирование статьи'}
@@ -129,7 +131,7 @@ const EditArticleLayout = ({ images, title, content, tags, isAds, endAdsDate, on
 				{isAdsValue && (
 					<Input
 						value={endAdsDateValue as any}
-						onChange={(e) => setEndAdsDateValue(e.target.value as any)}
+						onChange={(e) => setEndAdsDateValue(new Date(e.target.value as any))}
 						className='mb-4'
 						variant='date' />
 				)}
@@ -138,11 +140,15 @@ const EditArticleLayout = ({ images, title, content, tags, isAds, endAdsDate, on
 						{CREATE_ARTICLE_ERRORS[i]}
 					</p>
 				))}
-				<Button
-					type='submit'
-					variant='primary'
-					className='my-7 lg:w-fit lg:px-28 lg:float-right'
-					label='Сохранить' />
+				{isLoading ? (
+					<LoaderIcon className='float-right h-16 mr-24 my-7' />
+				) : (
+					<Button
+						type='submit'
+						variant='primary'
+						className='my-7 lg:w-fit lg:px-28 lg:float-right'
+						label='Сохранить' />
+				)}
 			</form>
 		</MainLayout>
 	);

@@ -14,6 +14,8 @@ interface Props {
 		endAdsDate?: Date;
 	}) => void;
 	onDelete?: () => void;
+	isDanger?: boolean;
+	isLoading?: boolean;
 }
 
 export default Props;

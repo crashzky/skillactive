@@ -1,3 +1,5 @@
+import { GenderType } from '../../shared/types/clubs';
+
 interface Props {
 	images?: string[];
 	name?: string;
@@ -7,9 +9,11 @@ interface Props {
 	district?: string;
 	minAge?: number;
 	maxAge?: number;
+	address?: string;
 	timetables?: ITimetable[];
 	teachers?: ITeacher[];
 	prices?: IPrice[];
+	gender?: GenderType,
 	onSubmit: (values: {
 		images: string[];
 		name: string;
@@ -22,8 +26,12 @@ interface Props {
 		timetables: ITimetable[];
 		teachers: ITeacher[];
 		prices: IPrice[];
+		address: string;
+		gender: GenderType;
 	}) => void;
 	onDelete?: () => void; 
+	isLoading?: boolean;
+	isError?: boolean;
 }
 
 interface ITimetable {

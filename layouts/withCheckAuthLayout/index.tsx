@@ -1,29 +1,40 @@
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
+import { getClubs } from '../../shared/api/clubs';
 import Props, { CheckAuthConfig } from './WithCheckAuthLayout.props';
 
 const CheckAuthLayout = ({ children, checkNotAuthed }: Props): JSX.Element => {
-	/*const { isError, data } = useQuery('account', getAccountInfo);
-	const setAccountInfo = useQueryResponse((state) => state.setAccountInfo);
+	const { mutate, isSuccess, isError } = useMutation(getClubs);
 
-	const [localStorageObj, setLocalStorageObj] = useState<any>();
 	const router = useRouter();
 
+	const [localStorageObj, setLocalStorageObj] = useState<any>();
+
 	useEffect(() => {
-		setLocalStorageObj(localStorage);
+		if(localStorage)
+			setLocalStorageObj(localStorage);
 	}, []);
 
 	useEffect(() => {
-		if(data)
-			setAccountInfo(data);
-	}, [data]);
+		mutate({ owned: true });
+	}, [mutate]);
 
-	if(isError || (localStorageObj && !localStorageObj.getItem(LOCALSTORAGE_AUTH_KEY))) {
-		localStorageObj.removeItem(LOCALSTORAGE_AUTH_KEY);
+	if(isSuccess && !checkNotAuthed)
+		return children;
+	else if(isSuccess && checkNotAuthed) {
+		router.push('/lk');
+		return <></>; 
+	}
+	else if (isError && checkNotAuthed)
+		return children;
+	else if (isError) {
+		localStorageObj.removeItem('AUTH_TOKEN');
 		router.push('/login');
 		return <></>;
 	}
-	else*/
-	return children;
+	else 
+		return <></>;
 };
 
 function withCheckAuthLayout (Component: React.FC, config?: CheckAuthConfig): React.FC {

@@ -19,6 +19,7 @@ const InputSelect = ({ ...props }: Props): JSX.Element => {
 					boxShadow: 'none',
 					background: '#F8F8F8',
 					borderRadius: '20px',
+					zIndex: 20,
 				}),
 			}}
 			{...props} />

@@ -4,9 +4,12 @@ import { useRouter } from 'next/router';
 import ArticleCard from '../../../components/ArticleCard';
 import withCheckAuthLayout from '../../../layouts/withCheckAuthLayout';
 import { GetStaticProps } from 'next';
+import { useQuery } from 'react-query';
+import { getFeed } from '../../../shared/api/feed';
 
 const ArticlesPage = (): JSX.Element => {
 	const router = useRouter();
+	const { data } = useQuery('feed', getFeed);
 
 	return (
 		<MainLayout showFooter={false}>
@@ -19,18 +22,15 @@ const ArticlesPage = (): JSX.Element => {
 				</button>
 			</div>
 			<section className='mt-5 lg:flex flex-wrap gap-2.5'>
-				<ArticleCard
-					title='Где покататься на коньках в Екатеринбурге'
-					tags={['отдых', 'конки', 'семья', 'каток']}
-					link='/lk/articles/1'
-					imageSrc='/DEV_ONLY.jpg'
-					className='mb-4' />
-				<ArticleCard
-					title='Где покататься на коньках в Екатеринбурге'
-					tags={['отдых', 'конки', 'семья', 'каток']}
-					link='/lk/articles/1'
-					imageSrc='/DEV_ONLY.jpg'
-					className='mb-4' />
+				{data && data.map((i, num) => (
+					<ArticleCard
+						key={num}
+						title={i.title}
+						tags={['отдых', 'конки', 'семья', 'каток']}
+						link={'/lk/articles/' + i.id}
+						imageSrc='/DEV_ONLY.jpg'
+						className='mb-4' />
+				))}
 			</section>
 		</MainLayout>
 	);

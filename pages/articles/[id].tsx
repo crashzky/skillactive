@@ -13,9 +13,12 @@ import { useRouter } from 'next/router';
 
 import CommentIcon from '../../assets/card/comment.svg';
 import LikeIcon from '../../assets/card/ike.svg';
-import LikeActiveIcon from '../../assets/card/like_active.svg';
+//import LikeActiveIcon from '../../assets/card/like_active.svg';
 import ArrowLeftIcon from '../../assets/arrow_left.svg';
 import Logo from '../../assets/logo.svg';
+import { useMutation } from 'react-query';
+import { getFeedById } from '../../shared/api/feed';
+import useComment from '../../hooks/useComment';
 
 const ArticlePage = (): JSX.Element => {
 	const [imageWidth, setImageWidth] = useState(0);
@@ -23,8 +26,11 @@ const ArticlePage = (): JSX.Element => {
 
 	const router = useRouter();
 
+	const { mutate, data } = useMutation(getFeedById);
+
 	const showModal = useModal((state) => state.showModal);
 	const toggleShowModal = useModal((state) => state.toggleShowModal);
+	const setReplyTo = useComment((state) => state.setReplyTo);
 
 	useEffect(() => {
 		if (!!imageRef.current)
@@ -33,6 +39,11 @@ const ArticlePage = (): JSX.Element => {
 		if(showModal)
 			toggleShowModal();
 	}, []);
+
+	useEffect(() => {
+		if(!showModal)
+			mutate({ id: +router.query.id });
+	}, [showModal, router, mutate]);
 
 	return (
 		<WithModalLayout
@@ -94,7 +105,7 @@ const ArticlePage = (): JSX.Element => {
 								</p>
 							</div>
 							<h1 className='mt-1.5 font-bold text-2xl text-white'>
-								Где покататься на коньках в Екатеринбурге
+								{data && data.title}
 							</h1>
 						</div>
 					</div>
@@ -103,30 +114,12 @@ const ArticlePage = (): JSX.Element => {
 			<main className='px-4 lg:px-48 pt-10 pb-7.5'>
 				<section>
 					<Markdown>
-						В Екатеринбурге закрепилась стабильная минусовая температура,
-						так что большинство катков города уже работают. Рассказываем,
-						где можно покататься и сколько это стоит.
-
-						Каток «Северное сияние» в ЦПКиО (ул. Мичурина, 230) один из самых
-						больших в городе. Его площадь — 11 тысяч квадратных метров.
-						Тут есть теплый павильон, где можно переодеться, есть камера хранения,
-						а также пункты заточки и проката коньков (от 26 до 48 размера).
-						На льду стоят фуд-корты и постоянно звучит музыка.
-
-						Выход на лед стоит от 100 до 250 рублей в зависимости от дня недели,
-						прокат коньков — 200 рублей в час. Для выхода на лед нужно купить специальную карту.
-
-						Также уже открыт каток в спортивном комплексе «Юность» — один из самых
-						больших катков города, площадь которого 15 тысяч квадратных метров.
-						Работает каток с 19:00 до 22:00 с понедельника по пятницу,
-						с 17:00 до 22:00 в субботу и с 15:00 до 22:00 в воскресенье.
-
-						Выход на лед со своими коньками стоит от 150 до 250 рублей в
-						зависимости от возраста и для недели. Прокат коньков — 200 рублей.
-						И да, без QR-кода на каток вас не пустят.
+						{data ? data.text : ''}
 					</Markdown>
 					<p className='mt-5 text-grey font-bold text-sm'>
-						18 просмотров
+						{data && data.views_amount}
+						{' '}
+						просмотров
 					</p>
 					<div className='mt-5 w-full flex justify-end gap-5'>
 						<CommentIcon />
@@ -135,26 +128,35 @@ const ArticlePage = (): JSX.Element => {
 				</section>
 				<section>
 					<h2 className='font-bold text-xl mb-3'>
-						Комментарии (20)
+						Комментарии (
+						{data && data.comments.length}
+						)
 					</h2>
 					<Input
 						className='mb-5'
 						placeholder='Написать комментарий'
 						blurOnFocus
-						onClick={() => toggleShowModal()} />
-					<Comment
-						title='Анастасия'
-						message='Очень понравился тренер, просто теку от него'
-						createdTime={new Date(2022, 2, 6, 14, 32)}
-						commentRating={104}
-						className='mb-4'
-						answers={[
-							{
-								title: 'Евгений',
-								createdTime: new Date(2022, 2, 6, 14, 32),
-								message: 'Очень понравился тренер, просто теку от него',
-							},
-						]} />
+						onClick={() => {
+							toggleShowModal();
+							setReplyTo(null);
+						}} />
+					{data && data.comments.filter((i) => !i.reply_to).map((i, num) => (
+						<Comment
+							key={num}
+							commentId={i.id}
+							title={i.name}
+							message={i.text}
+							createdTime={new Date(i.creation_date)}
+							commentRating={i.likes_amount}
+							className='mb-4'
+							answers={i.replies.map((i) => (
+								{
+									title: data.comments.find((j) => j.id == i).name,
+									createdTime: new Date(data.comments.find((j) => j.id == i).creation_date),
+									message: data.comments.find((j) => j.id == i).text,
+								}
+							))} />
+					))}
 				</section>
 			</main>
 		</WithModalLayout>

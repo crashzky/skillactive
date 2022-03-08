@@ -5,15 +5,30 @@ import { useFormik } from 'formik';
 import useModal from '../../hooks/useModal';
 import ReCAPTCHA from 'react-google-recaptcha';
 import Button from '../../components/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 
 import CrossIcon from '../../assets/cross.svg';
+import { useMutation } from 'react-query';
+import { sendComment } from '../../shared/api/comment';
+import { useRouter } from 'next/router';
+import useComment from '../../hooks/useComment';
 
 const CommentModal = ({ className = '', ...props }: Props): JSX.Element => {
-	const toggleShowModal = useModal((state) => state.toggleShowModal);
 	const [captchaSubmited, setCaptchaSubmited] = useState(false);
 	const [errorsList, setErrorsList] = useState([]);
+
+	const replyTo = useComment((state) => state.replyTo);
+	const toggleShowModal = useModal((state) => state.toggleShowModal);
+
+	const { query, pathname } = useRouter();
+
+	const { mutate, isSuccess, isError } = useMutation(sendComment);
+
+	useEffect(() => {
+		if(isSuccess) 
+			toggleShowModal();
+	}, [isSuccess, toggleShowModal]);
 
 	const formik = useFormik({
 		initialValues: {
@@ -26,13 +41,33 @@ const CommentModal = ({ className = '', ...props }: Props): JSX.Element => {
 				_errorsList.push('username');
 			if(!values.message)
 				_errorsList.push('message');
-			if(!captchaSubmited)
+			if(captchaSubmited)
 				_errorsList.push('recaptcha');
 
 			setErrorsList(_errorsList);
 
-			if(!_errorsList.length)
-				toggleShowModal();
+			if(!_errorsList.length) {
+				const withReply = replyTo ? {
+					reply_to: replyTo,
+				} : {};
+
+				const withFeedItem = pathname.includes('articles') ? {
+					feed_item: +query.id,
+				} : {};
+
+				const withClubItem = pathname.includes('search') ? {
+					club_item: +query.id,
+				} : {};
+
+				mutate({
+					name: values.username,
+					text: values.message,
+					type: 'COMMENT',
+					...withFeedItem,
+					...withClubItem,
+					...withReply,
+				});
+			}
 		},
 	});
 
@@ -75,6 +110,11 @@ const CommentModal = ({ className = '', ...props }: Props): JSX.Element => {
 			{errorsList.includes('recaptcha') && (
 				<p className='font-semibold font-sm text-red text-center mt-5'>
 					Пожалуйста, заполните капчу
+				</p>
+			)}
+			{isError && (
+				<p className='font-semibold font-sm text-red text-center mt-5'>
+					Ой, что-то пошло не так. Попробуйте ещё раз позже
 				</p>
 			)}
 			<Button type='submit' className='absolute bottom-6 md:bottom-0' variant='primary' label='Отправить' />

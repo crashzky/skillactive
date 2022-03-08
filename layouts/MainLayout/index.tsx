@@ -7,12 +7,19 @@ import MenuIcon from '../../assets/menu.svg';
 import CrossIcon from '../../assets/cross.svg';
 import Sidebar from '../Sidebar';
 
-const MainLayout = ({ children, showFooter = true, showHeader = true, addPadding = true }: Props): JSX.Element => {
+const MainLayout = ({ children, errorMessage, showFooter = true, showHeader = true, addPadding = true }: Props): JSX.Element => {
 	const showMenu = useModal((state) => state.showMenu);
 	const toggleShowMenu = useModal((state) => state.toggleShowMenu);
 
 	return (
 		<>
+			{errorMessage && (
+				<div className='fixed z-50 top-0 w-full py-2 bg-red'>
+					<p className='text-center text-white font-bold text-lg'>
+						{errorMessage}
+					</p>
+				</div>
+			)}
 			{showHeader && (
 				<header className='px-4 lg:px-48 lg:py-5 mt-4.5 flex items-center justify-between'>
 					<Link href='/'>

@@ -17,13 +17,20 @@ import PriceCard from '../../components/PriceCard';
 import Button from '../../components/Button';
 import { CREATE_SECTION_ERRORS, ADD_PRICE_ERRORS } from '../../shared/consts/createErrors';
 import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
+import LoaderIcon from '../../assets/loader.svg';
+import InputAddress from '../../components/InputAddress';
+import CATEGORIES from '../../shared/consts/categories';
+import YEKATERINBURG_DISTRICTS from '../../shared/consts/districts';
+import { GenderType } from '../../shared/types/clubs';
 
-const EditSectionLayout = ({ images, name, recordingIsOpen, category, description, district, minAge,
-	maxAge, timetables, teachers, prices, onSubmit, onDelete }: Props): JSX.Element => {
+const EditSectionLayout = ({ images, name, recordingIsOpen, category, description, district, minAge, address,
+	maxAge, timetables, teachers, prices, gender, onSubmit, onDelete, isLoading, isError }: Props): JSX.Element => {
 	const [errorsList, setErrorsList] = useState([]);
 
 	const isNewManager = !images && !name && !category && !description && !district
 		&& !timetables && !teachers && !prices; 
+
+	const GENDERS: GenderType[] = ['MALE', 'FEMALE', 'BOTH'];
 
 	const [timetablesKey, setTimetablesKey] = useState(false);
 	const [teacherKey, setTeacherKey] = useState(false);
@@ -36,6 +43,8 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 	const [descriptionValue, setDescriptionValue] = useState(description);
 	const [districtValue, setDistrictValue] = useState(district && { label: district, value: district });
 	const [ageValues, setAgeValues] = useState(minAge && maxAge ? [minAge, maxAge] : [7, 13]);
+	const [addressValue, setAddressValue] = useState(address && { label: address, value: address });
+	const [genderValue, setGenderValue] = useState(gender && GENDERS.indexOf(gender));
 	const [timetableValues, setTimetableValues] = useState(timetables ? timetables : [
 		{	
 			days: [0],
@@ -84,6 +93,8 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 			_errors.push('teachers');
 		if(!priceValues.length)
 			_errors.push('prices');
+		if(!addressValue)
+			_errors.push('address');
 		
 		setErrorsList(_errors);
 
@@ -100,6 +111,8 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 				timetables: timetableValues,
 				teachers: teacherValues,
 				prices: priceValues,
+				address: addressValue.value,
+				gender: GENDERS[genderValue],
 			});
 		}
 	};
@@ -159,9 +172,16 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 			removeItemFromErrorsList(setPriceErrors, 'prices');
 		}
 	};
+
+	let INPUT_CATEGORIES = [];
+	CATEGORIES.forEach((i) => {
+		i.items.forEach((j) => {
+			INPUT_CATEGORIES.push({ value: j.title, label: j.title });
+		});
+	});
 	
 	return (
-		<MainLayout showFooter={false}>
+		<MainLayout showFooter={false} errorMessage={isError && 'Ой, что-то пошло не так. Попробуйте ещё раз позже'}>
 			<div className='flex justify-between items-center mt-4'>
 				<h1 className='font-bold text-3xl'>
 					{isNewManager ? 'Добавление секции' : 'Редактирование секции'}
@@ -205,12 +225,9 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 					setCategoryValue(newValue as any);
 				}}
 				placeholder='Выберите категорию'
+				noOptionsMessage={() => 'Ничего не найдено :('}
 				isSearchable
-				options={[
-					{ value: 'Футбол', label: 'Футбол' },
-					{ value: 'Баскетбол', label: 'Баскетбол' },
-					{ value: 'Волейбол', label: 'Волейбол' },
-				]} />
+				options={INPUT_CATEGORIES} />
 			<Textarea
 				className='mt-6'
 				placeholder='Описание'
@@ -231,11 +248,26 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 				}}
 				placeholder='Выберите микрорайон'
 				isSearchable
-				options={[
-					{ value: 'Пионерский', label: 'Пионерский' },
-					{ value: 'Центр', label: 'Центр' },
-					{ value: 'Уралмаш', label: 'Уралмаш' },
-				]} />
+				noOptionsMessage={() => 'Ничего не найдено :('}
+				options={YEKATERINBURG_DISTRICTS.map((i) => ({ value: i, label: i }))} />
+			<InputAddress
+				className='mt-6'
+				id='address'
+				instanceId='address'
+				value={addressValue}
+				onChange={(newValue) => {
+					removeItemFromErrorsList(setErrorsList, 'address');
+					setAddressValue(newValue as any);
+				}}
+				placeholder='Адрес располажения секции/кружка' />
+			<p className='text-xl font-semibold mt-6'>
+				Пол детей
+			</p>
+			<HorizontalMenu
+				className='mt-6 lg:w-[345px]'
+				value={genderValue}
+				onItemChange={setGenderValue}
+				items={['Мужской', 'Женский', 'Любой']} />
 			<div className='mt-6 mb-4 flex justify-between items-center font-semibold'>
 				<p className='text-xl'>
 					Возраст детей
@@ -496,9 +528,13 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 					</p>
 				))}
 			</div>
-			<div className='fixed bottom-5 left-0 lg:static lg:mb-5 lg:w-[345px] lg:float-right w-full px-4'>
-				<Button variant='primary' label='Сохранить' onClick={submitForm} />
-			</div>
+			{isLoading ? (
+				<LoaderIcon className='float-right h-16 mr-24 my-7' />
+			) : (
+				<div className='fixed bottom-5 left-0 lg:static lg:mb-5 lg:w-[345px] lg:float-right w-full px-4'>
+					<Button variant='primary' label='Сохранить' onClick={submitForm} />
+				</div>
+			)}
 		</MainLayout>
 	);
 };

@@ -2,23 +2,82 @@ import Props from './DropdownFilter.props';
 
 import FilterIcon from '../../assets/filter.svg';
 import ArrowIcon from '../../assets/arrow_down.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HorizontalMenu from '../HorizontalMenu';
 import InputSelect from '../InputSelect';
 import Input from '../Input';
 import InputTimetable from '../InputTimetable';
 import Button from '../Button';
+import { ISelectValue } from '../InputSelect/InputSelect.props';
+import CATEGORIES from '../../shared/consts/categories';
+import YEKATERINBURG_DISTRICTS from '../../shared/consts/districts';
+import { useRouter } from 'next/router';
 
 const DropdownFilter = ({ className = '', ...props }: Props): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const [piceType, setPriceType] = useState(0);
-	const [category, setCategory] = useState();
-	const [gender, setGender] = useState();
+	const [category, setCategory] = useState<ISelectValue>();
+	const [gender, setGender] = useState<ISelectValue>();
 	const [age, setAge] = useState(10);
-	const [district, setDistrict] = useState();
+	const [district, setDistrict] = useState<ISelectValue>();
 	const [weeks, setWeeks] = useState([]);
 	const [hours, setHours] = useState([14, 16]);
+
+	const router = useRouter();
+
+	useEffect(() => {
+		const { price_type, category, gender, age, district, weeks, hours } = router.query;
+
+		setPriceType(+price_type);
+		setCategory(category && { value: category as string, label: category as string });
+		setGender(gender && { value: gender as string, label: gender as string });
+		setAge(age ? +age : 10);
+		setDistrict(district && { value: district as string, label: district as string });
+		setWeeks(weeks ? JSON.parse(weeks as string) : []);
+		setHours(hours ? JSON.parse(hours as string) : [14, 16]);
+	}, [router]);
+
+	const onClick = () => {
+		const withCategory = category ? { category: category.value } : {};
+		const withGender = gender ? { gender: gender.value } : {};
+		const withDistrict = district ? { district: district.value } : {};
+		const withWeeks = weeks ? { weeks: JSON.stringify(weeks) } : {};
+		const withHours = hours ? { hours: JSON.stringify(hours) } : {};
+
+		router.push({
+			pathname: router.pathname,
+			query: {
+				...router.query,
+				price_type: piceType,
+				...withCategory,
+				...withGender,
+				age: age,
+				...withDistrict,
+				...withWeeks,
+				...withHours,
+			},
+		});
+		setIsOpen(!isOpen);
+	};
+
+	const resetFiltres = () => {
+		router.push({
+			pathname: router.pathname,
+			query: {
+				query: router.query.query,
+			},
+		});
+		
+		setIsOpen(!isOpen);
+	};
+
+	let INPUT_CATEGORIES = [];
+	CATEGORIES.forEach((i) => {
+		i.items.forEach((j) => {
+			INPUT_CATEGORIES.push({ value: j.title, label: j.title });
+		});
+	});
 
 	return (
 		<div className={className + ' shadow-main rounded-xl transirion-all duration-200'} {...props}>
@@ -41,7 +100,7 @@ const DropdownFilter = ({ className = '', ...props }: Props): JSX.Element => {
 							items={['Все', 'Бесплатные', 'Платные']}
 							value={piceType}
 							onItemChange={setPriceType} />
-						<button className='font-bols text-sm text-primary'>
+						<button onClick={resetFiltres} className='font-bols text-sm text-primary'>
 							Сбросить
 						</button>
 					</div>
@@ -52,11 +111,7 @@ const DropdownFilter = ({ className = '', ...props }: Props): JSX.Element => {
 						value={category}
 						onChange={setCategory}
 						noOptionsMessage={() => 'Мы ничего не нашли :('}
-						options={[
-							{ value: 'Футбол', label: 'Футбол' },
-							{ value: 'Баскетбол', label: 'Баскетбол' },
-							{ value: 'Волейбол', label: 'Волейбол' },
-						]} />
+						options={INPUT_CATEGORIES} />
 					<InputSelect
 						className='mt-5'
 						placeholder='Пол'
@@ -97,11 +152,7 @@ const DropdownFilter = ({ className = '', ...props }: Props): JSX.Element => {
 						placeholder='Микрорайон'
 						value={district}
 						onChange={setDistrict}
-						options={[
-							{ value: 'Пионерский', label: 'Пионерский' },
-							{ value: 'Уралмаш', label: 'Уралмаш' },
-							{ value: 'Эльмаш', label: 'Эльмаш' },
-						]} />
+						options={YEKATERINBURG_DISTRICTS.map((i) => ({ value: i, label: i }))} />
 					<InputTimetable
 						className='mt-10'
 						weeks={weeks}
@@ -109,7 +160,7 @@ const DropdownFilter = ({ className = '', ...props }: Props): JSX.Element => {
 						hours={hours}
 						hourseOnChange={setHours} />
 					<Button
-						onClick={() => setIsOpen(!isOpen)}
+						onClick={onClick}
 						className='mt-5'
 						variant='primary'
 						label='Сохранить' />

@@ -4,31 +4,31 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Архитектура',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Граффити',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Дизайн',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Живопись',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Рисование (графика)',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Скульптура',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Фотография',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -37,51 +37,51 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Бумагопластика, оригами',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Керамика и гончарное дело',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Кожевенное дело',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Кулинария',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Лепка',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Мозаика, витраж',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Обработка дерева',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Плетение',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Резьба по дереву, камню, кости',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Роспись',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Рукоделие',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Флористика',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -90,35 +90,35 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Авиамодельный спорт',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Автодело',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Начальное техническое моделирование',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Прототипирование',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Радиотехника',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Ракетно-космическое моделирование',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Робототехника',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Судомодельный спорт',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -127,23 +127,23 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Журналистика',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Каллиграфия',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Литература, поэзия',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Русский язык',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Скорочтение',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -152,19 +152,19 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Английский язык',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Китайский язык',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Немецкий язык',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Французский язык',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -173,35 +173,35 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Интеллектуальные игры',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Математика',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Обществознание',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Ораторское мастерство',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Основы права',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Психология',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Шахматы',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Экономика и бизнес',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -210,23 +210,23 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Информатика',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Компьютерная графика',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Основы компьютерной грамотности',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Программирование',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Разработка сайтов',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -235,15 +235,15 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'История',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Краеведение',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Традиционная культура',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -252,51 +252,51 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Вожатское мастерство',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Группы продленного дня',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Дети особой заботы',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Духовное воспитание',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Музыка (общее развитие)',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Патриотическое воспитание',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Подготовка к ЕГЭ и ОГЭ',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Подготовка к школе',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Предпрофессиональная подготовка',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Профориентация',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Развитие речи, логопедия',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Раннее развитие малышей',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -305,35 +305,35 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Гитара',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Диджеинг',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Духовые инструменты',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Народные инструменты',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Скрипка',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Струнные инструменты',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Ударные инструменты',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Фортепиано (пианино)',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -342,23 +342,23 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Авторская песня',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Академический вокал',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Народная песня',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Хоровое пение',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Эстрадный вокал',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -367,35 +367,35 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Балет',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Бальные танцы',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Классические танцы',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Ритмика',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Современные танцы',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Спортивные танцы',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Танцы народов мира',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Эстрадные танцы',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -404,23 +404,23 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Актерское мастерство (театр)',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Кино- и видеосъемка',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Кукольное искусство эстрады',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Мультипликация',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Цирковое искусство',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -429,19 +429,19 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Кройка и шитье',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Создание имиджа',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Школы моделей',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Этикет',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -450,31 +450,31 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Выставки',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Игротеки',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Квесты',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Летние лагеря',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Новый год',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Репертуарные спектакли',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Экскурсии',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -483,19 +483,19 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Безопасность жизнедеятельности',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Скалолазание, альпинизм',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Спортивное ориентирование',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Спортивный туризм',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -504,39 +504,39 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Астрономия',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Биология',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'География',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Геология',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Медицина',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Природоведение',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Физика',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Химия',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Экология',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -545,15 +545,15 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Зоопарки',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Конный спорт',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Практическая зоология',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -562,31 +562,31 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Акробатика',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Прыжки на батуте',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Спортивная аэробика',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Спортивная гимнастика',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Фигурное катание',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Художественная гимнастика',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Черлидинг, чир-спорт',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -595,23 +595,23 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Автоспорт',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Велоспорт',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Картинг',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Лыжные гонки',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Роллер-спорт',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -620,55 +620,55 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Айкидо',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Бокс',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Греко-римская борьба',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Джиу-джитсу',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Дзюдо',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Капоэйра',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Карате',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Кикбоксинг',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Кунг-фу (ушу)',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Рукопашный бой',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Самбо',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Тайский бокс',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Тхэквондо',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -677,23 +677,23 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Баскетбол',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Волейбол',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Флорбол',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Футбол',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Хоккей',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -702,19 +702,19 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Бильярд',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Настольный теннис',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Теннис',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Фехтование',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -723,19 +723,19 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Аквааэробика',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Гребля',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Парусный спорт',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Плавание',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -744,11 +744,11 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Бег',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Фитнес',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},
@@ -757,19 +757,19 @@ const CATEGORIES = [
 		items: [
 			{
 				title: 'Адаптивная физкультура',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Йога',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Общая физическая подготовка',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 			{
 				title: 'Тренажерные залы',
-				link: '/',
+				link: '/search?query=&category=',
 			},
 		],
 	},

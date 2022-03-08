@@ -6,20 +6,79 @@ import Input from '../../components/Input';
 import InputTimetable from '../../components/InputTimetable';
 import Button from '../../components/Button';
 import useModal from '../../hooks/useModal';
+import { useRouter } from 'next/router';
+import { ISelectValue } from '../../components/InputSelect/InputSelect.props';
+import CATEGORIES from '../../shared/consts/categories';
+import YEKATERINBURG_DISTRICTS from '../../shared/consts/districts';
 
 const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 	const toggleShowFilter = useModal((state) => state.toggleShowFilter);
 	const [showTranslate, setShowTranslate] = useState(true);
 
 	const [piceType, setPriceType] = useState(0);
-	const [category, setCategory] = useState();
-	const [gender, setGender] = useState();
+	const [category, setCategory] = useState<ISelectValue>();
+	const [gender, setGender] = useState<ISelectValue>();
 	const [age, setAge] = useState(10);
-	const [district, setDistrict] = useState();
+	const [district, setDistrict] = useState<ISelectValue>();
 	const [weeks, setWeeks] = useState([]);
 	const [hours, setHours] = useState([14, 16]);
 
-	useEffect(() => setShowTranslate(false), []);
+	const router = useRouter();
+
+	useEffect(() => {
+		const { price_type, category, gender, age, district, weeks, hours } = router.query;
+
+		setPriceType(+price_type);
+		setCategory(category && { value: category as string, label: category as string });
+		setGender(gender && { value: gender as string, label: gender as string });
+		setAge(age ? +age : 10);
+		setDistrict(district && { value: district as string, label: district as string });
+		setWeeks(weeks ? JSON.parse(weeks as string) : []);
+		setHours(hours ? JSON.parse(hours as string) : [14, 16]);
+
+		setShowTranslate(false);
+	}, []);
+
+	const onClick = () => {
+		const withCategory = category ? { category: category.value } : {};
+		const withGender = gender ? { gender: gender.value } : {};
+		const withDistrict = district ? { district: district.value } : {};
+		const withWeeks = weeks ? { weeks: JSON.stringify(weeks) } : {};
+		const withHours = hours ? { hours: JSON.stringify(hours) } : {};
+
+		router.push({
+			pathname: router.pathname,
+			query: {
+				...router.query,
+				price_type: piceType,
+				...withCategory,
+				...withGender,
+				age: age,
+				...withDistrict,
+				...withWeeks,
+				...withHours,
+			},
+		});
+
+		toggleShowFilter();
+	};
+
+	const resetFiltres = () => {
+		router.push({
+			pathname: router.pathname,
+			query: {
+				query: router.query.query,
+			},
+		});
+		toggleShowFilter();
+	};
+
+	let INPUT_CATEGORIES = [];
+	CATEGORIES.forEach((i) => {
+		i.items.forEach((j) => {
+			INPUT_CATEGORIES.push({ value: j.title, label: j.title });
+		});
+	});
 
 	return (
 		<>
@@ -31,7 +90,7 @@ const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 					<h2 className='font-bold text-3.5xl'>
 						Фильтр
 					</h2>
-					<button className='font-bols text-sm text-primary'>
+					<button onClick={resetFiltres} className='font-bols text-sm text-primary'>
 						Сбросить
 					</button>
 				</div>
@@ -47,11 +106,7 @@ const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 					value={category}
 					onChange={setCategory}
 					noOptionsMessage={() => 'Мы ничего не нашли :('}
-					options={[
-						{ value: 'Футбол', label: 'Футбол' },
-						{ value: 'Баскетбол', label: 'Баскетбол' },
-						{ value: 'Волейбол', label: 'Волейбол' },
-					]} />
+					options={INPUT_CATEGORIES} />
 				<InputSelect
 					className='mt-10'
 					placeholder='Пол'
@@ -92,11 +147,7 @@ const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 					placeholder='Микрорайон'
 					value={district}
 					onChange={setDistrict}
-					options={[
-						{ value: 'Пионерский', label: 'Пионерский' },
-						{ value: 'Уралмаш', label: 'Уралмаш' },
-						{ value: 'Эльмаш', label: 'Эльмаш' },
-					]} />
+					options={YEKATERINBURG_DISTRICTS.map((i) => ({ value: i, label: i }))} />
 				<InputTimetable
 					className='mt-10'
 					weeks={weeks}
@@ -105,7 +156,7 @@ const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 					hourseOnChange={setHours} />
 			</div>
 			<div className='fixed w-full bottom-5 left-0 px-4'>
-				<Button onClick={toggleShowFilter} variant='primary' label='Сохранить' />
+				<Button onClick={onClick} variant='primary' label='Сохранить' />
 			</div>
 		</>
 	);

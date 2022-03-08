@@ -6,6 +6,7 @@ import Props from './SearchPanel.props';
 const SearchPanel = ({ className = '', ...props }: Props): JSX.Element => {
 	const router = useRouter();
 	const [inputValue, setInputValue] = useState('');
+	const [isDanger, setIsDanger] = useState(false);
 
 	useEffect(() => {
 		if(router.query.query)
@@ -13,23 +14,34 @@ const SearchPanel = ({ className = '', ...props }: Props): JSX.Element => {
 	}, [router]);
 
 	const onSubmit = () => {
-		router.push({
-			pathname: '/search',
-			query: {
-				query: inputValue,
-			},
-		});
+		if(true) {
+			router.push({
+				pathname: '/search',
+				query: {
+					...router.query,
+					query: inputValue,
+				},
+			});
+		}
+		else
+			setIsDanger(true);
 	};
 
 	return (
 		<div className={className + ' lg:grid grid-cols-[1fr_auto]'}>
-			<div className='flex items-center gap-1.5 bg-veryLightGrey rounded-2.5xl lg:rounded-r-none py-4.5 px-5'>
+			<div
+				className={'flex items-center gap-1.5 bg-veryLightGrey rounded-2.5xl lg:rounded-r-none py-4.5 px-5 '
+					+ (isDanger && 'border-2 border-red')}
+			>
 				<LoupeIcon />
 				<input
-					className='w-full bg-transparent outline-none'
+					className={'w-full bg-transparent outline-none ' + (isDanger && 'placeholder-red')}
 					value={inputValue}
 					placeholder='Введите название секции или кружка'
-					onChange={(e) => setInputValue(e.target.value)}
+					onChange={(e) => {
+						setIsDanger(false);
+						setInputValue(e.target.value);
+					}}
 					onKeyDown={(e) => {
 						if(e.key === 'Enter')
 							onSubmit();

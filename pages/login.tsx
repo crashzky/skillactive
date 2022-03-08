@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import MainLayout from '../layouts/MainLayout';
@@ -8,10 +8,21 @@ import withCheckAuthLayout from '../layouts/withCheckAuthLayout';
 import Link from 'next/link';
 import removeItemFromErrorsList from '../utils/removeItemFromErrorsList';
 import { GetStaticProps } from 'next';
+import { useMutation } from 'react-query';
+import { login } from '../shared/api/auth';
 
 const LoginPage = (): JSX.Element => {
 	const router = useRouter();
 	const [errorsList, setErrorsList] = useState([]);
+	
+	const { mutate, data, isError, error, isSuccess } = useMutation(login);
+
+	useEffect(() => {
+		if(isSuccess) {
+			localStorage.setItem('AUTH_TOKEN', data.token);
+			router.push('/lk');
+		}
+	}, [data, isSuccess, router]);
 
 	const formik = useFormik({
 		initialValues: {
@@ -28,13 +39,22 @@ const LoginPage = (): JSX.Element => {
 			setErrorsList(_errosList);
 
 			if(!_errosList.length)
-				router.push('/lk');
+				mutate(values);
 		},
 	});
 
+	function getErrorMessage() {
+		switch((error as any).response.status) {
+			case 400:
+				return 'Неверный логин или пароль';
+			default:
+				return 'Ой, что-то пошло не так. Попробуйте ещё раз позже';
+		}
+	}
+
 	return (
 		<>
-			<MainLayout showFooter={false}>
+			<MainLayout showFooter={false} errorMessage={isError && getErrorMessage()}>
 				<form onSubmit={formik.handleSubmit} className='lg:w-[375px] mx-auto mt-28 lg:mt-10'>
 					<h1 className='font-bold text-lightGrey text-[86px] lg:text-4xl lg:text-center lg:text-black'>
 						Вход
@@ -89,7 +109,7 @@ const LoginPage = (): JSX.Element => {
 };
 
 export default withCheckAuthLayout(LoginPage, {
-	checkNotAuthed: false,
+	checkNotAuthed: true,
 });
 
 export const getStaticProps: GetStaticProps = async () => {
