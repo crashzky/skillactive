@@ -8,8 +8,9 @@ import Button from '../../components/Button';
 import useModal from '../../hooks/useModal';
 import { useRouter } from 'next/router';
 import { ISelectValue } from '../../components/InputSelect/InputSelect.props';
-import CATEGORIES from '../../shared/consts/categories';
 import YEKATERINBURG_DISTRICTS from '../../shared/consts/districts';
+import { useQuery } from 'react-query';
+import { getCategories } from '../../shared/api/categories';
 
 const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 	const toggleShowFilter = useModal((state) => state.toggleShowFilter);
@@ -25,11 +26,15 @@ const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 
 	const router = useRouter();
 
+	const { data } = useQuery('categories', getCategories);
+
 	useEffect(() => {
 		const { price_type, category, gender, age, district, weeks, hours } = router.query;
 
+		const currentCategory = (category && data) && data.find((i) => i.id === +category);
+
 		setPriceType(+price_type);
-		setCategory(category && { value: category as string, label: category as string });
+		setCategory(currentCategory && { value: currentCategory.id.toString(), label: currentCategory.name });
 		setGender(gender && { value: gender as string, label: gender as string });
 		setAge(age ? +age : 10);
 		setDistrict(district && { value: district as string, label: district as string });
@@ -37,7 +42,7 @@ const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 		setHours(hours ? JSON.parse(hours as string) : [14, 16]);
 
 		setShowTranslate(false);
-	}, []);
+	}, [router, data]);
 
 	const onClick = () => {
 		const withCategory = category ? { category: category.value } : {};
@@ -73,13 +78,6 @@ const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 		toggleShowFilter();
 	};
 
-	let INPUT_CATEGORIES = [];
-	CATEGORIES.forEach((i) => {
-		i.items.forEach((j) => {
-			INPUT_CATEGORIES.push({ value: j.title, label: j.title });
-		});
-	});
-
 	return (
 		<>
 			<div
@@ -106,7 +104,7 @@ const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 					value={category}
 					onChange={setCategory}
 					noOptionsMessage={() => 'Мы ничего не нашли :('}
-					options={INPUT_CATEGORIES} />
+					options={data && data.map((i) => ({ label: i.name, value: i.id }))} />
 				<InputSelect
 					className='mt-10'
 					placeholder='Пол'

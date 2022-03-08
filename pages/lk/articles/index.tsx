@@ -26,7 +26,7 @@ const ArticlesPage = (): JSX.Element => {
 					<ArticleCard
 						key={num}
 						title={i.title}
-						tags={['отдых', 'конки', 'семья', 'каток']}
+						tags={i.tags}
 						link={'/lk/articles/' + i.id}
 						imageSrc='/DEV_ONLY.jpg'
 						className='mb-4' />

@@ -27,6 +27,7 @@ const NewArticlePage = (): JSX.Element => {
 					images: [],
 					date: values.isAds ? values.endAdsDate.toISOString() : (new Date(Date.now())).toISOString(),
 					price: 0,
+					tags: values.tags,
 				});
 			}} />
 	);

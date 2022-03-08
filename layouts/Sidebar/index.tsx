@@ -15,7 +15,7 @@ const Sidebar = ({ className = '', ...props }: Props): JSX.Element => {
 				+ (showMenu && ' -translate-x-full')}
 			{...props}
 		>
-			<div className='flex justify-end'>
+			<div className='hidden justify-end lg:flex '>
 				<button onClick={toggleShowMenu}>
 					<CrossIcon />
 				</button>

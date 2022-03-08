@@ -8,6 +8,7 @@ interface IFeedCardResponse extends IFeedCardRequest {
 	likes_amount: number;
 	views_amount: number;
 	comments: ICommentResponse[];
+	tags: string[];
 }
 
 interface IFeedCardRequest {
@@ -17,6 +18,7 @@ interface IFeedCardRequest {
 	address?: string;
 	images: string[];
 	date: string;
+	tags: string[];
 	price: number;
 }
 

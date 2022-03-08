@@ -5,7 +5,7 @@ import { getSuggestions } from '../../shared/api/dadata';
 import { ISelectValue } from '../InputSelect/InputSelect.props';
 import Props from './InputAddress';
 
-const InputAddress = ({ ...props }: Props): JSX.Element => {
+const InputAddress = ({ isDanger, ...props }: Props): JSX.Element => {
 	const [searchTimeout, setSearchTimeout] = useState(null);
 	const [options, setOptions] = useState<ISelectValue[]>([]);
 	
@@ -31,17 +31,23 @@ const InputAddress = ({ ...props }: Props): JSX.Element => {
 		}, 200));
 	};
 
+	const borderControlStyle = isDanger ? {
+		border: '2px red solid',
+	} : {
+		border: 'none',
+	};
+
 	return (
 		<Select
 			isSearchable
 			styles={{
 				control: (provided) => ({
 					...provided,
-					border: 'none',
 					boxShadow: 'none',
 					background: '#F8F8F8',
 					borderRadius: '20px',
 					padding: '10px',
+					...borderControlStyle,
 				}),
 				menu: (provided) => ({
 					...provided,

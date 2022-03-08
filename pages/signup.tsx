@@ -10,12 +10,13 @@ import removeItemFromErrorsList from '../utils/removeItemFromErrorsList';
 import { GetStaticProps } from 'next';
 import { useMutation } from 'react-query';
 import { register } from '../shared/api/auth';
+import LoaderIcon from '../assets/loader.svg';
 
 const LoginPage = (): JSX.Element => {
 	const router = useRouter();
 	const [errorsList, setErrorsList] = useState([]);
 
-	const { mutate, isError, error, isSuccess } = useMutation(register);
+	const { mutate, isError, isLoading, error, isSuccess } = useMutation(register);
 
 	useEffect(() => {
 		if(isSuccess)
@@ -123,11 +124,15 @@ const LoginPage = (): JSX.Element => {
 							removeItemFromErrorsList(setErrorsList, 'password');
 							formik.handleChange(e);
 						}} />
-					<Button
-						type='submit'
-						variant='primary'
-						label='Зарегистрироваться'
-						className='hidden lg:block' />
+					{isLoading ? (
+						<LoaderIcon className='h-16 ml-36 hidden lg:block' />
+					) : (
+						<Button
+							type='submit'
+							variant='primary'
+							label='Зарегистрироваться'
+							className='hidden lg:block' />
+					)}
 					<p className='hidden lg:block mt-5 font-semibold text-sm text-center'>
 						Уже есть аккаунт?
 						{' '}
@@ -137,9 +142,13 @@ const LoginPage = (): JSX.Element => {
 							</a>
 						</Link>
 					</p>
-					<div className='fixed w-full bottom-5 left-0 px-4 text-right lg:hidden'>
-						<Button type='submit' variant='primary' label='Зарегистрироваться' />
-					</div>
+					{isLoading ? (
+						<LoaderIcon className='h-16 ml-36 mt-4 lg:hidden' />
+					) : (
+						<div className='fixed w-full bottom-5 left-0 px-4 text-right lg:hidden'>
+							<Button type='submit' variant='primary' label='Зарегистрироваться' />
+						</div>
+					)}
 				</form>
 			</MainLayout>
 		</>

@@ -31,6 +31,7 @@ const NewSectionPage = (): JSX.Element => {
 					gender: values.gender,
 					opened: values.recordingIsOpen,
 					images: [],
+					category: values.category,
 				});
 			}} />
 	);

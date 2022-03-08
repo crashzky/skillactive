@@ -1,27 +1,31 @@
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import SectionCard from '../../components/SectionCard';
 import useSection from '../../hooks/useSection';
 import ResultsLayout from '../../layouts/ResultsLayout';
+import { getCategories } from '../../shared/api/categories';
 import { getClubs } from '../../shared/api/clubs';
 import { GENDERS } from '../../shared/consts/filter';
 
 const SearchPage = (): JSX.Element => {
 	const selectedSection = useSection((state) => state.selectedSection);
 	const { mutate, data } = useMutation(getClubs);
+	const categories = useQuery('categories', getCategories);
 
 	const router = useRouter();
 
 	useEffect(() => {
 		const withAge = router.query.age ? { age: +router.query.age } : {};
 		const withGender = router.query.gender ? { gender: GENDERS[router.query.gender as string] } : {};
+		const withCategories = router.query.category ? { categories: router.query.category as string } : {};
 
 		mutate({
 			title: router.query.query as string,
 			...withAge,
 			...withGender,
+			...withCategories,
 		});
 	}, [router, mutate]);
 
@@ -44,7 +48,7 @@ const SearchPage = (): JSX.Element => {
 					className={'mb-6 shadow-none ' + (selectedSection === num && 'lg:bg-veryLightGrey')}
 					title={i.title}
 					imageSrc='/DEV_ONLY.jpg'
-					category='Секция футбола'
+					category={categories.data && categories.data.find((j) => j.id === i.category).name}
 					address={i.address}
 					recordIsOpen={i.opened}
 					minAge={i.min_age}

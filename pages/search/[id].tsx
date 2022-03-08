@@ -20,9 +20,10 @@ import ImageCarousel from '../../components/ImageCarousel';
 import { useRouter } from 'next/router';
 
 import ArrowLeftIcon from '../../assets/arrow_left.svg';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { getClubById } from '../../shared/api/clubs';
 import useComment from '../../hooks/useComment';
+import { getCategories } from '../../shared/api/categories';
 
 const SectionInfoPage = (): JSX.Element => {
 	const [screenWidth, setScreenWidth] = useState(0);
@@ -35,6 +36,7 @@ const SectionInfoPage = (): JSX.Element => {
 	const router = useRouter();
 
 	const { mutate, data } = useMutation(getClubById);
+	const categories = useQuery('categories', getCategories);
 
 	useEffect(() => {
 		setScreenWidth(window.innerWidth);
@@ -118,7 +120,7 @@ const SectionInfoPage = (): JSX.Element => {
 							{data && data.title}
 						</h1>
 						<p className='text-sm text-darkGrey mt-2'>
-							Секция футбола
+							{(categories.data && data) && categories.data.find((i) => i.id === data.category).name}
 						</p>
 						<p className='text-sm text-darkGrey mt-2'>
 							{data && data.address}
@@ -150,13 +152,9 @@ const SectionInfoPage = (): JSX.Element => {
 										<StarIcon />
 									</div>
 									<p className='font-sm text-darkGrey'>
-										{data && data.comments.reduce((prev, curr) => prev + curr.rating, 0).toFixed(1)}
-										{' '}
-										/ 5 •
-										{' '}
 										{data && data.comments.length}
 										{' '}
-										оценок
+										отзывов
 									</p>
 								</div>
 							</div>

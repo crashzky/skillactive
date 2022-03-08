@@ -1,7 +1,13 @@
 import Select from 'react-select';
 import Props from './InputSelect.props';
 
-const InputSelect = ({ ...props }: Props): JSX.Element => {
+const InputSelect = ({ isDanger, ...props }: Props): JSX.Element => {
+	const borderControlStyle = isDanger ? {
+		border: '2px red solid',
+	} : {
+		border: 'none',
+	};
+
 	return (
 		<Select
 			styles={{
@@ -12,6 +18,7 @@ const InputSelect = ({ ...props }: Props): JSX.Element => {
 					background: '#F8F8F8',
 					borderRadius: '20px',
 					padding: '10px',
+					...borderControlStyle,
 				}),
 				menu: (provided) => ({
 					...provided,

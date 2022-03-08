@@ -29,7 +29,7 @@ const IdArticlePage = (): JSX.Element => {
 			images={['0']}
 			title={getFeedMuttation.data && getFeedMuttation.data.title}
 			content={getFeedMuttation.data && getFeedMuttation.data.text}
-			tags={['hello', 'aboba']}
+			tags={getFeedMuttation.data && getFeedMuttation.data.tags}
 			isAds={getFeedMuttation.data && getFeedMuttation.data.type == 'ARTICLE_SPONSORED'}
 			endAdsDate={getFeedMuttation.data && new Date(getFeedMuttation.data.date)}
 			onSubmit={(values) => {
@@ -41,6 +41,7 @@ const IdArticlePage = (): JSX.Element => {
 					images: [],
 					date: values.isAds ? values.endAdsDate.toISOString() : (new Date(Date.now())).toISOString(),
 					price: 0,
+					tags: values.tags,
 				});
 			}}
 			onDelete={() => deleteMutation.mutate({ id: +router.query.id })} />

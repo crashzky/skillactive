@@ -4,7 +4,7 @@ interface Props {
 	images?: string[];
 	name?: string;
 	recordingIsOpen?: boolean;
-	category?: string;
+	category?: number;
 	description?: string;
 	district?: string;
 	minAge?: number;
@@ -18,7 +18,7 @@ interface Props {
 		images: string[];
 		name: string;
 		recordingIsOpen: boolean;
-		category: string;
+		category: number;
 		description: string;
 		district: string;
 		minAge: number;

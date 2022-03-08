@@ -16,6 +16,7 @@ interface IClubCardResponse {
 	opened?: boolean;
 	images?: string[];
 	comments: ICommentResponse[];
+	category: number;
 }
 
 interface IClubsCardRequest {
@@ -25,6 +26,7 @@ interface IClubsCardRequest {
 	min_price?: number;
 	owned?: boolean;
 	title?: string;
+	categories?: string;
 }
 
 interface ICreateClubCardRequest {
@@ -37,6 +39,7 @@ interface ICreateClubCardRequest {
 	gender: GenderType;
 	opened: boolean;
 	images: string[];
+	category: number;
 }
 
 interface IClubByIdRequest {

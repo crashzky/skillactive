@@ -30,8 +30,8 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 			<div className='w-screen h-screen flex justify-center items-center'>
 				<Lottie
 					options={defaultOptions}
-					height={150}
-					width={150}
+					height={130}
+					width={130}
 					isStopped={false}
 					isPaused={false} />
 			</div>

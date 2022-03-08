@@ -12,6 +12,8 @@ import { ISelectValue } from '../InputSelect/InputSelect.props';
 import CATEGORIES from '../../shared/consts/categories';
 import YEKATERINBURG_DISTRICTS from '../../shared/consts/districts';
 import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
+import { getCategories } from '../../shared/api/categories';
 
 const DropdownFilter = ({ className = '', ...props }: Props): JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -26,17 +28,21 @@ const DropdownFilter = ({ className = '', ...props }: Props): JSX.Element => {
 
 	const router = useRouter();
 
+	const { data } = useQuery('categories', getCategories);
+
 	useEffect(() => {
 		const { price_type, category, gender, age, district, weeks, hours } = router.query;
+		
+		const currentCategory = (category && data) && data.find((i) => i.id === +category);
 
 		setPriceType(+price_type);
-		setCategory(category && { value: category as string, label: category as string });
+		setCategory(currentCategory && { value: currentCategory.id.toString(), label: currentCategory.name });
 		setGender(gender && { value: gender as string, label: gender as string });
 		setAge(age ? +age : 10);
 		setDistrict(district && { value: district as string, label: district as string });
 		setWeeks(weeks ? JSON.parse(weeks as string) : []);
 		setHours(hours ? JSON.parse(hours as string) : [14, 16]);
-	}, [router]);
+	}, [router, data]);
 
 	const onClick = () => {
 		const withCategory = category ? { category: category.value } : {};
@@ -72,13 +78,6 @@ const DropdownFilter = ({ className = '', ...props }: Props): JSX.Element => {
 		setIsOpen(!isOpen);
 	};
 
-	let INPUT_CATEGORIES = [];
-	CATEGORIES.forEach((i) => {
-		i.items.forEach((j) => {
-			INPUT_CATEGORIES.push({ value: j.title, label: j.title });
-		});
-	});
-
 	return (
 		<div className={className + ' shadow-main rounded-xl transirion-all duration-200'} {...props}>
 			<button
@@ -111,7 +110,7 @@ const DropdownFilter = ({ className = '', ...props }: Props): JSX.Element => {
 						value={category}
 						onChange={setCategory}
 						noOptionsMessage={() => 'Мы ничего не нашли :('}
-						options={INPUT_CATEGORIES} />
+						options={data && data.map((i) => ({ label: i.name, value: i.id }))} />
 					<InputSelect
 						className='mt-5'
 						placeholder='Пол'

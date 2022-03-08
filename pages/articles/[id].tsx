@@ -97,12 +97,12 @@ const ArticlePage = (): JSX.Element => {
 						</ImageCarousel>
 						<div className='absolute bottom-0 p-4'>
 							<div className='flex flex-wrap gap-3.5'>
-								<p className='text-white font-bold text-sm'>
-									#отдых
-								</p>
-								<p className='text-white font-bold text-sm'>
-									#отдых
-								</p>
+								{data && data.tags.map((i, num) => (
+									<p key={num} className='text-white font-bold text-sm'>
+										#
+										{i}
+									</p>
+								))}
 							</div>
 							<h1 className='mt-1.5 font-bold text-2xl text-white'>
 								{data && data.title}

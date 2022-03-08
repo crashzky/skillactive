@@ -10,12 +10,13 @@ import removeItemFromErrorsList from '../utils/removeItemFromErrorsList';
 import { GetStaticProps } from 'next';
 import { useMutation } from 'react-query';
 import { login } from '../shared/api/auth';
+import LoaderIcon from '../assets/loader.svg';
 
 const LoginPage = (): JSX.Element => {
 	const router = useRouter();
 	const [errorsList, setErrorsList] = useState([]);
 	
-	const { mutate, data, isError, error, isSuccess } = useMutation(login);
+	const { mutate, data, isError, isLoading, error, isSuccess } = useMutation(login);
 
 	useEffect(() => {
 		if(isSuccess) {
@@ -85,11 +86,15 @@ const LoginPage = (): JSX.Element => {
 							Забыли пароль?
 						</a>
 					</Link>
-					<Button
-						type='submit'
-						variant='primary'
-						label='Войти'
-						className='hidden lg:block' />
+					{isLoading ? (
+						<LoaderIcon className='h-16 ml-36 hidden lg:block' />
+					) : (
+						<Button
+							type='submit'
+							variant='primary'
+							label='Войти'
+							className='hidden lg:block' />
+					)}
 					<p className='hidden lg:block mt-5 font-semibold text-sm text-center'>
 						Ещё нет аккаунта?
 						{' '}
@@ -99,9 +104,13 @@ const LoginPage = (): JSX.Element => {
 							</a>
 						</Link>
 					</p>
-					<div className='lg:hidden fixed w-full bottom-5 left-0 px-4 text-right'>
-						<Button type='submit' variant='primary' label='Войти' />
-					</div>
+					{isLoading ? (
+						<LoaderIcon className='h-16 ml-36 mt-4 lg:hidden' />
+					) : (
+						<div className='lg:hidden fixed w-full bottom-5 left-0 px-4 text-right'>
+							<Button type='submit' variant='primary' label='Войти' />
+						</div>
+					)}
 				</form>
 			</MainLayout>
 		</>

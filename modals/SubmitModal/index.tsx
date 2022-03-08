@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -10,6 +10,8 @@ import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 import Props from './SubmitModal.props';
 
 import CrossIcon from '../../assets/cross.svg';
+import { useMutation } from 'react-query';
+import { postApplication } from '../../shared/api/applications';
 
 const SubmitModal = ({ className = '', ...props }: Props): JSX.Element => {
 	const router = useRouter();
@@ -17,6 +19,13 @@ const SubmitModal = ({ className = '', ...props }: Props): JSX.Element => {
 	const toggleShowModal = useModal((state) => state.toggleShowModal);
 	const [captchaSubmited, setCaptchaSubmited] = useState(false);
 	const [errorsList, setErrorsList] = useState([]);
+
+	const { mutate, isSuccess } = useMutation(postApplication);
+
+	useEffect(() => {
+		if(isSuccess)
+			router.push('/success');
+	}, [isSuccess, router]);
 
 	const formik = useFormik({
 		initialValues: {
@@ -37,7 +46,13 @@ const SubmitModal = ({ className = '', ...props }: Props): JSX.Element => {
 
 			if(!_errorsList.length) {
 				toggleShowModal();
-				router.push('/success');
+				mutate({
+					club: +router.query.id,
+					status: 'NEW',
+					name: values.name,
+					text: values.comment,
+					phone: values.phone,
+				});
 			}
 		},
 	});

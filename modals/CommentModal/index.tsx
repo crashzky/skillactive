@@ -41,7 +41,7 @@ const CommentModal = ({ className = '', ...props }: Props): JSX.Element => {
 				_errorsList.push('username');
 			if(!values.message)
 				_errorsList.push('message');
-			if(captchaSubmited)
+			if(!captchaSubmited)
 				_errorsList.push('recaptcha');
 
 			setErrorsList(_errorsList);

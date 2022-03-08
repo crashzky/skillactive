@@ -1,15 +1,14 @@
+import { GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useMutation, useQuery } from 'react-query';
+import SectionCard from '../../../components/SectionCard';
 import MainLayout from '../../../layouts/MainLayout';
 import withCheckAuthLayout from '../../../layouts/withCheckAuthLayout';
-import PlusIcon from '../../../assets/plus.svg';
-import { useRouter } from 'next/router';
-import SectionCard from '../../../components/SectionCard';
-import { GetStaticProps } from 'next';
-import { useMutation, useQuery } from 'react-query';
-import { getClubs } from '../../../shared/api/clubs';
-import { useEffect } from 'react';
 import { getCategories } from '../../../shared/api/categories';
+import { getClubs } from '../../../shared/api/clubs';
 
-const SectionsPage = (): JSX.Element => {
+const RequestsPage = (): JSX.Element => {
 	const router = useRouter();
 
 	const categories = useQuery('categories', getCategories);
@@ -20,21 +19,13 @@ const SectionsPage = (): JSX.Element => {
 			owned: true,
 		});
 	}, [mutate]);
-
+		
 	return (
 		<MainLayout showFooter={false}>
-			<div className='flex justify-between items-center mt-4'>
-				<h1 className='font-bold text-4xl'>
-					Занятия
-				</h1>
-				<button className='rounded-2.5xl p-3 bg-veryLightGrey' onClick={() => router.push('/lk/sections/new')}>
-					<PlusIcon />
-				</button>
-			</div>
-			<section className='mt-4'>
+			<section className='mt-6'>
 				{data && data.map((i, num) => (
 					<SectionCard
-						onClick={() => router.push('/lk/sections/' + i.id)}
+						onClick={() => router.push('/lk/requests/' + i.id)}
 						key={num}
 						className='mb-6 shadow-none'
 						title={i.title}
@@ -51,11 +42,11 @@ const SectionsPage = (): JSX.Element => {
 						reviewsCount={i.comments.length} />
 				))}
 			</section>
-		</MainLayout>	
+		</MainLayout>
 	);
 };
 
-export default withCheckAuthLayout(SectionsPage);
+export default withCheckAuthLayout(RequestsPage);
 
 export const getStaticProps: GetStaticProps = async () => {
 	return {

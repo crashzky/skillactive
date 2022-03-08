@@ -89,7 +89,7 @@ const SectionCard = ({ className = '', imageSrc, title, recordIsOpen, category, 
 							<StarIcon />
 						</div>
 						<p className='font-sm text-darkGrey'>
-							{`${rating ? rating.toFixed(1): 0} / 5 • ${reviewsCount} оценок`}
+							{`${reviewsCount} отзывов`}
 						</p>
 					</div>
 				</div>

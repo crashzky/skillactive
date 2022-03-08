@@ -23,9 +23,14 @@ interface IRegisterResponse {
 	email: string;
 }
 
+interface ICheckStaffResponse {
+	status: boolean;
+}
+
 export type {
 	ILoginRequest,
 	ILoginResponse,
 	IRegisterRequest,
 	IRegisterResponse,
+	ICheckStaffResponse,
 };

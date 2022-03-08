@@ -4,9 +4,13 @@ import withCheckAuthLayout from '../../layouts/withCheckAuthLayout';
 import Button from '../../components/Button';
 import { useRouter } from 'next/router';
 import { GetStaticProps } from 'next';
+import { useQuery } from 'react-query';
+import { checkStaff } from '../../shared/api/auth';
 
 const LKPage = (): JSX.Element => {
 	const router = useRouter();
+
+	const { isSuccess } = useQuery('check_staff', checkStaff);
 
 	return (
 		<MainLayout showFooter={false}>
@@ -34,16 +38,20 @@ const LKPage = (): JSX.Element => {
 					className='mt-5 text-black'
 					label='Заявки'
 					onClick={() => router.push('/lk/requests')} />
-				<Button
-					variant='veryLightGrey'
-					className='mt-5 text-black'
-					label='Все пользователи'
-					onClick={() => router.push('/lk/users')} />
-				<Button
-					variant='veryLightGrey'
-					className='mt-5 text-black'
-					label='Статьи'
-					onClick={() => router.push('/lk/articles')} />
+				{isSuccess && (
+					<>
+						<Button
+							variant='veryLightGrey'
+							className='mt-5 text-black'
+							label='Все пользователи'
+							onClick={() => router.push('/lk/users')} />
+						<Button
+							variant='veryLightGrey'
+							className='mt-5 text-black'
+							label='Статьи'
+							onClick={() => router.push('/lk/articles')} />
+					</>
+				)}
 			</div>
 		</MainLayout>
 	);

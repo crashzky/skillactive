@@ -29,9 +29,10 @@ const SectionIdPage = (): JSX.Element => {
 			images={['/DEV_ONLY.jpg']}
 			name={getClubMuttation.data && getClubMuttation.data.title}
 			recordingIsOpen={getClubMuttation.data && getClubMuttation.data.opened}
-			category='Футбол'
+			category={getClubMuttation.data && getClubMuttation.data.category}
 			description={getClubMuttation.data && getClubMuttation.data.description}
 			district='Центр'
+			address={getClubMuttation.data && getClubMuttation.data.address}
 			minAge={getClubMuttation.data && getClubMuttation.data.min_age}
 			maxAge={getClubMuttation.data && getClubMuttation.data.max_age}
 			timetables={[
@@ -67,6 +68,7 @@ const SectionIdPage = (): JSX.Element => {
 					gender: values.gender,
 					opened: values.recordingIsOpen,
 					images: [],
+					category: values.category,
 				});
 			}}
 			onDelete={() => deleteMutation.mutate({ id: +router.query.id })} />

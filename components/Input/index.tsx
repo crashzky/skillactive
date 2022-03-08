@@ -57,7 +57,7 @@ const Input = ({ className = '', variant = 'classic', isDanger, blurOnFocus, ...
 						type='date'
 						className='bg-transparent mt-px outline-none'
 						{...props}
-						value={format(props.value as any, 'yyyy-MM-dd')} />
+						value={props.value && format(props.value as any, 'yyyy-MM-dd')} />
 				</div>
 			);
 	}

@@ -18,6 +18,7 @@ interface Props {
 	value?: ISelectValue;
 	id?: string;
 	instanceId?: string;
+	isDanger?: boolean;
 }
 
 export default Props;

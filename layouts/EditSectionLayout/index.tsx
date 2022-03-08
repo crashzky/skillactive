@@ -2,7 +2,7 @@ import MainLayout from '../MainLayout';
 import Props from './EditSectionLayout.props';
 import TrashIcon from '../../assets/trash_red.svg';
 import InputImage from '../../components/InputImage';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import Input from '../../components/Input';
 import HorizontalMenu from '../../components/HorizontalMenu';
@@ -19,9 +19,10 @@ import { CREATE_SECTION_ERRORS, ADD_PRICE_ERRORS } from '../../shared/consts/cre
 import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 import LoaderIcon from '../../assets/loader.svg';
 import InputAddress from '../../components/InputAddress';
-import CATEGORIES from '../../shared/consts/categories';
 import YEKATERINBURG_DISTRICTS from '../../shared/consts/districts';
 import { GenderType } from '../../shared/types/clubs';
+import { useQuery } from 'react-query';
+import { getCategories } from '../../shared/api/categories';
 
 const EditSectionLayout = ({ images, name, recordingIsOpen, category, description, district, minAge, address,
 	maxAge, timetables, teachers, prices, gender, onSubmit, onDelete, isLoading, isError }: Props): JSX.Element => {
@@ -38,7 +39,7 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 
 	const [imageIds, setImageIds] = useState(images ? images : []);
 	const [recordingIsOpenValue, setRecordingIsOpenValue] = useState(+!recordingIsOpen);
-	const [categoryValue, setCategoryValue] = useState(category && { label: category, value: category });
+	const [categoryValue, setCategoryValue] = useState(category && { label: '', value: '' });
 	const [nameValue, setNameValue] = useState(name);
 	const [descriptionValue, setDescriptionValue] = useState(description);
 	const [districtValue, setDistrictValue] = useState(district && { label: district, value: district });
@@ -76,6 +77,15 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 		onSubmit: () => {},
 	});
 
+	const categoiesQuery = useQuery('categories', getCategories);
+
+	useEffect(() => {
+		if(categoiesQuery.data && category) {
+			const currentCategory = categoiesQuery.data.find((i) => i.id == category);
+			setCategoryValue({ label: currentCategory.name, value: category.toString() });
+		}
+	}, [categoiesQuery.data, setCategoryValue, category]);
+
 	const submitForm = () => {
 		const _errors = [];
 
@@ -104,7 +114,7 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 				name: nameValue,
 				description: descriptionValue,
 				recordingIsOpen: !recordingIsOpenValue,
-				category: categoryValue.value,
+				category: +categoryValue.value,
 				district: districtValue.value,
 				minAge: ageValues[0],
 				maxAge: ageValues[1],
@@ -172,13 +182,6 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 			removeItemFromErrorsList(setPriceErrors, 'prices');
 		}
 	};
-
-	let INPUT_CATEGORIES = [];
-	CATEGORIES.forEach((i) => {
-		i.items.forEach((j) => {
-			INPUT_CATEGORIES.push({ value: j.title, label: j.title });
-		});
-	});
 	
 	return (
 		<MainLayout showFooter={false} errorMessage={isError && 'Ой, что-то пошло не так. Попробуйте ещё раз позже'}>
@@ -220,6 +223,7 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 				id='category'
 				instanceId='category'
 				value={categoryValue}
+				isDanger={errorsList.includes('category')}
 				onChange={(newValue) => {
 					removeItemFromErrorsList(setErrorsList, 'category');
 					setCategoryValue(newValue as any);
@@ -227,7 +231,7 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 				placeholder='Выберите категорию'
 				noOptionsMessage={() => 'Ничего не найдено :('}
 				isSearchable
-				options={INPUT_CATEGORIES} />
+				options={categoiesQuery.data ? categoiesQuery.data.map((i) => ({ value: i.id, label: i.name })) : []} />
 			<Textarea
 				className='mt-6'
 				placeholder='Описание'
@@ -242,6 +246,7 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 				id='district'
 				instanceId='district'
 				value={districtValue}
+				isDanger={errorsList.includes('district')}
 				onChange={(newValue) => {
 					removeItemFromErrorsList(setErrorsList, 'district');
 					setDistrictValue(newValue as any);
@@ -253,6 +258,7 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 			<InputAddress
 				className='mt-6'
 				id='address'
+				isDanger={errorsList.includes('address')}
 				instanceId='address'
 				value={addressValue}
 				onChange={(newValue) => {
