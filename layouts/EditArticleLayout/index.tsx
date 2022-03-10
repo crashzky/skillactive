@@ -16,6 +16,7 @@ const EditArticleLayout = ({ images, title, content, tags, isAds, endAdsDate, on
 }: Props): JSX.Element => {
 	const isNewArticle = !images || !title || !content;
 
+	const [isSubmit, setIsSubmit] = useState(false);
 	const [errorsList, setErrorsList] = useState([]);
 	const [imageValues, setImageValues] = useState(images ? images : []);
 	const [tagsValue, setTagsValue] = useState(tags ? tags : []);
@@ -29,30 +30,33 @@ const EditArticleLayout = ({ images, title, content, tags, isAds, endAdsDate, on
 			content: content,
 		},
 		onSubmit: (values) => {
-			let _erors = [];
+			if(isSubmit) {
+				setIsSubmit(false);
+				let _erors = [];
 			
-			if(!imageValues.length)
-				_erors.push('images');
-			if(!values.title)
-				_erors.push('title');
-			if(!values.content)
-				_erors.push('content');
-			if(isAdsValue && !endAdsDateValue)
-				_erors.push('date');
-			
-			setErrorsList(_erors);
+				if(!imageValues.length)
+					_erors.push('images');
+				if(!values.title)
+					_erors.push('title');
+				if(!values.content)
+					_erors.push('content');
+				if(isAdsValue && !endAdsDateValue)
+					_erors.push('date');
+				
+				setErrorsList(_erors);
 
-			if(!_erors.length) {
-				onSubmit({
-					images: imageValues,
-					title: values.title,
-					content: values.content,
-					tags: tagsValue,
-					isAds: isAdsValue,
-					...(isAdsValue && {
-						endAdsDate: endAdsDateValue,
-					}),
-				});
+				if(!_erors.length) {
+					onSubmit({
+						images: imageValues,
+						title: values.title,
+						content: values.content,
+						tags: tagsValue,
+						isAds: isAdsValue,
+						...(isAdsValue && {
+							endAdsDate: endAdsDateValue,
+						}),
+					});
+				}
 			}
 		},
 	});
@@ -72,7 +76,7 @@ const EditArticleLayout = ({ images, title, content, tags, isAds, endAdsDate, on
 			<form onSubmit={formik.handleSubmit} className='mt-4'>
 				<InputImage
 					htmlId='images'
-					label='Загрузите фотографию обложки'
+					label='Загрузите фотографии обложки'
 					imageIds={imageValues}
 					setImageIds={(newValue) => {
 						removeItemFromErrorsList(setErrorsList, 'images');
@@ -144,6 +148,7 @@ const EditArticleLayout = ({ images, title, content, tags, isAds, endAdsDate, on
 					<LoaderIcon className='float-right h-16 mr-24 my-7' />
 				) : (
 					<Button
+						onClick={() => setIsSubmit(true)}
 						type='submit'
 						variant='primary'
 						className='my-7 lg:w-fit lg:px-28 lg:float-right'

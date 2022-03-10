@@ -47,7 +47,7 @@ const SearchLayout = ({ children }: Props): JSX.Element => {
 						</a>
 					</Link>
 				</div>
-				<div className='lg:flex flex-wrap gap-3'>
+				<div className='lg:flex flex-wrap gap-3 pb-5'>
 					{children}
 				</div>
 				<Button

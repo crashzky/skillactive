@@ -26,7 +26,10 @@ const InputTags = ({ className = '', tagsValue, setTagsValue, ...props }: Props)
 			</div>
 			<button
 				className='bg-primary rounded-r-2xl py-5 px-10'
-				onClick={onPushTag}
+				onClick={(e) => {
+					e.preventDefault();
+					onPushTag();
+				}}
 			>
 				<p className='text-white font-semibold text-sm'>
 					Добавить

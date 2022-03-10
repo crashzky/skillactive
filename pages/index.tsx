@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import { useQuery } from 'react-query';
 import ArticleCard from '../components/ArticleCard';
-import SearchLayout from '../layouts/SearchLayoyt';
+import SearchLayout from '../layouts/SearchLayout';
 import { getFeed } from '../shared/api/feed';
 
 const MainPage = (): JSX.Element => {
@@ -9,7 +9,12 @@ const MainPage = (): JSX.Element => {
 
 	return (
 		<SearchLayout>
-			{data && data.map((i, num) => (
+			{data && data.sort((a) => {
+				if(a.type == 'ARTICLE_SPONSORED' && (new Date(a.date)).getTime() >= (new Date(Date.now())).getTime())
+					return 1;
+				else
+					return -1;
+			}).map((i, num) => (
 				<ArticleCard
 					key={num}
 					title={i.title}

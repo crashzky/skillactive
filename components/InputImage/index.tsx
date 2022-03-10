@@ -20,6 +20,7 @@ const InputImage = ({ className = '', label, imageIds, setImageIds, isSingleImag
 			{imageIds.map((i, num) => (
 				<div key={num} className='relative h-[218px] w-[218px] rounded-2.5xl'>
 					<button
+						type='button'
 						className='absolute z-20 top-3 right-3 bg-veryLightGrey rounded-xl p-3'
 						onClick={() => {
 							let _imageIds = imageIds;

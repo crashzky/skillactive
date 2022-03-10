@@ -9,7 +9,12 @@ const ArticlesPage = (): JSX.Element => {
 
 	return (
 		<FeedLayout>
-			{data && data.map((i, num) => (
+			{data && data.sort((a) => {
+				if(a.type == 'ARTICLE_SPONSORED' && (new Date(a.date)).getTime() >= (new Date(Date.now())).getTime())
+					return 1;
+				else
+					return -1;
+			}).map((i, num) => (
 				<ArticleCard
 					key={num}
 					title={i.title}
