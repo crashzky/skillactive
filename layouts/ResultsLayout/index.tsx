@@ -19,7 +19,7 @@ import SearchPanel from '../../components/SearchPanel';
 import DropdownFilter from '../../components/DropdownFilter';
 import useSection from '../../hooks/useSection';
 
-const ResultsLayout = ({ children }: Props): JSX.Element => {
+const ResultsLayout = ({ children, cords = [] }: Props): JSX.Element => {
 	const { query } = useRouter();
 	const [selectedMenuItem, setSelectedMenuItem] = useState(0);
 	const [windowWidth, setWindowWidth] = useState(0);
@@ -98,20 +98,25 @@ const ResultsLayout = ({ children }: Props): JSX.Element => {
 									<YMaps>
 										<Map
 											className='w-full min-h-[calc(100vh-200px)] hidden lg:block'
-											defaultState={{ center: [55.75, 37.57], zoom: 9 }}
+											defaultState={{
+												center: [
+													Object.keys(cords).reduce((prev, curr) => prev + cords[curr][0], 0)
+														/ Object.keys(cords).length,
+													Object.keys(cords).reduce((prev, curr) => prev + cords[curr][1], 0)
+														/ Object.keys(cords).length,
+												],
+												zoom: 13,
+											}}
 										>
-											<Placemark 
-												options={{
-													iconColor: selectedSection === 0 ? 'red' : '#1E98FF',
-												}}
-												geometry={[55.75, 37.57]}
-												onClick={() => setSelectedSection(0)} />
-											<Placemark 
-												options={{
-													iconColor: selectedSection === 5 ? 'red' : '#1E98FF',
-												}}
-												geometry={[55.75, 37.60]}
-												onClick={() => setSelectedSection(5)} />
+											{Object.keys(cords).map((i, num) => (
+												<Placemark 
+													key={num}
+													options={{
+														iconColor: selectedSection === i ? 'red' : '#1E98FF',
+													}}
+													geometry={[cords[i][0], cords[i][1]]}
+													onClick={() => setSelectedSection(i)} />
+											))}
 										</Map>
 									</YMaps>
 								</section>

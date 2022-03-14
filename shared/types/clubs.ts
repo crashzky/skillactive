@@ -1,20 +1,12 @@
 import { ICommentResponse } from './comment';
 
 type GenderType = 'MALE' | 'FEMALE' | 'BOTH';
+type ContactType = 'EMAIL' | 'PHONE' | 'SITE' | 'VK' | 'INSTAGRAM' | 'OTHER';
 
-interface IClubCardResponse {
+interface IClubCardResponse extends ICreateClubCardRequest {
 	id: number;
 	searchable_title: string;
 	author: number;
-	title: string;
-	address: string;
-	description: string;
-	price?: number;
-	min_age: number;
-	max_age: number;
-	gender?: GenderType;
-	opened?: boolean;
-	images?: string[];
 	comments: ICommentResponse[];
 	category: number;
 }
@@ -27,13 +19,24 @@ interface IClubsCardRequest {
 	owned?: boolean;
 	title?: string;
 	categories?: string;
+	day_of_the_week?: string;
+	districts?: string;
+	free?: boolean;
+	time_start?: string;
+	time_end?: string;
 }
 
 interface ICreateClubCardRequest {
 	title: string;
 	address: string;
+	latitude: string;
+	longitude: string;
 	description: string;
-	price: number;
+	price: IPrice[];
+	tutors: ITutor[];
+	timetable: ITimetable[];
+	contacts: IContact[];
+	district: number;
 	min_age: number;
 	max_age: number;
 	gender: GenderType;
@@ -42,6 +45,29 @@ interface ICreateClubCardRequest {
 	category: number;
 }
 
+interface IPrice {
+	name: string;
+	value: number;
+}
+
+interface ITutor {
+	name: string;
+	description: string;
+	photo: string;
+	phone: string;
+}
+
+interface IContact {
+	type: ContactType;
+	value: string;
+}
+
+interface ITimetable {
+	day_of_the_week: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+	start_time: string;
+	end_time: string;
+}
+ 
 interface IClubByIdRequest {
 	id: number;
 }
@@ -52,9 +78,11 @@ interface IPutClubRequest extends ICreateClubCardRequest {
 
 export type {
 	GenderType,
+	ContactType,
 	IClubCardResponse,
 	IClubsCardRequest,
 	ICreateClubCardRequest,
 	IClubByIdRequest,
 	IPutClubRequest,
+	IContact,
 };

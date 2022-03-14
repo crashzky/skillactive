@@ -27,10 +27,16 @@ const CREATE_ARTICLE_ERRORS = {
 	date: 'Укажите дату окончания действия рекламы',
 };
 
+const ADD_CONTACT_ERRORS = {
+	value: 'Укажите значение контакта',
+	type: 'Укажите тип контакта',
+};
+
 export {
 	CREATE_SECTION_ERRORS,
 	ADD_TEACHER_ERRORS,
 	ADD_PRICE_ERRORS,
 	CREATE_ARTICLE_ERRORS,
+	ADD_CONTACT_ERRORS,
 };
 

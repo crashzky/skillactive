@@ -36,6 +36,7 @@ const Comment = ({ title, createdTime, message, rating, commentRating, answers, 
 			<p className='mt-1.5 mb-px'>
 				{message}
 			</p>
+			{/*
 			<div className='mt-px grid items-center grid-cols-[repeat(3,auto)_1fr_auto] gap-1.5'>
 				<RatingArrowIcon className='rotate-180 fill-green' />
 				<RatingArrowIcon />
@@ -53,6 +54,16 @@ const Comment = ({ title, createdTime, message, rating, commentRating, answers, 
 					ответить
 				</button>
 			</div>
+			*/}
+			<button
+				onClick={() => {
+					toggleShowModal();
+					setReplyTo(commentId);
+				}}
+				className='font-semibold text-sm text-primary float-right'
+			>
+				ответить
+			</button>
 			{answers.map((i, num) => {
 				const intervalToCurrentDate = intervalToDuration({
 					start: i.createdTime,

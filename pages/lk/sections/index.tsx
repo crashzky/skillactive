@@ -8,6 +8,7 @@ import { useMutation, useQuery } from 'react-query';
 import { getClubs } from '../../../shared/api/clubs';
 import { useEffect } from 'react';
 import { getCategories } from '../../../shared/api/categories';
+import { WEEK_DAYS } from '../../../shared/consts/filter';
 
 const SectionsPage = (): JSX.Element => {
 	const router = useRouter();
@@ -32,24 +33,35 @@ const SectionsPage = (): JSX.Element => {
 				</button>
 			</div>
 			<section className='mt-4'>
-				{data && data.map((i, num) => (
-					<SectionCard
-						onClick={() => router.push('/lk/sections/' + i.id)}
-						key={num}
-						className='mb-6 shadow-none'
-						title={i.title}
-						imageSrc='/DEV_ONLY.jpg'
-						category={categories.data && categories.data.find((j) => j.id == i.category).name}
-						address={i.address}
-						recordIsOpen={i.opened}
-						minAge={i.min_age}
-						maxAge={i.max_age}
-						minHour={18}
-						maxHour={20}
-						days={['Вт', 'Чт', 'Сб']}
-						rating={+(i.comments.reduce((prev, curr) => prev + curr.rating, 0) / i.comments.length).toFixed(1)}
-						reviewsCount={i.comments.length} />
-				))}
+				{data && data.map((i, num) => {
+					let _days = [];
+					i.timetable.forEach((i) => {
+						if(!_days.includes(WEEK_DAYS[i.day_of_the_week - 1]))
+							_days.push(WEEK_DAYS[i.day_of_the_week - 1]);
+					});
+
+					return (
+						<SectionCard
+							onClick={() => router.push('/lk/sections/' + i.id)}
+							key={num}
+							className='mb-6 shadow-none'
+							title={i.title}
+							imageSrc='/DEV_ONLY.jpg'
+							category={categories.data && categories.data.find((j) => j.id == i.category).name}
+							address={i.address}
+							recordIsOpen={i.opened}
+							minAge={i.min_age}
+							maxAge={i.max_age}
+							minHour={+i.timetable.sort((a, b) =>
+								+a.start_time.slice(0, 2) < +b.start_time.slice(0, 2) ? -1 : 1)[0]
+								.start_time.slice(0, 2)}
+							maxHour={+i.timetable.sort((a, b) => +a.end_time.slice(0, 2) > +b.end_time.slice(0, 2) ? -1 : 1)[0]
+								.end_time.slice(0, 2)}
+							days={_days}
+							rating={+(i.comments.reduce((prev, curr) => prev + curr.rating, 0) / i.comments.length).toFixed(1)}
+							reviewsCount={i.comments.length} />
+					);
+				})}
 			</section>
 		</MainLayout>	
 	);

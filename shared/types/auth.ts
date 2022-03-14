@@ -27,10 +27,22 @@ interface ICheckStaffResponse {
 	status: boolean;
 }
 
+interface IRestorationRequest {
+	email: string;
+}
+
+interface IRestorePasswordRequest {
+	uid: string;
+	token: string;
+	new_password: string;
+}
+
 export type {
 	ILoginRequest,
 	ILoginResponse,
 	IRegisterRequest,
 	IRegisterResponse,
 	ICheckStaffResponse,
+	IRestorationRequest,
+	IRestorePasswordRequest,
 };

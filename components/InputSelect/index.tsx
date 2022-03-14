@@ -1,7 +1,7 @@
 import Select from 'react-select';
 import Props from './InputSelect.props';
 
-const InputSelect = ({ isDanger, ...props }: Props): JSX.Element => {
+const InputSelect = ({ isDanger, isSearchable = false, ...props }: Props): JSX.Element => {
 	const borderControlStyle = isDanger ? {
 		border: '2px red solid',
 	} : {
@@ -29,6 +29,7 @@ const InputSelect = ({ isDanger, ...props }: Props): JSX.Element => {
 					zIndex: 20,
 				}),
 			}}
+			isSearchable={isSearchable}
 			{...props} />
 	);
 };

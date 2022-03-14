@@ -2,10 +2,10 @@ import { useState } from 'react';
 import Props from './InputTimetable.props';
 import { Range, getTrackBackground } from 'react-range';
 import Button from '../Button';
+import { WEEK_DAYS } from '../../shared/consts/filter';
 
 const InputTimetable = ({ className = '', weeks, weeksOnChange, hours, hourseOnChange, onDelete,
 	...props }: Props): JSX.Element => {
-	const WEEK_DAYS = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 	const [key, setKey]= useState(false);
 
 	const [localHours, setLocalHours] = useState(hours);

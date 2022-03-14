@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { ICheckStaffResponse, ILoginRequest, ILoginResponse, IRegisterRequest, IRegisterResponse } from '../types/auth';
+import { ICheckStaffResponse, ILoginRequest, ILoginResponse, IRegisterRequest, IRegisterResponse,
+	IRestorationRequest, IRestorePasswordRequest } from '../types/auth';
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -21,8 +22,18 @@ const checkStaff = (): Promise<ICheckStaffResponse> => {
 	}).then((res) => res.data);
 };
 
+const sendRestorationRequest = (data: IRestorationRequest): Promise<IRestorationRequest> => {
+	return axios.post('/users/restoration_request/', data).then((res) => res.data);
+};
+
+const restorePassword = (data: IRestorePasswordRequest): Promise<object> => {
+	return axios.post('/users/restore/', data).then((res) => res.data);
+};
+
 export {
 	login,
 	register,
 	checkStaff,
+	sendRestorationRequest,
+	restorePassword,
 };

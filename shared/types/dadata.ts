@@ -142,6 +142,7 @@ interface ISuggestion {
 }
 
 export type {
+	ISuggestion,
 	ISuggestionsRequest,
 	ISuggestionsResponse,
 };

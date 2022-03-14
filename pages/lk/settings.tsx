@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import MainLayout from '../../layouts/MainLayout';
@@ -11,6 +11,10 @@ import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 const SettingsPage = (): JSX.Element => {
 	const router = useRouter();
 	const [errorsList, setErrorsList] = useState([]);
+
+	useEffect(() => {
+		router.push('/lk');
+	}, [router]);
 
 	const formik = useFormik({
 		initialValues: {

@@ -24,6 +24,9 @@ import { useMutation, useQuery } from 'react-query';
 import { getClubById } from '../../shared/api/clubs';
 import useComment from '../../hooks/useComment';
 import { getCategories } from '../../shared/api/categories';
+import TimetableCard from '../../components/TimetableCard';
+import ContactCard from '../../components/ContactCard';
+import { WEEK_DAYS } from '../../shared/consts/filter';
 
 const SectionInfoPage = (): JSX.Element => {
 	const [screenWidth, setScreenWidth] = useState(0);
@@ -59,6 +62,34 @@ const SectionInfoPage = (): JSX.Element => {
 			return null;
 	}
 
+	let _timetables = [];
+	if(data) {
+		data.timetable.forEach((i) => {
+			if(_timetables.find((j) => j.minTime === +i.start_time.slice(0, 2) && j.maxTime === +i.end_time.slice(0, 2))) {
+				const searchElement = _timetables.find((j) => 
+					j.minTime == +i.start_time.slice(0, 2) && j.maxTime == +i.end_time.slice(0, 2)
+				);
+				const index = _timetables.indexOf(searchElement);
+				_timetables[index].days = [..._timetables[index].days, i.day_of_the_week - 1];
+			}
+			else {
+				_timetables.push({
+					days: [i.day_of_the_week - 1],
+					minTime: +i.start_time.slice(0, 2),
+					maxTime: +i.end_time.slice(0, 2),
+				});
+			}
+		});
+	}
+
+	let _days = [];
+	if(data) {
+		data.timetable.forEach((i) => {
+			if(!_days.includes(WEEK_DAYS[i.day_of_the_week - 1]))
+				_days.push(WEEK_DAYS[i.day_of_the_week - 1]);
+		});
+	}
+ 
 	return (
 		<WithModalLayout modal={getModal()}>
 			<MainLayout addPadding={false}>
@@ -144,7 +175,19 @@ const SectionInfoPage = (): JSX.Element => {
 										<ClockIcon />
 									</div>
 									<p className='font-sm text-darkGrey'>
-										с 18:00 до 20:00 - Вт, Чт, Сб
+										с
+										{' '}
+										{data && data.timetable.sort((a, b) => 
+											+a.start_time.slice(0, 2) < +b.start_time.slice(0, 2) ? -1 : 1)[0]
+											.start_time.slice(0, 2)}
+										:00 до
+										{' '}
+										{data && data.timetable.sort((a, b) => 
+											+a.end_time.slice(0, 2) > +b.end_time.slice(0, 2) ? -1 : 1)[0]
+											.end_time.slice(0, 2)}
+										:00 -
+										{' '}
+										{_days.join(', ')}
 									</p>
 								</div>
 								<div className='grid grid-cols-[30px_1fr] items-center gap-2 mt-2.5'>
@@ -175,53 +218,79 @@ const SectionInfoPage = (): JSX.Element => {
 								Преподаватели
 								{' '}
 								<span className='text-primary'>
-									(2)
+									(
+									{data && data.tutors.length}
+									)
 								</span>
 							</h2>
 							<div className='lg:grid grid-flow-col gap-2.5 lg:w-fit'>
-								<TeacherCard
-									className='mb-2.5'
-									imageSrc='/DEV_ONLY.jpg'
-									title='Артем Исмагилов Тагирович'
-									description='Тренер по футболу'
-									phone='+7 (922) 603-66-43' />
-								<TeacherCard
-									imageSrc='/DEV_ONLY.jpg'
-									title='Алена Мусина Дмитриевна'
-									description='Тренер по футболу'
-									phone='+7 (922) 603-66-43' />
+								{data && data.tutors.map((i, num) => (
+									<TeacherCard
+										key={num}
+										className='mb-2.5'
+										imageSrc={i.photo}
+										title={i.name}
+										description={i.description}
+										phone={i.phone} />
+								))}
+							</div>
+						</section>
+						<section>
+							<h2 className='mt-5 mb-2.5 font-bold text-xl '>
+								Расписание
+							</h2>
+							<div className='lg:grid grid-flow-col gap-2.5 lg:w-fit mb-5'>
+								{_timetables.map((i, num) => (
+									<TimetableCard
+										key={num}
+										className='mb-2.5'
+										days={i.days}
+										minTime={i.minTime}
+										maxTime={i.maxTime} />
+								))}
 							</div>
 						</section>
 						<section>
 							<h2 className='mt-5 mb-2.5 font-bold text-xl '>
 								Занятие на карте
 							</h2>
-							<YMaps>
-								<Map
-									className='mt-4 w-full h-44 lg:h-[322px] rounded'
-									defaultState={{ center: [55.75, 37.57], zoom: 9 }}
-								>
-									<Placemark geometry={[55.75, 37.57]} />
-								</Map>
-							</YMaps>
+							{data && (
+								<YMaps>
+									<Map
+										className='mt-4 w-full h-44 lg:h-[322px] rounded'
+										defaultState={{ center: [+data.latitude, +data.longitude], zoom: 15 }}
+									>
+										<Placemark geometry={[+data.latitude, +data.longitude]} />
+									</Map>
+								</YMaps>
+							)}
 						</section>
 						<section>
 							<h2 className='mt-5 mb-2.5 font-bold text-xl '>
 								Цены
 							</h2>
 							<div className='lg:grid grid-flow-col gap-2.5 lg:w-fit mb-5'>
-								<PriceCard
-									className='mb-2.5'
-									title='Первое занятие'
-									price={0} />
-								<PriceCard
-									className='mb-2.5'
-									title='Абонемент на 8 занятий, на месяц, 2 раза в неделю'
-									price={2500} />
-								<PriceCard
-									className='mb-5'
-									title='Абонемент на 16 занятий, на 2 месяца, 2 раза в неделю'
-									price={4700} />
+								{data && data.price.map((i, num) => (
+									<PriceCard
+										key={num}
+										className='mb-2.5'
+										title={i.name}
+										price={i.value} />
+								))}
+							</div>
+						</section>
+						<section>
+							<h2 className='mt-5 mb-2.5 font-bold text-xl '>
+								Контакты
+							</h2>
+							<div className='lg:grid grid-flow-col gap-2.5 lg:w-fit mb-5'>
+								{data && data.contacts.map((i, num) => (
+									<ContactCard
+										key={num}
+										className='mb-2.5'
+										contactType={i.type}
+										title={i.value} />
+								))}
 							</div>
 						</section>
 						<section>

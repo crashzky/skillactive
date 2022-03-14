@@ -8,9 +8,9 @@ import Button from '../../components/Button';
 import useModal from '../../hooks/useModal';
 import { useRouter } from 'next/router';
 import { ISelectValue } from '../../components/InputSelect/InputSelect.props';
-import YEKATERINBURG_DISTRICTS from '../../shared/consts/districts';
 import { useQuery } from 'react-query';
 import { getCategories } from '../../shared/api/categories';
+import { getDistricts } from '../../shared/api/districts';
 
 const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 	const toggleShowFilter = useModal((state) => state.toggleShowFilter);
@@ -26,29 +26,42 @@ const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 
 	const router = useRouter();
 
-	const { data } = useQuery('categories', getCategories);
+	const categoriesQuery = useQuery('categories', getCategories);
+	const distrcitsQuery = useQuery('distrcits', getDistricts);
 
 	useEffect(() => {
-		const { price_type, category, gender, age, district, weeks, hours } = router.query;
-
-		const currentCategory = (category && data) && data.find((i) => i.id === +category);
+		const { price_type, gender, age, weeks, hours } = router.query;
 
 		setPriceType(+price_type);
-		setCategory(currentCategory && { value: currentCategory.id.toString(), label: currentCategory.name });
 		setGender(gender && { value: gender as string, label: gender as string });
 		setAge(age ? +age : 10);
-		setDistrict(district && { value: district as string, label: district as string });
 		setWeeks(weeks ? JSON.parse(weeks as string) : []);
 		setHours(hours ? JSON.parse(hours as string) : [14, 16]);
 
 		setShowTranslate(false);
-	}, [router, data]);
+	}, [router]);
+
+	useEffect(() => {
+		const { category } = router.query;
+		
+		const currentCategory = (category && categoriesQuery.data) && categoriesQuery.data.find((i) => i.id === +category);
+
+		setCategory(currentCategory && { value: currentCategory.id.toString(), label: currentCategory.name });
+	}, [router, categoriesQuery.data]);
+
+	useEffect(() => {
+		const { district } = router.query;
+		
+		const currentDistrcit = (district && distrcitsQuery.data) && distrcitsQuery.data.find((i) => i.id === +district);
+
+		setDistrict(currentDistrcit && { value: currentDistrcit.id.toString(), label: currentDistrcit.name });
+	}, [router, distrcitsQuery.data]);
 
 	const onClick = () => {
 		const withCategory = category ? { category: category.value } : {};
 		const withGender = gender ? { gender: gender.value } : {};
 		const withDistrict = district ? { district: district.value } : {};
-		const withWeeks = weeks ? { weeks: JSON.stringify(weeks) } : {};
+		const withWeeks = weeks && weeks.length ? { weeks: JSON.stringify(weeks) } : {};
 		const withHours = hours ? { hours: JSON.stringify(hours) } : {};
 
 		router.push({
@@ -104,7 +117,7 @@ const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 					value={category}
 					onChange={setCategory}
 					noOptionsMessage={() => 'Мы ничего не нашли :('}
-					options={data && data.map((i) => ({ label: i.name, value: i.id }))} />
+					options={categoriesQuery.data && categoriesQuery.data.map((i) => ({ label: i.name, value: i.id }))} />
 				<InputSelect
 					className='mt-10'
 					placeholder='Пол'
@@ -145,7 +158,7 @@ const Filter = ({ className = '', ...props }: Props): JSX.Element => {
 					placeholder='Микрорайон'
 					value={district}
 					onChange={setDistrict}
-					options={YEKATERINBURG_DISTRICTS.map((i) => ({ value: i, label: i }))} />
+					options={distrcitsQuery && distrcitsQuery.data.map((i) => ({ value: i.id, label: i.name }))} />
 				<InputTimetable
 					className='mt-10'
 					weeks={weeks}

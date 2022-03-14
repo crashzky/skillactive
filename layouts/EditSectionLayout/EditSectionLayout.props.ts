@@ -1,4 +1,4 @@
-import { GenderType } from '../../shared/types/clubs';
+import { GenderType, IContact } from '../../shared/types/clubs';
 
 interface Props {
 	images?: string[];
@@ -6,7 +6,7 @@ interface Props {
 	recordingIsOpen?: boolean;
 	category?: number;
 	description?: string;
-	district?: string;
+	district?: number;
 	minAge?: number;
 	maxAge?: number;
 	address?: string;
@@ -14,17 +14,21 @@ interface Props {
 	teachers?: ITeacher[];
 	prices?: IPrice[];
 	gender?: GenderType,
+	contacts?: IContact[];
+	latitude?: string;
+	longitude?: string;
 	onSubmit: (values: {
 		images: string[];
 		name: string;
 		recordingIsOpen: boolean;
 		category: number;
 		description: string;
-		district: string;
+		district: number;
 		minAge: number;
 		maxAge: number;
 		timetables: ITimetable[];
 		teachers: ITeacher[];
+		contacts: IContact[];
 		prices: IPrice[];
 		address: string;
 		gender: GenderType;

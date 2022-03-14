@@ -10,22 +10,25 @@ import InputSelect from '../../components/InputSelect';
 import Textarea from '../../components/Textarea';
 import { getTrackBackground, Range } from 'react-range';
 import InputTimetable from '../../components/InputTimetable';
-
-import PlusIcon from '../../assets/plus.svg';
 import TeacherCard from '../../components/TeacherCard';
 import PriceCard from '../../components/PriceCard';
 import Button from '../../components/Button';
-import { CREATE_SECTION_ERRORS, ADD_PRICE_ERRORS } from '../../shared/consts/createErrors';
+import { CREATE_SECTION_ERRORS, ADD_PRICE_ERRORS, ADD_CONTACT_ERRORS } from '../../shared/consts/createErrors';
 import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
-import LoaderIcon from '../../assets/loader.svg';
 import InputAddress from '../../components/InputAddress';
-import YEKATERINBURG_DISTRICTS from '../../shared/consts/districts';
 import { GenderType } from '../../shared/types/clubs';
 import { useQuery } from 'react-query';
 import { getCategories } from '../../shared/api/categories';
+import ContactCard from '../../components/ContactCard';
+import useAddress from '../../hooks/useAddress';
+import { getDistricts } from '../../shared/api/districts';
+
+import PlusIcon from '../../assets/plus.svg';
+import LoaderIcon from '../../assets/loader.svg';
 
 const EditSectionLayout = ({ images, name, recordingIsOpen, category, description, district, minAge, address,
-	maxAge, timetables, teachers, prices, gender, onSubmit, onDelete, isLoading, isError }: Props): JSX.Element => {
+	maxAge, timetables, teachers, prices, gender, onSubmit, onDelete, isLoading, isError, contacts,
+	latitude, longitude }: Props): JSX.Element => {
 	const [errorsList, setErrorsList] = useState([]);
 
 	const isNewManager = !images && !name && !category && !description && !district
@@ -33,16 +36,20 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 
 	const GENDERS: GenderType[] = ['MALE', 'FEMALE', 'BOTH'];
 
+	const setLatitude = useAddress((state) => state.setLatitude);
+	const setLongitude = useAddress((state) => state.setLongitude);
+
 	const [timetablesKey, setTimetablesKey] = useState(false);
 	const [teacherKey, setTeacherKey] = useState(false);
 	const [priceKey, setPriceKey] = useState(false);
+	const [contactsKey, setContactsKey] = useState(false);
 
 	const [imageIds, setImageIds] = useState(images ? images : []);
 	const [recordingIsOpenValue, setRecordingIsOpenValue] = useState(+!recordingIsOpen);
 	const [categoryValue, setCategoryValue] = useState(category && { label: '', value: '' });
 	const [nameValue, setNameValue] = useState(name);
 	const [descriptionValue, setDescriptionValue] = useState(description);
-	const [districtValue, setDistrictValue] = useState(district && { label: district, value: district });
+	const [districtValue, setDistrictValue] = useState(district && { label: '', value: '' });
 	const [ageValues, setAgeValues] = useState(minAge && maxAge ? [minAge, maxAge] : [7, 13]);
 	const [addressValue, setAddressValue] = useState(address && { label: address, value: address });
 	const [genderValue, setGenderValue] = useState(gender && GENDERS.indexOf(gender));
@@ -77,7 +84,25 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 		onSubmit: () => {},
 	});
 
+	const [contactsErrors, setContactsErrors] = useState([]);
+	const [contactsValues, setContactsValues] = useState(contacts ? contacts : []);
+	const [contactsType, setContactsType] = useState();
+	const contactsFormik = useFormik({
+		initialValues: {
+			value: null,
+		},
+		onSubmit: () => {},
+	});
+
 	const categoiesQuery = useQuery('categories', getCategories);
+	const districtsQuery = useQuery('districts', getDistricts);
+
+	useEffect(() => {
+		if(latitude && longitude) {
+			setLatitude(latitude);
+			setLongitude(longitude);
+		}
+	}, []);
 
 	useEffect(() => {
 		if(categoiesQuery.data && category) {
@@ -85,6 +110,13 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 			setCategoryValue({ label: currentCategory.name, value: category.toString() });
 		}
 	}, [categoiesQuery.data, setCategoryValue, category]);
+
+	useEffect(() => {
+		if(districtsQuery.data && district) {
+			const currentDistrcit = districtsQuery.data.find((i) => i.id == district);
+			setDistrictValue({ label: currentDistrcit.name, value: currentDistrcit.id.toString() });
+		}
+	}, [districtsQuery.data, setDistrictValue, district]);
 
 	const submitForm = () => {
 		const _errors = [];
@@ -115,14 +147,15 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 				description: descriptionValue,
 				recordingIsOpen: !recordingIsOpenValue,
 				category: +categoryValue.value,
-				district: districtValue.value,
+				district: +districtValue.value,
 				minAge: ageValues[0],
 				maxAge: ageValues[1],
 				timetables: timetableValues,
-				teachers: teacherValues,
+				teachers: teacherValues.map((i) => ({ ...i, image: 'http://localhost:3000' + i.image })),
 				prices: priceValues,
 				address: addressValue.value,
 				gender: GENDERS[genderValue],
+				contacts: contactsValues,
 			});
 		}
 	};
@@ -179,7 +212,32 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 			setPriceValues(_prev);
 			setPriceKey(!priceKey);
 			priceFormik.resetForm();
-			removeItemFromErrorsList(setPriceErrors, 'prices');
+			removeItemFromErrorsList(setErrorsList, 'prices');
+		}
+	};
+
+	const addContact = () => {
+		let _errorsList = [];
+
+		setContactsErrors(_errorsList);
+
+		if(!contactsFormik.values.value)
+			_errorsList.push('value');
+		if(!contactsType)
+			_errorsList.push('type');
+		
+		if(!_errorsList.length) {
+			let _prev = contactsValues;
+
+			_prev.push({
+				type: (contactsType as any).value,
+				value: contactsFormik.values.value,
+			});
+	
+			setContactsValues(_prev);
+			setContactsKey(!priceKey);
+			contactsFormik.resetForm();
+			setContactsType(null);
 		}
 	};
 	
@@ -254,7 +312,7 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 				placeholder='Выберите микрорайон'
 				isSearchable
 				noOptionsMessage={() => 'Ничего не найдено :('}
-				options={YEKATERINBURG_DISTRICTS.map((i) => ({ value: i, label: i }))} />
+				options={districtsQuery.data && districtsQuery.data.map((i) => ({ label: i.name, value: i.id }))} />
 			<InputAddress
 				className='mt-6'
 				id='address'
@@ -525,6 +583,74 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 					onChange={(e) => {
 						removeItemFromErrorsList(setPriceErrors, 'count');
 						priceFormik.handleChange(e);
+					}} />
+			</form>
+			<div className='flex justify-between items-center mt-10 mb-5'>
+				<h2 className='font-bold text-2xl'>
+					Контакты
+					{' '}
+					<span className='text-primary'>
+						(
+						{contactsValues.length}
+						)
+					</span>
+				</h2>
+				<button
+					className='p-3 bg-veryLightGrey rounded-xl'
+					onClick={addContact}
+				>
+					<PlusIcon />
+				</button>
+			</div>
+			{contactsErrors.map((i, num) => (
+				<p key={num} className='text-red font-semibold text-center mb-3'>
+					{ADD_CONTACT_ERRORS[i]}
+				</p>
+			))}
+			<section key={contactsKey.toString() + '_contacts'}>
+				{contactsValues.map((i, num) => (
+					<ContactCard
+						key={num}
+						isShortCard
+						contactType={i.type}
+						title={i.value}
+						onDelete={() => {
+							let _prev = contactsValues;
+							_prev.splice(num, 1);
+
+							setContactsValues(_prev);
+							setContactsKey(!priceKey);
+						}} />
+				))}
+			</section>
+			<form onSubmit={contactsFormik.handleSubmit} className='mb-5'>
+				<InputSelect
+					id='contacts'
+					instanceId='contacts'
+					value={contactsType}
+					isDanger={contactsErrors.includes('type')}
+					onChange={(newValue) => {
+						removeItemFromErrorsList(setContactsErrors, 'type');
+						setContactsType(newValue as any);
+					}}
+					options={[
+						{ value: 'EMAIL', label: 'Email' },
+						{ value: 'INSTAGRAM', label: 'Instagram' },
+						{ value: 'PHONE', label: 'Телефон' },
+						{ value: 'VK', label: 'Вконтакте' },
+						{ value: 'SITE', label: 'Сайт' },
+					]}
+					placeholder='Тип'
+					noOptionsMessage={() => 'Ничего не найдено :('} />
+				<Input
+					className='mt-5'
+					name='value'
+					placeholder='Наименование'
+					isDanger={contactsErrors.includes('value')}
+					value={contactsFormik.values.value}
+					onChange={(e) => {
+						removeItemFromErrorsList(setContactsErrors, 'value');
+						contactsFormik.handleChange(e);
 					}} />
 			</form>
 			<div className='mb-24'>

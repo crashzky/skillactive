@@ -1,19 +1,33 @@
 import { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import Select from 'react-select';
+import useAddress from '../../hooks/useAddress';
 import { getSuggestions } from '../../shared/api/dadata';
+import { ISuggestion } from '../../shared/types/dadata';
 import { ISelectValue } from '../InputSelect/InputSelect.props';
 import Props from './InputAddress';
 
-const InputAddress = ({ isDanger, ...props }: Props): JSX.Element => {
+const InputAddress = ({ isDanger, onChange, ...props }: Props): JSX.Element => {
 	const [searchTimeout, setSearchTimeout] = useState(null);
 	const [options, setOptions] = useState<ISelectValue[]>([]);
+	const [suggestions, setSuggestions] = useState<ISuggestion[]>([]);
+
+	const setLatitude = useAddress((state) => state.setLatitude);
+	const setLongitude = useAddress((state) => state.setLongitude);
 	
 	const { mutate, data } = useMutation(getSuggestions);
 
 	useEffect(() => {
-		if(data && data.suggestions.length)
-			setOptions(data.suggestions.map((i) => ({ value: i.unrestricted_value, label: i.value })));
+		if(data && data.suggestions.length) {
+			setOptions(data.suggestions.map((i) => (
+				{
+					value: i.unrestricted_value,
+					label: i.value,
+				}
+			)));
+
+			setSuggestions(data.suggestions);
+		}
 	}, [data]);
 
 	const onInputChange = (value: string) => {
@@ -60,6 +74,11 @@ const InputAddress = ({ isDanger, ...props }: Props): JSX.Element => {
 			}}
 			onInputChange={onInputChange}
 			options={options}
+			onChange={(newValue, actionMeta) => {	
+				setLatitude(suggestions.find((i) => i.unrestricted_value == newValue.value).data.geo_lat.toString());
+				setLongitude(suggestions.find((i) => i.unrestricted_value == newValue.value).data.geo_lon.toString());
+				onChange(newValue, actionMeta);
+			}}
 			noOptionsMessage={() => 'Начните вводить адрес'}
 			{...props} />
 	);

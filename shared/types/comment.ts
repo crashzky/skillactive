@@ -29,7 +29,13 @@ interface ICommentRequest {
 	rating?: number;
 }
 
+interface ILikeCommentRequest {
+	id: number;
+	action: '+' | '-';
+}
+
 export type {
 	ICommentResponse,
 	ICommentRequest,
+	ILikeCommentRequest,
 };
