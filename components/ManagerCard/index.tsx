@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import Props from './ManagerCard.props';
 
-const ManagerCard = ({ className = '', email, username, password, managerId, isUser, ...props }: Props): JSX.Element => {
+const ManagerCard = ({ className = '', username, managerId, isUser, ...props }: Props): JSX.Element => {
 	const router = useRouter();
 
 	return (
@@ -16,13 +16,6 @@ const ManagerCard = ({ className = '', email, username, password, managerId, isU
 			{...props}
 		>
 			<p className='font-semibold text-sm'>
-				Email:
-				{' '}
-				<span className='text-primary'>
-					{email}
-				</span>
-			</p>
-			<p className='font-semibold text-sm mt-2'>
 				Имя пользователя:
 				{' '}
 				<span className='text-primary'>
@@ -30,10 +23,11 @@ const ManagerCard = ({ className = '', email, username, password, managerId, isU
 				</span>
 			</p>
 			<p className='font-semibold text-sm mt-2'>
-				Пароль:
+				Id:
 				{' '}
 				<span className='text-primary'>
-					{password}
+					#
+					{managerId}
 				</span>
 			</p>
 		</article>

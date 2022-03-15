@@ -4,9 +4,14 @@ import PlusIcon from '../../../assets/plus.svg';
 import ManagerCard from '../../../components/ManagerCard';
 import withCheckAuthLayout from '../../../layouts/withCheckAuthLayout';
 import { GetStaticProps } from 'next';
+import { useQuery } from 'react-query';
+import { getCurrentOrganization, getOrganizationsList } from '../../../shared/api/organizations';
 
 const ManagersPage = (): JSX.Element => {
 	const router = useRouter();
+
+	const organizationsListQuery = useQuery('organizations_list', getOrganizationsList);
+	const currentOrganizationQuery = useQuery('organization', getCurrentOrganization);
 
 	return (
 		<MainLayout showFooter={false}>
@@ -19,18 +24,14 @@ const ManagersPage = (): JSX.Element => {
 				</button>
 			</div>
 			<section className='mt-4 lg:flex flex-wrap gap-2.5'>
-				<ManagerCard
-					managerId={12}
-					className='mb-5'
-					email='isakovsanya56@yandex.ru'
-					username='isakov.design'
-					password='password123' />
-				<ManagerCard
-					managerId={13}
-					className='mb-5'
-					email='isakovsanya56@yandex.ru'
-					username='isakov.design'
-					password='password123' />
+				{(currentOrganizationQuery.data && organizationsListQuery.data)
+				&& currentOrganizationQuery.data.managers.map((i, num) => (
+					<ManagerCard
+						key={num}
+						managerId={i}
+						className='mb-5'
+						username={organizationsListQuery.data.find((j) => j.owner === i).name} />
+				))}
 			</section>
 		</MainLayout>
 	);

@@ -9,11 +9,13 @@ import { checkStaff } from '../../shared/api/auth';
 import WithModalLayout from '../../layouts/WithModalLayout';
 import useModal from '../../hooks/useModal';
 import ConfirmModal from '../../modals/ConfirmModal';
+import { getCurrentOrganization } from '../../shared/api/organizations';
 
 const LKPage = (): JSX.Element => {
 	const router = useRouter();
 
 	const { isSuccess } = useQuery('check_staff', checkStaff);
+	const { data } = useQuery('organization', getCurrentOrganization);
 
 	const toggleShowModal = useModal((state) => state.toggleShowModal);
 
@@ -38,6 +40,10 @@ const LKPage = (): JSX.Element => {
 						<ExitIcon />
 					</button>
 				</div>
+				<p className='font-semibold text-lg'>
+					Ваш id: #
+					{data && data.owner}
+				</p>
 				<div className='lg:w-[375px] lg:mt-10 mx-auto'>
 					<Button
 						variant='veryLightGrey'

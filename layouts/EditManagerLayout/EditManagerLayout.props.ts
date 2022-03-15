@@ -1,13 +1,9 @@
 interface Props {
-	isUser?: boolean;
-	email?: string;
-	username?: string;
-	password?: string;
-	userType?: string;
+	userId?: number;
+	isLoading?: boolean;
+	errorMessage?: string;
 	onSubmit: (values: {
-		email: string;
-		username: string;
-		password: string
+		id: number;
 	}) => void;
 	onDelete?: () => void;
 }
