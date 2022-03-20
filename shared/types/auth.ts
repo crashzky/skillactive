@@ -37,6 +37,11 @@ interface IRestorePasswordRequest {
 	new_password: string;
 }
 
+interface IVerifyUserRequest {
+	token: string;
+	uid: string;
+}
+
 export type {
 	ILoginRequest,
 	ILoginResponse,
@@ -45,4 +50,5 @@ export type {
 	ICheckStaffResponse,
 	IRestorationRequest,
 	IRestorePasswordRequest,
+	IVerifyUserRequest,
 };

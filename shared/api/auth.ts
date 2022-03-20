@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ICheckStaffResponse, ILoginRequest, ILoginResponse, IRegisterRequest, IRegisterResponse,
-	IRestorationRequest, IRestorePasswordRequest } from '../types/auth';
+	IRestorationRequest, IRestorePasswordRequest, IVerifyUserRequest } from '../types/auth';
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -12,6 +12,10 @@ const login = (data: ILoginRequest): Promise<ILoginResponse> => {
 const register = (data: IRegisterRequest): Promise<IRegisterResponse> => {
 	return axios.post('/users/register/', data)
 		.then((res) => res.data);
+};
+
+const verifyUser = (data: IVerifyUserRequest): Promise<IRegisterResponse> => {
+	return axios.get(`/users/verify/${data.uid}/${data.token}`).then((res) => res.data);
 };
 
 const checkStaff = (): Promise<ICheckStaffResponse> => {
@@ -36,4 +40,5 @@ export {
 	checkStaff,
 	sendRestorationRequest,
 	restorePassword,
+	verifyUser,
 };

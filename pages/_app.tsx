@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { useState } from 'react';
 import Lottie from 'react-lottie';
 
 import '../styles/globals.css';
@@ -9,7 +10,6 @@ import '../styles/font.css';
 import '../styles/custom.css';
 import '../styles/checkbox.css';
 import * as animationData from '../assets/animation.json';
-import { useState } from 'react';
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 	const queryClient = new QueryClient();
