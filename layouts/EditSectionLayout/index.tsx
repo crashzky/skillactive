@@ -55,9 +55,9 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 	const [genderValue, setGenderValue] = useState(gender && GENDERS.indexOf(gender));
 	const [timetableValues, setTimetableValues] = useState(timetables ? timetables : [
 		{	
-			days: [0],
-			minTime: 10,
-			maxTime: 16,
+			days: [0, 1, 2, 3, 4, 5, 6],
+			minTime: 0,
+			maxTime: 23,
 		},
 	]);
 
@@ -151,7 +151,7 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 				minAge: ageValues[0],
 				maxAge: ageValues[1],
 				timetables: timetableValues,
-				teachers: teacherValues.map((i) => ({ ...i, image: 'http://localhost:3000' + i.image })),
+				teachers: teacherValues,
 				prices: priceValues,
 				address: addressValue.value,
 				gender: GENDERS[genderValue],
@@ -177,7 +177,7 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 		if(!_errors.length) {
 			let _prev = teacherValues;
 			_prev.push({
-				image: '/DEV_ONLY.jpg',
+				image: teacherImage[0],
 				name: teacherFormik.values.name,
 				description: teacherFormik.values.description,
 				phone: teacherFormik.values.phone,

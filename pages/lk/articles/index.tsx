@@ -28,7 +28,7 @@ const ArticlesPage = (): JSX.Element => {
 						title={i.title}
 						tags={i.tags}
 						link={'/lk/articles/' + i.id}
-						imageSrc='/DEV_ONLY.jpg'
+						imageSrc={i.images[0]}
 						className='mb-4' />
 				))}
 			</section>

@@ -1,6 +1,6 @@
 interface ISendFileRequest {
 	filename: string;
-	file: string | ArrayBuffer;
+	file: File;
 }
 
 interface ISendFileResponse {

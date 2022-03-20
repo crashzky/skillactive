@@ -46,7 +46,7 @@ const SectionsPage = (): JSX.Element => {
 							key={num}
 							className='mb-6 shadow-none'
 							title={i.title}
-							imageSrc='/DEV_ONLY.jpg'
+							imageSrc={i.images[0]}
 							category={categories.data && categories.data.find((j) => j.id == i.category).name}
 							address={i.address}
 							recordIsOpen={i.opened}

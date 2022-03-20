@@ -75,26 +75,19 @@ const ArticlePage = (): JSX.Element => {
 						назад
 					</button>
 					<div ref={imageRef} className='w-full h-[402px] relative'>
-						<ImageCarousel onlyOneSlide>
-							<Image
-								src='/DEV_ONLY.jpg'
-								width={imageWidth}
-								height={402}
-								className='object-cover lg:rounded-2xl'
-								alt='section' />
-							<Image
-								src='/DEV_ONLY.jpg'
-								width={imageWidth}
-								height={402}
-								className='object-cover lg:rounded-2xl'
-								alt='section' />
-							<Image
-								src='/DEV_ONLY.jpg'
-								width={imageWidth}
-								height={402}
-								className='object-cover lg:rounded-2xl'
-								alt='section' />
-						</ImageCarousel>
+						{data && (
+							<ImageCarousel onlyOneSlide>
+								{data.images.map((i, num) => (
+									<Image
+										key={num}
+										src={i}
+										width={imageWidth}
+										height={402}
+										className='object-cover lg:rounded-2xl'
+										alt='section' />
+								))}
+							</ImageCarousel>
+						)}
 						<div className='absolute bottom-0 p-4'>
 							<div className='flex flex-wrap gap-3.5'>
 								{data && data.tags.map((i, num) => (

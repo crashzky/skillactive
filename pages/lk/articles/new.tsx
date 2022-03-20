@@ -24,7 +24,7 @@ const NewArticlePage = (): JSX.Element => {
 					title: values.title,
 					text: values.content,
 					type: values.isAds ? 'ARTICLE_SPONSORED' : 'ARTICLE',
-					images: [],
+					images: values.images,
 					date: values.isAds ? values.endAdsDate.toISOString() : (new Date(Date.now())).toISOString(),
 					price: 0,
 					tags: values.tags,

@@ -20,7 +20,7 @@ const MainPage = (): JSX.Element => {
 					title={i.title}
 					tags={i.tags}
 					link={'/articles/' + i.id}
-					imageSrc='/DEV_ONLY.jpg'
+					imageSrc={i.images[0]}
 					className='mb-4' />
 			))}
 		</SearchLayout>

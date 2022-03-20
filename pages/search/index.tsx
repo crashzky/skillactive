@@ -83,7 +83,7 @@ const SearchPage = (): JSX.Element => {
 						onClick={() => router.push('/search/' + i.id)}
 						className={'mb-6 shadow-none ' + (selectedSection == i.id && 'lg:bg-veryLightGrey')}
 						title={i.title}
-						imageSrc='/DEV_ONLY.jpg'
+						imageSrc={i.images[0]}
 						category={categories.data && categories.data.find((j) => j.id === i.category).name}
 						address={i.address}
 						recordIsOpen={i.opened}

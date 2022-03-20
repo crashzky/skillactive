@@ -39,7 +39,7 @@ const IdArticlePage = (): JSX.Element => {
 				key={getFeedMuttation.data && getFeedMuttation.data.title.toString()}
 				isDanger={updateMutation.isError || deleteMutation.isError}
 				isLoading={updateMutation.isLoading || deleteMutation.isLoading}
-				images={['0']}
+				images={getFeedMuttation.data && getFeedMuttation.data.images}
 				title={getFeedMuttation.data && getFeedMuttation.data.title}
 				content={getFeedMuttation.data && getFeedMuttation.data.text}
 				tags={getFeedMuttation.data && getFeedMuttation.data.tags}
@@ -51,7 +51,7 @@ const IdArticlePage = (): JSX.Element => {
 						title: values.title,
 						text: values.content,
 						type: values.isAds ? 'ARTICLE_SPONSORED' : 'ARTICLE',
-						images: [],
+						images: values.images,
 						date: values.isAds ? values.endAdsDate.toISOString() : (new Date(Date.now())).toISOString(),
 						price: 0,
 						tags: values.tags,

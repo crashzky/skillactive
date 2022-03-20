@@ -3,7 +3,6 @@ import Props from './InputImage.props';
 import Image from 'next/image';
 import { useMutation } from 'react-query';
 import { uploadFile } from '../../shared/api/file';
-import { nanoid } from 'nanoid';
 
 import GalleryIcon from '../../assets/gallery.svg';
 import CrossIcon from '../../assets/cross.svg';
@@ -70,27 +69,13 @@ const InputImage = ({ className = '', label, imageIds, setImageIds, isSingleImag
 						className='hidden'
 						accept='image/*;capture=camera'
 						onChange={(e) => {
-							const name = nanoid() + '.'
+							const name = 'image.'
 							+ e.target.files[0].name.split('.')[e.target.files[0].name.split('.').length - 1];
 
-							/*return fileReader(e.target.files[0])
-								.then((result) => {
-									mutate({
-										filename: name,
-										file: result as any,
-									});
-								});
-
-							function fileReader(file){
-								return new Promise((resolve, reject) => {
-									const reader = new FileReader();
-									reader.onload = (e) => {
-										resolve(reader.result);
-									};
-
-									reader.readAsBinaryString(file);
-								});
-							}*/
+							mutate({
+								filename: name,
+								file: e.target.files[0],
+							});
 						}} />
 					<label htmlFor={htmlId} className='flex justify-center items-center w-full py-4 px-5 rounded-2xl bg-white'>
 						<GalleryIcon className='mr-2' />

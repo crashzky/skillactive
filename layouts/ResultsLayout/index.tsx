@@ -133,8 +133,27 @@ const ResultsLayout = ({ children, cords = [] }: Props): JSX.Element => {
 			{/* map */}
 			{(selectedMenuItem === 1 && !showFilter) && (
 				<YMaps>
-					<Map className='mt-4 w-full h-[calc(100vh-238px)]' defaultState={{ center: [55.75, 37.57], zoom: 9 }}>
-						<Placemark geometry={[55.75, 37.57]} onClick={() => setSelectedSection(1)} />
+					<Map
+						className='mt-4 w-full h-[calc(100vh-238px)]'
+						defaultState={{
+							center: [
+								Object.keys(cords).reduce((prev, curr) => prev + cords[curr][0], 0)
+									/ Object.keys(cords).length,
+								Object.keys(cords).reduce((prev, curr) => prev + cords[curr][1], 0)
+									/ Object.keys(cords).length,
+							],
+							zoom: 13,
+						}}
+					>
+						{Object.keys(cords).map((i, num) => (
+							<Placemark 
+								key={num}
+								options={{
+									iconColor: selectedSection === i ? 'red' : '#1E98FF',
+								}}
+								geometry={[cords[i][0], cords[i][1]]}
+								onClick={() => setSelectedSection(i)} />
+						))}
 					</Map>
 				</YMaps>
 			)}

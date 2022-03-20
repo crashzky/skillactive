@@ -46,7 +46,7 @@ const NewSectionPage = (): JSX.Element => {
 					max_age: values.maxAge,
 					gender: values.gender,
 					opened: values.recordingIsOpen,
-					images: [],
+					images: values.images,
 					category: values.category,
 					district: values.district,
 					price: values.prices.map((i) => ({

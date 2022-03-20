@@ -73,7 +73,7 @@ const SectionIdPage = (): JSX.Element => {
 				key={getClubMuttation.data && getClubMuttation.data.title.toString()}
 				isLoading={deleteMutation.isLoading || updateMutation.isLoading}
 				isError={deleteMutation.isError || updateMutation.isError}
-				images={['/DEV_ONLY.jpg']}
+				images={getClubMuttation.data && getClubMuttation.data.images}
 				name={getClubMuttation.data && getClubMuttation.data.title}
 				recordingIsOpen={getClubMuttation.data && getClubMuttation.data.opened}
 				category={getClubMuttation.data && getClubMuttation.data.category}
@@ -85,7 +85,7 @@ const SectionIdPage = (): JSX.Element => {
 				timetables={_timetables}
 				contacts={getClubMuttation.data && getClubMuttation.data.contacts}
 				teachers={getClubMuttation.data && getClubMuttation.data.tutors.map((i) => ({
-					image: '/DEV_ONLY.jpg',
+					image: i.photo,
 					name: i.name,
 					description: i.description,
 					phone: i.phone,
@@ -117,7 +117,7 @@ const SectionIdPage = (): JSX.Element => {
 						max_age: values.maxAge,
 						gender: values.gender,
 						opened: values.recordingIsOpen,
-						images: [],
+						images: values.images,
 						category: values.category,
 						district: values.district,
 						price: values.prices.map((i) => ({

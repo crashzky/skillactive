@@ -111,40 +111,20 @@ const SectionInfoPage = (): JSX.Element => {
 								{data && data.opened ? 'открыта' : 'закрыта'}
 							</p>
 						</div>
-						<ImageCarousel>
-							<div className='lg:px-1'>
-								<Image
-									src='/DEV_ONLY.jpg'
-									width={screenWidth >= 1024 ? 355 : screenWidth}
-									height={211}
-									alt='section'
-									className='object-cover lg:rounded-2.5xl' />
-							</div>
-							<div className='lg:px-1'>
-								<Image
-									src='/DEV_ONLY.jpg'
-									width={screenWidth >= 1024 ? 355 : screenWidth}
-									height={211}
-									alt='section'
-									className='object-cover lg:rounded-2.5xl' />
-							</div>
-							<div className='lg:px-1'>
-								<Image
-									src='/DEV_ONLY.jpg'
-									width={screenWidth >= 1024 ? 355 : screenWidth}
-									height={211}
-									alt='section'
-									className='object-cover lg:rounded-2.5xl' />
-							</div>
-							<div className='lg:px-1'>
-								<Image
-									src='/DEV_ONLY.jpg'
-									width={screenWidth >= 1024 ? 355 : screenWidth}
-									height={211}
-									alt='section'
-									className='object-cover lg:rounded-2.5xl' />
-							</div>
-						</ImageCarousel>
+						{data && (
+							<ImageCarousel>
+								{data.images.map((i, num) => (
+									<div className='lg:px-1' key={num}>
+										<Image
+											src={i}
+											width={screenWidth >= 1024 ? 355 : screenWidth}
+											height={211}
+											alt='section'
+											className='object-cover lg:rounded-2.5xl' />
+									</div>
+								))}
+							</ImageCarousel>
+						)}
 					</div>
 					<div className='px-4 mt-5'>
 						<h1 className='font-bold text-2xl mt-3.5'>
