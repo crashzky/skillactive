@@ -21,7 +21,7 @@ const SuccessPage = (): JSX.Element => {
 					- принята, ожидайте пока с вами свяжется представитель секции.
 				</p>
 			</MainLayout>
-			<div className='fixed bottom-5 w-full px-4'>
+			<div className='fixed bottom-5 w-full px-4 md:w-96 md:static md:mt-5 md:block md:mx-auto'>
 				<Button variant='primary' label='Вернуться на главную' onClick={() => router.push('/')} />
 			</div>	
 		</>

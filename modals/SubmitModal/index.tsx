@@ -8,6 +8,7 @@ import Textarea from '../../components/Textarea';
 import useModal from '../../hooks/useModal';
 import removeItemFromErrorsList from '../../utils/removeItemFromErrorsList';
 import Props from './SubmitModal.props';
+import Loader from '../../assets/loader.svg';
 
 import CrossIcon from '../../assets/cross.svg';
 import { useMutation } from 'react-query';
@@ -20,11 +21,13 @@ const SubmitModal = ({ className = '', ...props }: Props): JSX.Element => {
 	const [captchaSubmited, setCaptchaSubmited] = useState(false);
 	const [errorsList, setErrorsList] = useState([]);
 
-	const { mutate, isSuccess } = useMutation(postApplication);
+	const { mutate, isLoading, isSuccess } = useMutation(postApplication);
 
 	useEffect(() => {
-		if(isSuccess)
+		if(isSuccess) {
+			toggleShowModal();
 			router.push('/success');
+		}
 	}, [isSuccess, router]);
 
 	const formik = useFormik({
@@ -45,7 +48,6 @@ const SubmitModal = ({ className = '', ...props }: Props): JSX.Element => {
 			setErrorsList(_errorsList);
 
 			if(!_errorsList.length) {
-				toggleShowModal();
 				mutate({
 					club: +router.query.id,
 					status: 'NEW',
@@ -61,7 +63,7 @@ const SubmitModal = ({ className = '', ...props }: Props): JSX.Element => {
 		<form onSubmit={formik.handleSubmit} className={className + ' relative h-full pb-20'} {...props}>
 			<div className='mt-4 mb-8 grid items-center grid-cols-[1fr_auto] gap-5'>
 				<p className='font-bold text-3.5xl'>
-					Запись ребенка на секция
+					Запись ребенка на секцию
 					{' '}
 					<span className='text-primary'>
 						Футболика
@@ -109,7 +111,13 @@ const SubmitModal = ({ className = '', ...props }: Props): JSX.Element => {
 					Пожалуйста, заполните капчу
 				</p>
 			)}
-			<Button type='submit' className='absolute bottom-6 md:bottom-0' variant='primary' label='Отправить' />
+			{isLoading ? (
+				<div className='absolute w-full bottom-6 md:bottom-0'>
+					<Loader className='mx-auto' />
+				</div>
+			) : (
+				<Button type='submit' className='absolute bottom-6 md:bottom-0' variant='primary' label='Отправить' />
+			)}
 		</form>
 	);
 };

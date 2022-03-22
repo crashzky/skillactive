@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const cliProgress = require('cli-progress');
+const fs = require('fs');
 
 const readline = require('readline').createInterface({
 	input: process.stdin,
@@ -56,7 +57,7 @@ readline.question('Please enter admin token: ', (value) => {
 				}).then(() => bar2.update(num + 1));
 			}, num * 100);
 		});
-	}, [CATEGORIES.length * 110]);
+	}, CATEGORIES.length * 110);
 
 	readline.close();
 });

@@ -47,7 +47,12 @@ const LoginPage = (): JSX.Element => {
 	function getErrorMessage() {
 		switch((error as any).response.status) {
 			case 400:
-				return 'Неверный логин или пароль';
+				switch((error as any).response.data.auth) {
+					case 'User does not exist':
+						return 'Неверный логин или пароль';
+					case 'Check email':
+						return 'Аккаунт не подтверждён. Проверьте почту';
+				} 
 			default:
 				return 'Ой, что-то пошло не так. Попробуйте ещё раз позже';
 		}

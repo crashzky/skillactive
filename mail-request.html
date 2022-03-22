@@ -10,14 +10,26 @@
 	<div id="root">
 		<div id="content">
 			<h1>
-				Здравствуйте name surname,
+				На секцию
+				<span>
+					section_name
+				</span>
+				оставленна новая заявка
 			</h1>
-			<p class="first">
-				Вы отправили запрос на восстановление пароля. Для окончания восстановления перейдите по ссылке ниже.
-			</p>
-			<a class="button" href="https://skillactive.ru/new_password?token=&uid=">
-				Продолжить восстановление
-			</a>
+			<table>
+				<tr>
+					<td class="title">Имя</td>
+					<td class="value">name</td>
+				</tr>
+				<tr>
+					<td class="title">Телефон</td>
+					<td class="value">phone</td>
+				</tr>
+				<tr>
+					<td class="title">Комментарий</td>
+					<td class="value">comment</td>
+				</tr>
+			</table>
 			<p class="help">
 				Нужна помощь?
 				<a href="mailto:info@skillactive.ru">
@@ -51,30 +63,31 @@
 			font-size: 24px;
 		}
 
-		#content .first {
-			color: #9F9F9F;
-			margin-bottom: 50px;
+		#content h1 span {
+			color: #FEA300;
 		}
 
-		#content .button {
-			border: none;
-			outline: none;
-			display: block;
-			margin: 0 auto;
-			max-width: 270px;
-			text-align: center;
-			padding: 20px 50px;
-			background: #FEA300;
-			border-radius: 15px;
-
-			color: white;
-			font-weight: bold;
+		#content table {
+			margin-bottom: 50px;
+		}
+		
+		#content table tr .title {
+			color: #9F9F9F;
 			font-size: 16px;
-			text-decoration: none;
+			padding-right: 25px;
+			padding-bottom: 13px;
+			padding-top: 13px;
+		}
+		
+		#content table tr .value {
+			color: #272727;
+			font-size: 16px;
+			padding-right: 25px;
+			padding-bottom: 13px;
+			padding-top: 13px;
 		}
 
 		#content .help {
-			margin-top: 50px;
 			text-align: center;
 			color: #9F9F9F;
 		}
