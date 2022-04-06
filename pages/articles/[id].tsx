@@ -88,6 +88,14 @@ const ArticlePage = (): JSX.Element => {
 								))}
 							</ImageCarousel>
 						)}
+						{(data && !data.images.length) && (
+							<Image
+								src={process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH}
+								width={imageWidth}
+								height={402}
+								className='object-cover lg:rounded-2xl'
+								alt='section' />
+						)}
 						<div className='absolute bottom-0 p-4'>
 							<div className='flex flex-wrap gap-3.5'>
 								{data && data.tags.map((i, num) => (

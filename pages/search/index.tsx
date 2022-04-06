@@ -11,8 +11,10 @@ import { getClubs } from '../../shared/api/clubs';
 import { GENDERS, WEEK_DAYS } from '../../shared/consts/filter';
 
 const SearchPage = (): JSX.Element => {
-	const selectedSection = useSection((state) => state.selectedSection);
-	const { mutate, data } = useMutation(getClubs);
+	const { selectedSection, setSectionsResult } = useSection();
+	const { mutate, data } = useMutation(getClubs, {
+		onSuccess: (res) => setSectionsResult(res),
+	});
 	const categories = useQuery('categories', getCategories);
 
 	const router = useRouter();
@@ -84,15 +86,18 @@ const SearchPage = (): JSX.Element => {
 						className={'mb-6 shadow-none ' + (selectedSection == i.id && 'lg:bg-veryLightGrey')}
 						title={i.title}
 						imageSrc={i.images[0]}
-						category={categories.data && categories.data.find((j) => j.id === i.category).name}
+						category={(categories.data && i.category)
+							&& categories.data.find((j) => j.id === i.category).name}
 						address={i.address}
 						recordIsOpen={i.opened}
 						minAge={i.min_age}
 						maxAge={i.max_age}
-						minHour={+i.timetable.sort((a, b) => +a.start_time.slice(0, 2) < +b.start_time.slice(0, 2) ? -1 : 1)[0]
-							.start_time.slice(0, 2)}
-						maxHour={+i.timetable.sort((a, b) => +a.end_time.slice(0, 2) > +b.end_time.slice(0, 2) ? -1 : 1)[0]
-							.end_time.slice(0, 2)}
+						minHour={i.timetable.length &&
+							+i.timetable.sort((a, b) => +a.start_time.slice(0, 2) < +b.start_time.slice(0, 2) ? -1 : 1)[0]
+								.start_time.slice(0, 2)}
+						maxHour={i.timetable.length &&
+							+i.timetable.sort((a, b) => +a.end_time.slice(0, 2) > +b.end_time.slice(0, 2) ? -1 : 1)[0]
+								.end_time.slice(0, 2)}
 						days={_days}
 						rating={+(i.comments.reduce((prev, curr) => prev + curr.rating, 0) / i.comments.length).toFixed(1)}
 						reviewsCount={i.comments.length} />

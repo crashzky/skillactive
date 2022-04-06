@@ -12,7 +12,12 @@ const TeacherCard = ({ className = '', imageSrc, title, description, phone, onDe
 					+ ' shadow-main rounded-2.5xl p-[5px] pr-8 grid gap-4 grid-cols-[81px_1fr] items-center lg:h-full'}
 				{...props}
 			>
-				<Image src={imageSrc} width={81} height={81} alt='teacher' className='rounded-2xl object-cover' />
+				<Image
+					src={imageSrc ? imageSrc : process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH}
+					width={81}
+					height={81}
+					alt='teacher'
+					className='rounded-2xl object-cover' />
 				<div>
 					<h3 className='font-bold text-sm'>
 						{title}

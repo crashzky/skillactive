@@ -18,6 +18,10 @@ import FilterIcon from '../../assets/filter.svg';
 import SearchPanel from '../../components/SearchPanel';
 import DropdownFilter from '../../components/DropdownFilter';
 import useSection from '../../hooks/useSection';
+import { IClubCardResponse } from '../../shared/types/clubs';
+import { useQuery } from 'react-query';
+import { getCategories } from '../../shared/api/categories';
+import { WEEK_DAYS } from '../../shared/consts/filter';
 
 const ResultsLayout = ({ children, cords = [] }: Props): JSX.Element => {
 	const { query } = useRouter();
@@ -29,9 +33,11 @@ const ResultsLayout = ({ children, cords = [] }: Props): JSX.Element => {
 	const [showContent, setShowContent] = useState(true);
 
 	const articleRef = useRef(null);
-	const selectedSection = useSection((state) => state.selectedSection);
-	const setSelectedSection = useSection((state) => state.setSelectedSection);
+	const { selectedSection, setSelectedSection } = useSection();
+	const sectionsResult: IClubCardResponse[] = useSection((state) => state.sectionsResult);
 	const [showSectionArticle, setShowSectionArticle] = useState(false);
+
+	const categories = useQuery('categories', getCategories);
 
 	useEffect(() => {
 		setWindowWidth(window.innerWidth);
@@ -61,6 +67,16 @@ const ResultsLayout = ({ children, cords = [] }: Props): JSX.Element => {
 			articleRef.current.style.bottom = 0;
 	}, [showSectionArticle]);
 
+	const selectedSectionObject = sectionsResult && sectionsResult.find((i) => i.id === +selectedSection);
+
+	let _days = [];
+	if(selectedSectionObject) {
+		selectedSectionObject.timetable.forEach((i) => {
+			if(!_days.includes(WEEK_DAYS[i.day_of_the_week - 1]))
+				_days.push(WEEK_DAYS[i.day_of_the_week - 1]);
+		});
+	}
+
 	return (
 		<>
 			<MainLayout showFooter={!!children && selectedMenuItem !== 1} showHeader={!showFilter} addPadding={false}>
@@ -87,38 +103,46 @@ const ResultsLayout = ({ children, cords = [] }: Props): JSX.Element => {
 								<section className='lg:grid lg:mt-4 lg:pl-5 xl:pl-48 grid-cols-2'>
 									<div className='lg:pr-7'>
 										<DropdownFilter className='hidden lg:block mb-5' />
-										{!children && (
-											<p className='font-bold text-lg text-center mt-24'>
-												По вашим критериям к сожалению ничего не найдено 😔
-												Попробуйте изменить фильтр
-											</p>
-										)}
-										{children}
+										<div className='h-[calc(100vh-300px)] overflow-y-scroll'>
+											{!children && (
+												<p className='font-bold text-lg text-center mt-24'>
+													По вашим критериям к сожалению ничего не найдено 😔
+													Попробуйте изменить фильтр
+												</p>
+											)}
+											{children}
+										</div>
 									</div>
-									<YMaps>
-										<Map
-											className='w-full min-h-[calc(100vh-200px)] hidden lg:block'
-											defaultState={{
-												center: [
-													Object.keys(cords).reduce((prev, curr) => prev + cords[curr][0], 0)
-														/ Object.keys(cords).length,
-													Object.keys(cords).reduce((prev, curr) => prev + cords[curr][1], 0)
-														/ Object.keys(cords).length,
-												],
-												zoom: 13,
-											}}
-										>
-											{Object.keys(cords).map((i, num) => (
-												<Placemark 
-													key={num}
-													options={{
-														iconColor: selectedSection === i ? 'red' : '#1E98FF',
-													}}
-													geometry={[cords[i][0], cords[i][1]]}
-													onClick={() => setSelectedSection(i)} />
-											))}
-										</Map>
-									</YMaps>
+									{(Object.keys(cords).reduce((prev, curr) => prev + cords[curr][0], 0)
+										/ Object.keys(cords).length &&
+										Object.keys(cords).reduce((prev, curr) => prev + cords[curr][1], 0)
+										/ Object.keys(cords).length) &&
+									(
+										<YMaps>
+											<Map
+												className='w-full min-h-[calc(100vh-200px)] hidden lg:block'
+												defaultState={{
+													center: [
+														Object.keys(cords).reduce((prev, curr) => prev + cords[curr][0], 0)
+															/ Object.keys(cords).length,
+														Object.keys(cords).reduce((prev, curr) => prev + cords[curr][1], 0)
+															/ Object.keys(cords).length,
+													],
+													zoom: 13,
+												}}
+											>
+												{Object.keys(cords).map((i, num) => (
+													<Placemark 
+														key={num}
+														options={{
+															iconColor: selectedSection === i ? 'red' : '#1E98FF',
+														}}
+														geometry={[cords[i][0], cords[i][1]]}
+														onClick={() => setSelectedSection(i)} />
+												))}
+											</Map>
+										</YMaps>
+									)}
 								</section>
 							</>
 						)}
@@ -187,20 +211,26 @@ const ResultsLayout = ({ children, cords = [] }: Props): JSX.Element => {
 					</button>
 				</div>
 				<h2 className='font-bold text-2xl mt-2.5'>
-					Футболика
+					{selectedSectionObject && selectedSectionObject.title}
 				</h2>
 				<p className='mt-2 text-sm text-darkGrey'>
-					Секция футбола
+					{(categories.data && selectedSectionObject
+						&& categories.data.find((i) => i.id === selectedSectionObject.category))
+						&& categories.data.find((i) => i.id === selectedSectionObject.category).name}
 				</p>
 				<p className='mt-2 text-sm text-darkGrey'>
-					Красноармейская 27 
+					{selectedSectionObject && selectedSectionObject.address} 
 				</p>
 				<div className='grid grid-cols-[30px_1fr] items-center gap-2 mt-2.5'>
 					<div className='p-1.5 bg-veryLightGrey rounded-md'>
 						<PersonIcon />
 					</div>
 					<p className='font-sm text-darkGrey'>
-						12-16 лет
+						{selectedSectionObject && selectedSectionObject.min_age} 
+						-
+						{selectedSectionObject && selectedSectionObject.max_age} 
+						{' '}
+						лет
 					</p>
 				</div>
 				<div className='grid grid-cols-[30px_1fr] items-center gap-2 mt-2.5'>
@@ -208,7 +238,21 @@ const ResultsLayout = ({ children, cords = [] }: Props): JSX.Element => {
 						<ClockIcon />
 					</div>
 					<p className='font-sm text-darkGrey'>
-						с 18:00 до 20:00 - Вт, Чт, Сб
+						с
+						{' '}
+						{selectedSectionObject && selectedSectionObject.timetable.length &&
+							+selectedSectionObject
+								.timetable.sort((a, b) => +a.start_time.slice(0, 2) < +b.start_time.slice(0, 2) ? -1 : 1)[0]
+								.start_time.slice(0, 2)}
+						:00 до
+						{' '}
+						{selectedSectionObject && selectedSectionObject.timetable.length &&
+							+selectedSectionObject
+								.timetable.sort((a, b) => +a.end_time.slice(0, 2) > +b.end_time.slice(0, 2) ? -1 : 1)[0]
+								.end_time.slice(0, 2)}
+						:00 -
+						{' '}
+						{_days.join(', ')}
 					</p>
 				</div>
 				<div className='grid grid-cols-[30px_1fr] items-center gap-2 mt-2.5'>

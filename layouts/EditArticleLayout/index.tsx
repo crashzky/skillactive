@@ -34,8 +34,6 @@ const EditArticleLayout = ({ images, title, content, tags, isAds, endAdsDate, on
 				setIsSubmit(false);
 				let _erors = [];
 			
-				if(!imageValues.length)
-					_erors.push('images');
 				if(!values.title)
 					_erors.push('title');
 				if(!values.content)

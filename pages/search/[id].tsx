@@ -125,13 +125,22 @@ const SectionInfoPage = (): JSX.Element => {
 								))}
 							</ImageCarousel>
 						)}
+						{(data && !data.images.length) && (
+							<Image
+								src={process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH}
+								width={screenWidth >= 1024 ? 355 : screenWidth}
+								height={211}
+								alt='section'
+								className='object-cover lg:rounded-2.5xl' />
+						)}
 					</div>
 					<div className='px-4 mt-5'>
 						<h1 className='font-bold text-2xl mt-3.5'>
 							{data && data.title}
 						</h1>
 						<p className='text-sm text-darkGrey mt-2'>
-							{(categories.data && data) && categories.data.find((i) => i.id === data.category).name}
+							{(categories.data && data && data.category)
+								&& categories.data.find((i) => i.id === data.category).name}
 						</p>
 						<p className='text-sm text-darkGrey mt-2'>
 							{data && data.address}
@@ -157,12 +166,12 @@ const SectionInfoPage = (): JSX.Element => {
 									<p className='font-sm text-darkGrey'>
 										с
 										{' '}
-										{data && data.timetable.sort((a, b) => 
+										{(data && data.timetable.length) && data.timetable.sort((a, b) => 
 											+a.start_time.slice(0, 2) < +b.start_time.slice(0, 2) ? -1 : 1)[0]
 											.start_time.slice(0, 2)}
 										:00 до
 										{' '}
-										{data && data.timetable.sort((a, b) => 
+										{(data && data.timetable.length) && data.timetable.sort((a, b) => 
 											+a.end_time.slice(0, 2) > +b.end_time.slice(0, 2) ? -1 : 1)[0]
 											.end_time.slice(0, 2)}
 										:00 -

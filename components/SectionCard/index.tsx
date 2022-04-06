@@ -49,7 +49,7 @@ const SectionCard = ({ className = '', imageSrc, title, recordIsOpen, category, 
 					</p>
 				</div>
 				<Image
-					src={imageSrc}
+					src={imageSrc ? imageSrc : process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH}
 					width={windowWidth > 1024 ? 300 : articleWidth}
 					height={getCardHeight()}
 					alt='section'

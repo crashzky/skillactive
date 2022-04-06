@@ -121,8 +121,6 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 	const submitForm = () => {
 		const _errors = [];
 
-		if(!imageIds.length)
-			_errors.push('images');
 		if(!nameValue)
 			_errors.push('name');
 		if(!categoryValue)
@@ -163,8 +161,6 @@ const EditSectionLayout = ({ images, name, recordingIsOpen, category, descriptio
 	const addTeacher = () => {
 		let _errors = [];
 
-		if(!teacherImage.length)
-			_errors.push('image');
 		if(!teacherFormik.values.name)
 			_errors.push('name');
 		if(!teacherFormik.values.description)
