@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import PersonIcon from '../../assets/card/person.svg';
 import ClockIcon from '../../assets/card/clock.svg';
 import StarIcon from '../../assets/card/star.svg';
+import normalizeImageUrl from '../../utils/normalizeImgeUrl';
 
 const SectionCard = ({ className = '', imageSrc, title, recordIsOpen, category, address,
 	minAge, maxAge, minHour, maxHour, days, rating, reviewsCount, isEditorLink, isShortCard, ...props }: Props): JSX.Element => {
@@ -49,7 +50,8 @@ const SectionCard = ({ className = '', imageSrc, title, recordIsOpen, category, 
 					</p>
 				</div>
 				<Image
-					src={imageSrc ? imageSrc : process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH}
+					src={imageSrc ? imageSrc : process.env.NEXT_PUBLIC_API_MEDIA_URL
+							+ normalizeImageUrl(process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH)}
 					width={windowWidth > 1024 ? 300 : articleWidth}
 					height={getCardHeight()}
 					alt='section'

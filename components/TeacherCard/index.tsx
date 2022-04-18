@@ -1,6 +1,7 @@
 import Props from './TeacherCard.props';
 import Image from 'next/image';
 import Button from '../Button';
+import normalizeImageUrl from '../../utils/normalizeImgeUrl';
 
 const TeacherCard = ({ className = '', imageSrc, title, description, phone, onDelete, isShortIcon,
 	...props }: Props): JSX.Element => {
@@ -13,7 +14,8 @@ const TeacherCard = ({ className = '', imageSrc, title, description, phone, onDe
 				{...props}
 			>
 				<Image
-					src={imageSrc ? imageSrc : process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH}
+					src={imageSrc ? imageSrc : process.env.NEXT_PUBLIC_API_MEDIA_URL
+							+ normalizeImageUrl(process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH)}
 					width={81}
 					height={81}
 					alt='teacher'

@@ -19,6 +19,7 @@ import Logo from '../../assets/logo.svg';
 import { useMutation } from 'react-query';
 import { getFeedById } from '../../shared/api/feed';
 import useComment from '../../hooks/useComment';
+import normalizeImageUrl from '../../utils/normalizeImgeUrl';
 
 const ArticlePage = (): JSX.Element => {
 	const [imageWidth, setImageWidth] = useState(0);
@@ -90,7 +91,8 @@ const ArticlePage = (): JSX.Element => {
 						)}
 						{(data && !data.images.length) && (
 							<Image
-								src={process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH}
+								src={process.env.NEXT_PUBLIC_API_MEDIA_URL
+										+ normalizeImageUrl(process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH)}
 								width={imageWidth}
 								height={402}
 								className='object-cover lg:rounded-2xl'

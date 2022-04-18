@@ -27,7 +27,7 @@ readline.question('Please enter admin token: ', (value) => {
 	bar1.start(CATEGORIES.length, 0);
 	CATEGORIES.forEach((i, num) => {
 		setTimeout(() => {
-			fetch('http://localhost:8000/categories/', {
+			fetch('https://api.skillactive.ru/categories/', {
 				method: 'POST',
 				body: JSON.stringify({
 					name: i,
@@ -45,7 +45,7 @@ readline.question('Please enter admin token: ', (value) => {
 		bar2.start(YEKATERINBURG_DISTRICTS.length, 0);
 		YEKATERINBURG_DISTRICTS.forEach((i, num) => {
 			setTimeout(() => {
-				fetch('http://localhost:8000/districts/', {
+				fetch('https://api.skillactive.ru/districts/', {
 					method: 'POST',
 					body: JSON.stringify({
 						name: i,

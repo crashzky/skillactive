@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 
 import CommentIcon from '../../assets/card/comment.svg';
 import LikeIcon from '../../assets/card/ike.svg';
+import normalizeImageUrl from '../../utils/normalizeImgeUrl';
 //import LikeActiveIcon from '../../assets/card/like_active.svg';
 
 const ArticleCard = ({ className = '', imageSrc, title, tags, link, ...props }: Props): JSX.Element => {
@@ -26,7 +27,8 @@ const ArticleCard = ({ className = '', imageSrc, title, tags, link, ...props }: 
 			onClick={() => router.push(link)}
 		>
 			<Image
-				src={imageSrc ? imageSrc : process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH}
+				src={imageSrc ? imageSrc : process.env.NEXT_PUBLIC_API_MEDIA_URL
+					+ normalizeImageUrl(process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH)}
 				width={articleWidth}
 				height={179}
 				className='object-cover rounded-t-2.5xl'

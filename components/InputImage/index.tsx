@@ -7,6 +7,7 @@ import { uploadFile } from '../../shared/api/file';
 import GalleryIcon from '../../assets/gallery.svg';
 import CrossIcon from '../../assets/cross.svg';
 import LoaderIcon from '../../assets/loader.svg';
+import normalizeImageUrl from '../../utils/normalizeImgeUrl';
 
 const InputImage = ({ className = '', label, imageIds, setImageIds, isSingleImage, htmlId, ...props }: Props): JSX.Element => {
 	const [key, setKey] = useState(false);
@@ -17,7 +18,7 @@ const InputImage = ({ className = '', label, imageIds, setImageIds, isSingleImag
 
 	useEffect(() => {
 		if(isSuccess)
-			setImageIds(imageIds.concat(process.env.NEXT_PUBLIC_API_URL + data.path));
+			setImageIds(imageIds.concat(process.env.NEXT_PUBLIC_API_MEDIA_URL + normalizeImageUrl(data.path)));
 	}, [isSuccess]);
 
 	return (

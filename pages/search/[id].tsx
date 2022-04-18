@@ -27,6 +27,7 @@ import { getCategories } from '../../shared/api/categories';
 import TimetableCard from '../../components/TimetableCard';
 import ContactCard from '../../components/ContactCard';
 import { WEEK_DAYS } from '../../shared/consts/filter';
+import normalizeImageUrl from '../../utils/normalizeImgeUrl';
 
 const SectionInfoPage = (): JSX.Element => {
 	const [screenWidth, setScreenWidth] = useState(0);
@@ -127,7 +128,8 @@ const SectionInfoPage = (): JSX.Element => {
 						)}
 						{(data && !data.images.length) && (
 							<Image
-								src={process.env.NEXT_PUBLIC_API_URL + process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH}
+								src={process.env.NEXT_PUBLIC_API_MEDIA_URL
+									+ normalizeImageUrl(process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH)}
 								width={screenWidth >= 1024 ? 355 : screenWidth}
 								height={211}
 								alt='section'
