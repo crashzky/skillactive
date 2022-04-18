@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import SectionCard from '../../components/SectionCard';
 import useSection from '../../hooks/useSection';
@@ -18,6 +18,8 @@ const SearchPage = (): JSX.Element => {
 	const categories = useQuery('categories', getCategories);
 
 	const router = useRouter();
+
+	const ref = useRef(null);
 
 	useEffect(() => {
 		const withAge = router.query.age ? { age: +router.query.age } : {};
@@ -52,16 +54,6 @@ const SearchPage = (): JSX.Element => {
 		});
 	}, [router, mutate]);
 
-	useEffect(() => {
-		if(selectedSection || selectedSection === 0) {
-			window.scrollTo({
-				left: 0,
-				top: 240 * selectedSection + 200,
-				behavior: 'smooth',
-			});
-		}
-	}, [selectedSection]);
-
 	let _cords: ICords = {};
 
 	if(data) {
@@ -72,37 +64,40 @@ const SearchPage = (): JSX.Element => {
 
 	return (
 		<ResultsLayout cords={_cords}>
-			{data && data.map((i, num) => {
-				let _days = [];
-				i.timetable.forEach((i) => {
-					if(!_days.includes(WEEK_DAYS[i.day_of_the_week - 1]))
-						_days.push(WEEK_DAYS[i.day_of_the_week - 1]);
-				});
+			<div ref={ref}>
+				{data && data.map((i, num) => {
+					let _days = [];
+					i.timetable.forEach((i) => {
+						if(!_days.includes(WEEK_DAYS[i.day_of_the_week - 1]))
+							_days.push(WEEK_DAYS[i.day_of_the_week - 1]);
+					});
 
-				return (
-					<SectionCard
-						key={num}
-						onClick={() => router.push('/search/' + i.id)}
-						className={'mb-6 shadow-none ' + (selectedSection == i.id && 'lg:bg-veryLightGrey')}
-						title={i.title}
-						imageSrc={i.images[0]}
-						category={(categories.data && i.category)
-							&& categories.data.find((j) => j.id === i.category).name}
-						address={i.address}
-						recordIsOpen={i.opened}
-						minAge={i.min_age}
-						maxAge={i.max_age}
-						minHour={i.timetable.length &&
-							+i.timetable.sort((a, b) => +a.start_time.slice(0, 2) < +b.start_time.slice(0, 2) ? -1 : 1)[0]
-								.start_time.slice(0, 2)}
-						maxHour={i.timetable.length &&
-							+i.timetable.sort((a, b) => +a.end_time.slice(0, 2) > +b.end_time.slice(0, 2) ? -1 : 1)[0]
-								.end_time.slice(0, 2)}
-						days={_days}
-						rating={+(i.comments.reduce((prev, curr) => prev + curr.rating, 0) / i.comments.length).toFixed(1)}
-						reviewsCount={i.comments.length} />
-				);
-			})}
+					return (
+						<SectionCard
+							key={num}
+							cardId={i.id}
+							onClick={() => router.push('/search/' + i.id)}
+							className={'mb-6 shadow-none ' + (selectedSection == i.id && 'lg:bg-veryLightGrey')}
+							title={i.title}
+							imageSrc={i.images[0]}
+							category={(categories.data && i.category)
+								&& categories.data.find((j) => j.id === i.category).name}
+							address={i.address}
+							recordIsOpen={i.opened}
+							minAge={i.min_age}
+							maxAge={i.max_age}
+							minHour={i.timetable.length &&
+								+i.timetable.sort((a, b) => +a.start_time.slice(0, 2) < +b.start_time.slice(0, 2) ? -1 : 1)[0]
+									.start_time.slice(0, 2)}
+							maxHour={i.timetable.length &&
+								+i.timetable.sort((a, b) => +a.end_time.slice(0, 2) > +b.end_time.slice(0, 2) ? -1 : 1)[0]
+									.end_time.slice(0, 2)}
+							days={_days}
+							rating={+(i.comments.reduce((prev, curr) => prev + curr.rating, 0) / i.comments.length).toFixed(1)}
+							reviewsCount={i.comments.length} />
+					);
+				})}
+			</div>
 		</ResultsLayout>
 	);
 };

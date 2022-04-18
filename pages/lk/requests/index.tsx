@@ -27,6 +27,7 @@ const RequestsPage = (): JSX.Element => {
 					<SectionCard
 						onClick={() => router.push('/lk/requests/' + i.id)}
 						key={num}
+						cardId={i.id}
 						className='mb-6 shadow-none'
 						title={i.title}
 						imageSrc={i.images[0]}

@@ -7,13 +7,16 @@ import PersonIcon from '../../assets/card/person.svg';
 import ClockIcon from '../../assets/card/clock.svg';
 import StarIcon from '../../assets/card/star.svg';
 import normalizeImageUrl from '../../utils/normalizeImgeUrl';
+import useSection from '../../hooks/useSection';
 
-const SectionCard = ({ className = '', imageSrc, title, recordIsOpen, category, address,
+const SectionCard = ({ className = '', imageSrc, cardId, title, recordIsOpen, category, address,
 	minAge, maxAge, minHour, maxHour, days, rating, reviewsCount, isEditorLink, isShortCard, ...props }: Props): JSX.Element => {
 	const router = useRouter();
 	const [articleWidth, setArticleWidth] = useState(0);
 	const articleRef = useRef(null);
 	const [windowWidth, setWindowWidth] = useState(0);
+
+	const selectedSection = useSection((state) => state.selectedSection);
 
 	useEffect(() => {
 		if (articleRef !== null)
@@ -21,6 +24,11 @@ const SectionCard = ({ className = '', imageSrc, title, recordIsOpen, category, 
 
 		setWindowWidth(window.innerWidth);
 	}, []);
+
+	useEffect(() => {
+		if(+selectedSection === +cardId)
+			articleRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	}, [selectedSection]);
 
 	function getCardHeight() {
 		if(isShortCard && windowWidth > 1280)

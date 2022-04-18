@@ -10,7 +10,7 @@ module.exports = {
 		return config;
 	},
 	images: {
-		domains: ['localhost'],
+		domains: ['media.skillactive.ru'],
 	},
 };
 

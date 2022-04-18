@@ -116,33 +116,33 @@ const ResultsLayout = ({ children, cords = [] }: Props): JSX.Element => {
 									{(Object.keys(cords).reduce((prev, curr) => prev + cords[curr][0], 0)
 										/ Object.keys(cords).length &&
 										Object.keys(cords).reduce((prev, curr) => prev + cords[curr][1], 0)
-										/ Object.keys(cords).length) &&
-									(
-										<YMaps>
-											<Map
-												className='w-full min-h-[calc(100vh-200px)] hidden lg:block'
-												defaultState={{
-													center: [
-														Object.keys(cords).reduce((prev, curr) => prev + cords[curr][0], 0)
-															/ Object.keys(cords).length,
-														Object.keys(cords).reduce((prev, curr) => prev + cords[curr][1], 0)
-															/ Object.keys(cords).length,
-													],
-													zoom: 13,
-												}}
-											>
-												{Object.keys(cords).map((i, num) => (
-													<Placemark 
-														key={num}
-														options={{
-															iconColor: selectedSection === i ? 'red' : '#1E98FF',
-														}}
-														geometry={[cords[i][0], cords[i][1]]}
-														onClick={() => setSelectedSection(i)} />
-												))}
-											</Map>
-										</YMaps>
-									)}
+										/ Object.keys(cords).length) ?
+										(
+											<YMaps>
+												<Map
+													className='w-full min-h-[calc(100vh-200px)] hidden lg:block'
+													defaultState={{
+														center: [
+															Object.keys(cords).reduce((prev, curr) => prev + cords[curr][0], 0)
+																/ Object.keys(cords).length,
+															Object.keys(cords).reduce((prev, curr) => prev + cords[curr][1], 0)
+																/ Object.keys(cords).length,
+														],
+														zoom: 13,
+													}}
+												>
+													{Object.keys(cords).map((i, num) => (
+														<Placemark 
+															key={num}
+															options={{
+																iconColor: selectedSection === i ? 'red' : '#1E98FF',
+															}}
+															geometry={[cords[i][0], cords[i][1]]}
+															onClick={() => setSelectedSection(i)} />
+													))}
+												</Map>
+											</YMaps>
+										) : ''}
 								</section>
 							</>
 						)}
