@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url><loc>https://skillactive.ru</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/analytics</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/analytics/preview</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/analytics/result</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/articles</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/confirm_mail</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/lk</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/lk/articles</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/lk/articles/new</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/lk/managers</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/lk/managers/new</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/lk/requests</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/lk/sections</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/lk/sections/new</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/lk/settings</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/lk/users</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/login</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/new_password</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/partners</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/reset_password</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/reset_password/after</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/search</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/signup</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/success</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/search/1</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/search/2</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/articles/1</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+<url><loc>https://skillactive.ru/articles/2</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2022-04-18T18:52:22.379Z</lastmod></url>
+</urlset>
