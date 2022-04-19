@@ -45,6 +45,10 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 						Skillactive - поиск секций и кружков для ребёнка
 					</title>
 					<link rel='icon' href='/favicon.ico' type='image/x-icon' />
+					<meta
+						name='description'
+						content='SkillActive - сервис поиска кружков и секций для вашего ребёнка.
+							Легко находите досуг для всей семьи' />
 				</Head>
 				<Component {...pageProps} />
 			</QueryClientProvider>
