@@ -10,6 +10,7 @@ import '../styles/font.css';
 import '../styles/custom.css';
 import '../styles/checkbox.css';
 import * as animationData from '../assets/animation.json';
+import normalizeImageUrl from '../utils/normalizeImgeUrl';
 
 const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 	const queryClient = new QueryClient();
@@ -42,13 +43,36 @@ const MyApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 			<QueryClientProvider client={queryClient}>
 				<Head>
 					<title>
-						Skillactive - поиск секций и кружков для ребёнка
+						SkillActive - поиск секций и кружков для ребёнка
 					</title>
 					<link rel='icon' href='/favicon.ico' type='image/x-icon' />
 					<meta
 						name='description'
 						content='SkillActive - сервис поиска кружков и секций для вашего ребёнка.
 							Легко находите досуг для всей семьи' />
+					<meta property='og:type' content='website' />
+					<meta property='og:url' content='https://skillactive.ru/' />
+					<meta property='og:title' content='SkillActive - поиск секций и кружков для ребёнка' />
+					<meta
+						property='og:description'
+						content={`SkillActive - сервис поиска кружков и секций для вашего ребёнка.
+						Легко находите досуг для всей семьи`} />
+					<meta
+						property='og:image'
+						content={process.env.NEXT_PUBLIC_API_MEDIA_URL
+							+ normalizeImageUrl(process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH)} />
+						
+					<meta property='twitter:card' content='summary_large_image' />
+					<meta property='twitter:url' content='https://skillactive.ru/' />
+					<meta property='twitter:title' content='SkillActive - поиск секций и кружков для ребёнка' />
+					<meta
+						property='twitter:description'
+						content={`SkillActive - сервис поиска кружков и секций для вашего ребёнка.
+						Легко находите досуг для всей семьи`} />
+					<meta
+						property='twitter:image'
+						content={process.env.NEXT_PUBLIC_API_MEDIA_URL
+							+ normalizeImageUrl(process.env.NEXT_PUBLIC_DEFAULT_IMAGE_PATH)} />
 				</Head>
 				<Component {...pageProps} />
 			</QueryClientProvider>
