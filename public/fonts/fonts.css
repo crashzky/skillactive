@@ -1,50 +1,48 @@
 @font-face {
-    font-family: 'Gilroy-Bold';
+    font-family: 'Gilroy';
     font-style: normal;
-    font-weight: 400;
-    src: local('Gilroy-Bold'), url('https://fonts.cdnfonts.com/s/16219/Gilroy-Bold.woff') format('woff');
-}
-@font-face {
-    font-family: 'Gilroy-Heavy';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Gilroy-Heavy'), url('https://fonts.cdnfonts.com/s/16219/Gilroy-Heavy.woff') format('woff');
-}
-@font-face {
-    font-family: 'Gilroy-Light';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Gilroy-Light'), url('https://fonts.cdnfonts.com/s/16219/Gilroy-Light.woff') format('woff');
-}
-@font-face {
-    font-family: 'Gilroy-Medium';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Gilroy-Medium'), url('https://fonts.cdnfonts.com/s/16219/Gilroy-Medium.woff') format('woff');
-}
-@font-face {
-    font-family: 'Gilroy-Regular';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Gilroy-Regular'), url('https://fonts.cdnfonts.com/s/16219/Gilroy-Regular.woff') format('woff');
+    font-weight: 500;
+    src: url('https://skillactive.ru/fonts/Gilroy-Medium.woff') format('woff');
 }
 
 @font-face {
-    font-family: 'TTTravels-Medium';
+    font-family: 'Gilroy';
     font-style: normal;
-    font-weight: 400;
-    src: local('TTTravels-Medium'), url('https://github.com/crashzky/skillactive/blob/main/fonts/tt-travels-font/TTTravels-Medium.woff') format('woff');
+    font-weight: 600;
+    src: url('https://skillactive.ru/fonts/Gilroy-Semibold.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 700;
+    src: url('https://skillactive.ru/fonts/Gilroy-Bold.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 800;
+    src: url('https://skillactive.ru/fonts/Gilroy-Extrabold.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'TTTravels';
+    font-style: normal;
+    font-weight: 500;
+    src: url('https://skillactive.ru/fonts/TTTravels-Medium.woff') format('woff');
 }
 @font-face {
-    font-family: 'TTTravels-Bold';
+    font-family: 'TTTravels';
     font-style: normal;
-    font-weight: 400;
-    src: local('TTTravels-Bold'), url('https://github.com/crashzky/skillactive/blob/main/fonts/tt-travels-font/TTTravels-Bold.woff') format('woff');
+    font-weight: 700;
+    src: url('https://skillactive.ru/fonts/TTTravels-Bold.woff') format('woff');
 }
 @font-face {
-    font-family: 'TTTravels-DemiBold';
+    font-family: 'TTTravels';
     font-style: normal;
-    font-weight: 400;
-    src: local('TTTravels-DemiBold'), url('https://github.com/crashzky/skillactive/blob/main/fonts/tt-travels-font/TTTravels-DemiBold.woff') format('woff');
+    font-weight: 600;
+    src: url('https://skillactive.ru/fonts/TTTravels-DemiBold.woff') format('woff');
 }
 
